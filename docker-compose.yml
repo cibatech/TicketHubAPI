@@ -1,0 +1,13 @@
+services:
+  db:
+    image: bitnami/postgresql:latest
+    environment:
+      POSTGRES_USER: TH_Admin
+      POSTGRES_PASSWORD: TH_Password123
+      POSTGRES_DB: TH_Database
+
+    restart: unless-stopped
+    ports:
+      - "6619:5432" # externa/interna
+
+

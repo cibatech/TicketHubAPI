@@ -1,0 +1,104 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgres" //sqlite
+  url      = env("DATABASE_URL")
+}
+
+enum routeKind {
+  Air
+  Naval
+  Land
+  Rail
+}
+
+model Point{
+  Id String @id @default(uuid())
+  Name String @unique
+  UF String
+
+  Description String?
+
+  //checklist to access of transports
+  Ports Boolean @default(false)
+  Railroads Boolean @default(false)
+  Airports Boolean @default(false)
+
+  //relation between a Point and a route(every route is inside a point)
+  route_ref Route @relation(fields: [route_id],references: [Id])
+  route_id String
+  //point order inside a route
+  order Int @default(0)
+}
+
+
+model Route{
+  Id String @id @default(uuid())
+  Title String
+  Description String?
+
+  RouteType routeKind
+  PointsList Point[] 
+
+  AssignedBus Transport?
+}
+
+model Company{
+  Id String @id @default(uuid())
+  Name String
+  CNPJ String
+
+  Transport_List Transport[]
+}
+
+model Transport{
+  Id String @id @default(uuid())
+  Model String
+
+  Year DateTime?
+  Color String?
+
+  cRef Company @relation(fields: [Company], references: [Id])
+  Company String
+
+  aRef Route @relation(fields: [AssignedRoute],references: [Id])
+  AssignedRoute String @unique
+
+}
+
+//Registro de um cliente dentro do ticket (cada nome mencionado vai possuir um registro)
+model ClientsTicket{
+  Id String @id @default(uuid())
+  OwnerId String  
+  PersonName String
+  IsChild Boolean @default(false)
+  IsCompanion Boolean @default(false)
+
+  TicketRef Ticket @relation(fields: [TicketId],references: [Id])
+  TicketId String
+}
+
+model Ticket{
+  Id String @id @default(uuid())
+  
+  Travel_Day DateTime // day of the travel
+  Validated_at DateTime? //after payment
+  Completed_at DateTime? //after route finished
+
+  uRef User @relation(fields: [userId],references: [Id])
+  userId String
+  ClientsList ClientsTicket[]
+  FinishPoint String // the point where the thing is gonna start 
+  BegginingPoint String // the point where the travel is gonna end
+}
+
+model User{
+  Id String @id @default(uuid())
+  Nome String 
+  Email String @unique
+  Password String 
+  
+  Tickets Ticket[]
+}

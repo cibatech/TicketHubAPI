@@ -1,9 +1,8 @@
 import { Point, Prisma } from "@prisma/client";
 
 export interface PointRepository{
-    create(data:Prisma.PointCreateInput):Promise<Point>
-    findById(Id:string):Promise<Point>
-    findByBus(BusId:string):Promise<Point>
-    delete(Id:string):Promise<Point>
-    update(Id:string):Promise<Point>
+    create(data:Prisma.PointUncheckedCreateInput):Promise<Point>
+    findById(Id:string):Promise<Point | null>
+    delete(Id:string):Promise<Point | null>
+    update(Id:string,data:Partial<Point>):Promise<Point | null>
 }

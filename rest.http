@@ -1,0 +1,7 @@
+PATCH https://hardware-price-tracker-api.onrender.com/api/user/login 
+Content-Type: application/json
+
+{
+  "Email": "jonDoe@gmail.com",
+  "Password": "JonDoe"
+}

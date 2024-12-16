@@ -3,19 +3,27 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "dev": "npx tsx --watch src/server.js"
+    "dev": "npx tsx --watch src/server.js",
+    "test": "npx vitest --run",
+    "test:watch": "npx vitest"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "description": "",
   "dependencies": {
+    "@faker-js/faker": "^9.3.0",
     "@prisma/client": "^6.0.1",
+    "@types/bcryptjs": "^2.4.6",
+    "@types/faker": "^6.6.11",
     "@types/node": "^22.10.1",
+    "bcryptjs": "^2.4.3",
+    "faker": "^5.5.3",
     "fastify": "^5.1.0",
     "prisma": "^6.0.1",
     "tsx": "^4.19.2",
     "typescript": "^5.7.2",
+    "vitest": "^2.1.8",
     "zod": "^3.23.8"
   }
 }

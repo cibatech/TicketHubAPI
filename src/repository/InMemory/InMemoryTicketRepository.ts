@@ -32,8 +32,10 @@ export class InMemoryTicketRepository implements TickerRepository {
         return this.tickets.filter(ticket => ticket.BegginingPoint === pointId);
     }
 
-
-
+    async findByEndingPoint(pointId: string): Promise<Ticket[]> {
+        return this.tickets.filter(ticket => ticket.FinishPoint === pointId);
+    }
+    
     async update(id: string, data: Partial<Ticket>): Promise<Ticket | null> {
         const ticket = this.tickets.find(ticket => ticket.Id === id);
         if (!ticket) return null;

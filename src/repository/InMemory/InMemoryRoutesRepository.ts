@@ -23,8 +23,8 @@ export class InMemoryRoutesRepository implements RoutesRepository {
         return p?p:null;
     }
 
-    async findAllRoutes(): Promise<Route[]> {
-        return this.routes;
+    async findAllRoutes(Page:number): Promise<Route[]> {
+        return this.routes.slice((Page-1)*20,Page*20);
     }
 
     async findByType(type: routeKind): Promise<Route[]> {

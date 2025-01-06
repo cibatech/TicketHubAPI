@@ -48,7 +48,7 @@ model Route{
 model Company{
   Id String @id @default(uuid())
   Name String
-  CNPJ String
+  CNPJ String @unique
 
   Transport_List Transport[]
 }

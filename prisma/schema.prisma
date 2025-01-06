@@ -101,4 +101,6 @@ model User{
   Password String 
   
   Tickets Ticket[]
+
+  Verified Boolean @default(false)
 }

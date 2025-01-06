@@ -1,6 +1,6 @@
 import { hash } from "bcryptjs";
 import { EntityDoesNotExistsErro } from "../../Errors/EntityDoesNotExistsError";
-import { UserRepository } from "../../repository";
+import { UserRepository } from "../../repository/.index";
 import { UserInService } from "../../types/dtos/InServiceEntitys";
 
 export class UpdateUserServiceUseCase{

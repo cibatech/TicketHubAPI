@@ -1,10 +1,10 @@
 
 
 import { beforeEach, describe, expect, it } from "vitest";
-import { InMemoryUserRepository } from "../../../src/repository";
+import { InMemoryUserRepository } from "../../../src/repository/.index";
 import { CreateUserUseCase, UpdateUserServiceUseCase } from "../../../src/services";
 import { faker } from "@faker-js/faker";
-import { EntityAlreadyExists } from "../../../src/Errors";
+import { EntityAlreadyExists } from "../../../src/Errors/.index";
 import { User } from "@prisma/client";
 import { EntityDoesNotExistsErro } from "../../../src/Errors/EntityDoesNotExistsError";
 

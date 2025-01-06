@@ -1,8 +1,8 @@
 import { beforeEach, describe, expect, it } from "vitest";
-import { InMemoryUserRepository } from "../../../src/repository";
+import { InMemoryUserRepository } from "../../../src/repository/.index";
 import { CreateUserUseCase } from "../../../src/services";
 import { faker } from "@faker-js/faker";
-import { EntityAlreadyExists } from "../../../src/Errors";
+import { EntityAlreadyExists } from "../../../src/Errors/.index";
 
 var service:CreateUserUseCase
 var UserRepo:InMemoryUserRepository

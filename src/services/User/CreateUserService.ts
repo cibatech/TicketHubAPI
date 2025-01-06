@@ -1,6 +1,6 @@
 import { Prisma, User } from "@prisma/client";
-import { UserRepository } from "../../repository";
-import { EntityAlreadyExists } from "../../Errors";
+import { UserRepository } from "../../repository/.index";
+import { EntityAlreadyExists } from "../../Errors/.index";
 import { UserInService } from "../../types/dtos/InServiceEntitys";
 import { hash } from "bcryptjs";
 

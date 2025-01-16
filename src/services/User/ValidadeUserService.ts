@@ -1,7 +1,6 @@
 import { compare } from "bcryptjs";
 import { EntityDoesNotExistsErro } from "../../Errors/EntityDoesNotExistsError";
 import { UserRepository } from "../../repository/.index";
-import { UserInService } from "../../types/.index";
 import { ValidationError } from "../../Errors/ValidationError";
 
 export class ValidadeUserUseCase{

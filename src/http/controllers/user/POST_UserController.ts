@@ -3,6 +3,7 @@ import { CreateUserUseCase } from "../../../services";
 import { PrismaUserRepository } from "../../../repository/Prisma/PrismaUserRepository";
 import z from "zod";
 import { EntityAlreadyExists } from "../../../Errors/.index";
+import { SendWelcomeEmailMessage } from "../../../services/Mail/SendWelcomeEmailMessage";
 
 export async function POSTUserController(req:FastifyRequest,res:FastifyReply) {
     const service = new CreateUserUseCase(new PrismaUserRepository);
@@ -12,11 +13,19 @@ export async function POSTUserController(req:FastifyRequest,res:FastifyReply) {
         Nome:z.string()
     }).parse(req.body)
 
+    const sendMessageService = new SendWelcomeEmailMessage(new PrismaUserRepository);
+
     try{
         const response = await service.execute({
             Email,Password,Nome
         })
+        const execute = await sendMessageService.execute(Email);
 
+        if(execute){
+            console.log("POST - user/register : Successfully sent email message");
+        }else{
+            console.log("POST - user/register : Cant send email")
+        }
         res.status(201).send({
             Description:"Successfully registered the user",
             response:{

@@ -49,5 +49,15 @@ export class PrismaPointRepository implements PointRepository {
       data,
     });
   }
+
+  async findByName(Name: string): Promise<Point | null> {
+      const single = await prisma.point.findUnique({
+        where:{
+          Name
+        }
+      });
+
+      return single
+  }
 }
 

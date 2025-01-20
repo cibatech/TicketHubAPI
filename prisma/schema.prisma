@@ -29,8 +29,13 @@ model Point{
   //relation between a Point and a route(every route is inside a point)
   route_ref Route @relation(fields: [route_id],references: [Id])
   route_id String
+
   //point order inside a route
   order Int @default(0)
+
+  start_ticket Ticket[] @relation(name: "Beginning")
+  end_ticket Ticket[] @relation(name: "Ending")
+
 }
 
 
@@ -59,6 +64,8 @@ model Transport{
 
   Year DateTime?
   Color String?
+  Capacity Int @default(20)
+
 
   cRef Company @relation(fields: [Company], references: [Id])
   Company String
@@ -73,7 +80,8 @@ model ClientsTicket{
   Id String @id @default(uuid())
   OwnerId String  
   PersonName String
-  IsChild Boolean @default(false)
+  CPF String
+  Age Int @default(18)
   IsCompanion Boolean @default(false)
 
   TicketRef Ticket @relation(fields: [TicketId],references: [Id])
@@ -90,8 +98,15 @@ model Ticket{
   uRef User @relation(fields: [userId],references: [Id])
   userId String
   ClientsList ClientsTicket[]
-  FinishPoint String // the point where the thing is gonna start 
-  BegginingPoint String // the point where the travel is gonna end
+
+
+
+  BeginningPointId String
+  FinnishPointId String
+
+  BegginingPoint Point @relation(name: "Beginning", fields: [BeginningPointId], references: [Id])
+  FinishPoint Point @relation(name: "Ending", fields: [FinnishPointId], references: [Id])
+
 }
 
 model User{

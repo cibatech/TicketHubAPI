@@ -11,7 +11,12 @@ export const docs:SwaggerOptions = {
                 name:"Thierrir Alencar",
                 url:""
             },
-            
-        }
+        },
+        tags:[
+            {name:"app",description:"All the app routes"},
+            {name:"user",description:"Rotas relacionadas ao usuário (CRUD de usuário e autenticação com Login)"}
+        ],
+        
+
     }
 }

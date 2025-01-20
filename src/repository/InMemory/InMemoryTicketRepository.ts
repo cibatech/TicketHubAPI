@@ -1,5 +1,5 @@
 import { Prisma, Ticket } from "@prisma/client";
-import { TickerRepository } from "../TickerRepository";
+import { TickerRepository } from "../TicketRepository";
 import { randomUUID } from "crypto";
 
 

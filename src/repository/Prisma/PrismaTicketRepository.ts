@@ -1,5 +1,5 @@
 import { PrismaClient, Ticket, Prisma } from "@prisma/client";
-import {TickerRepository} from "../TickerRepository"
+import {TickerRepository} from "../TicketRepository"
 import { prisma } from "../../lib/prisma";
 
 export class PrismaTicketRepository implements TickerRepository {

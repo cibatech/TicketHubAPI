@@ -27,9 +27,6 @@ export class InMemoryPointRepository implements PointRepository {
     async findById(Id: string): Promise<Point | null> {
         return this.points.find(point => point.Id === Id) || null;
     }
-
-
-
     async delete(id: string): Promise<Point | null> {
         const index = this.points.findIndex(point => point.Id === id);
         if (index === -1) return null;
@@ -49,5 +46,10 @@ export class InMemoryPointRepository implements PointRepository {
 
         this.points = this.points.map(p => (p.Id === Id ? updatedPoint : p));
         return updatedPoint;
+    }
+
+    async findByName(Name: string): Promise<Point | null> {
+        const single = this.points.find(item => item.Name == Name)
+        return single?single:null
     }
 }

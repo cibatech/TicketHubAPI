@@ -5,7 +5,7 @@ import z from "zod";
 import { EntityDoesNotExistsErro } from "../../../Errors/.index.ts";
 
 export async function PATCHLoginAsUser(req:FastifyRequest,res:FastifyReply) {
-    const service = await new ValidadeUserUseCase(new PrismaUserRepository);
+    const service = new ValidadeUserUseCase(new PrismaUserRepository);
     const {Email,Password} = z.object({
         Email:z.string().email(),
         Password:z.string()
@@ -13,7 +13,6 @@ export async function PATCHLoginAsUser(req:FastifyRequest,res:FastifyReply) {
 
     try{
         const response = await service.execute(Email,Password)
-
         const token = await res.jwtSign({},{
             sign:{
                 sub:response

@@ -33,8 +33,8 @@ model Point{
   //point order inside a route
   order Int @default(0)
 
-  start_ticket Ticket[] @relation(name: "Beginning")
-  end_ticket Ticket[] @relation(name: "Ending")
+  start_ticket Travel[] @relation(name: "Beginning")
+  end_ticket Travel[] @relation(name: "Ending")
 
 }
 
@@ -91,7 +91,7 @@ model ClientsTicket{
 model Ticket{
   Id String @id @default(uuid())
   
-  Travel_Day DateTime // day of the travel
+  TotalTicketPrice Float @default(0)
   Validated_at DateTime? //after payment
   Completed_at DateTime? //after route finished
 
@@ -99,14 +99,25 @@ model Ticket{
   userId String
   ClientsList ClientsTicket[]
 
+  travelRef Travel @relation(fields: [TravelId],references: [Id])
+  TravelId String
+}
 
+
+model Travel{ //Viagem na loja
+  Id String @id @default(uuid())
+  
+  TravelBasePrice Float 
 
   BeginningPointId String
   FinnishPointId String
+  Travel_Day DateTime // day of the travel
+
 
   BegginingPoint Point @relation(name: "Beginning", fields: [BeginningPointId], references: [Id])
   FinishPoint Point @relation(name: "Ending", fields: [FinnishPointId], references: [Id])
-
+  
+  TicketList Ticket[]
 }
 
 model User{

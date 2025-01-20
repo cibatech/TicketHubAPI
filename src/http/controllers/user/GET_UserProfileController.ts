@@ -8,10 +8,8 @@ import { EntityDoesNotExistsErro } from "../../../Errors/EntityDoesNotExistsErro
 export async function GETUserProfileController(req:FastifyRequest,res:FastifyReply) {
     const service = new GetUserProfileUseCase(new PrismaUserRepository);
 
-    const {Id} = z.object({
-        Id:z.string().uuid()
-    }).parse(req.params)
- 
+    //Carrega o token da requisição
+    const Id = req.user.sub;
 
     try{
         const response = await service.execute({Id});

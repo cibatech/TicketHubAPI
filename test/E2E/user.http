@@ -1,0 +1,18 @@
+POST http://127.0.0.1:2311/app/user/register
+Content-Type: application/json
+
+{
+    "Email":"admin@gmail.com",
+    "Password":"admin123",
+    "Nome":"admin"
+}
+
+
+### Login 
+PATCH http://127.0.0.1:2311/app/user/auth/login
+Content-Type: application/json
+
+{
+    "Email":"admin@gmail.com",
+    "Password":"admin123"
+}

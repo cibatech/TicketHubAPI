@@ -19,7 +19,9 @@ export async function POSTUserController(req:FastifyRequest,res:FastifyReply) {
 
         res.status(201).send({
             Description:"Successfully registered the user",
-            response,
+            response:{
+                UserName:response.Nome
+            },
         })
     }catch(err){
         if(err instanceof EntityAlreadyExists){

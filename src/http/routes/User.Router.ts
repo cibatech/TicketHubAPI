@@ -1,5 +1,7 @@
 import { FastifyInstance } from "fastify";
-import {POSTUserController,GETUserProfileController, DELETEUserController} from "../controllers/.index.ts"
+import {POSTUserController,GETUserProfileController, DELETEUserController} from "../controllers/index.ts"
+import { PATCHLoginAsUser } from "../controllers/user/PATCH_LoginAsUser.ts";
+import { VerifyJWT } from "../middlewares/index.ts";
 
 export async function UserRouter(app:FastifyInstance) {
     //POST - /user/register
@@ -11,9 +13,10 @@ export async function UserRouter(app:FastifyInstance) {
 
     //GET - /user/profile
     app.route({
-        method:"POST",
+        method:"GET",
         url:"/profile",
-        handler:GETUserProfileController
+        handler:GETUserProfileController,
+        preHandler:[VerifyJWT]
     })
 
     //DELETE - /user/delete
@@ -22,4 +25,13 @@ export async function UserRouter(app:FastifyInstance) {
         url:"/delete",
         handler:DELETEUserController
     })
+
+    //PATCH - /user/auth/login
+    app.route({
+        method:"PATCH",
+        url:"/auth/login",
+        handler:PATCHLoginAsUser
+    })
+
+
 }

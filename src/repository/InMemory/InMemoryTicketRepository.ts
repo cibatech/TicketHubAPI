@@ -1,18 +1,15 @@
 import { Prisma, Ticket } from "@prisma/client";
-import { TickerRepository } from "../TicketRepository";
+import { TicketRepository } from "../TicketRepository";
 import { randomUUID } from "crypto";
 
 
-export class InMemoryTicketRepository implements TickerRepository {
+export class InMemoryTicketRepository implements TicketRepository {
     private tickets: Ticket[] = [];
 
     async create(data: Prisma.TicketUncheckedCreateInput): Promise<Ticket> {
         const newTicket: Ticket = {
             Id: randomUUID(),
             userId: String(data.userId),
-            BegginingPoint: data.BegginingPoint,
-            FinishPoint: data.FinishPoint,
-            Travel_Day:new Date(data.Travel_Day),
             Completed_at:null,Validated_at:null
         };
 
@@ -28,12 +25,20 @@ export class InMemoryTicketRepository implements TickerRepository {
         return this.tickets.filter(ticket => ticket.userId === userId);
     }
 
-    async findByBegginingPoint(pointId: string): Promise<Ticket[]> {
-        return this.tickets.filter(ticket => ticket.BegginingPoint === pointId);
+    async findByValidation(): Promise<Ticket[]> {
+        return this.tickets.filter(ticket => ticket.Validated_at !== null);
     }
 
-    async findByEndingPoint(pointId: string): Promise<Ticket[]> {
-        return this.tickets.filter(ticket => ticket.FinishPoint === pointId);
+    async findByValidatedDate(ValidatedAt: Date): Promise<Ticket[]> {
+        return this.tickets.filter(ticket => ticket.Validated_at === ValidatedAt)
+    }
+
+    async findByCompleted(): Promise<Ticket[]> {
+        return this.tickets.filter(ticket => ticket.Completed_at !== null);
+    }
+
+    async findByCompletedDate(CompletedAt: Date): Promise<Ticket[]> {
+        return this.tickets.filter(ticket => ticket.Completed_at === CompletedAt)
     }
     
     async update(id: string, data: Partial<Ticket>): Promise<Ticket | null> {

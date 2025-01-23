@@ -3,9 +3,3 @@ export interface UserInService{
     Email: string;
     Password: string;
 }
-
-export interface TicketInService {
-    ValidatedAt: Date | null,
-    CompletedAt: Date | null,
-    TravelId: string,
-}

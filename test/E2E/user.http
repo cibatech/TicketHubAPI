@@ -2,7 +2,7 @@ POST http://127.0.0.1:2311/app/user/register
 Content-Type: application/json
 
 {
-    "Email":"admin@gmail.com",
+    "Email":"caroldias@gmail.com",
     "Password":"admin123",
     "Nome":"admin"
 }
@@ -15,4 +15,26 @@ Content-Type: application/json
 {
     "Email":"admin@gmail.com",
     "Password":"admin123"
+}
+
+### Profile
+GET http://127.0.0.1:2311/app/user/profile
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIyOTU4NmMzMS1mOTc5LTQ5YTUtYTE5Mi0wZDZkMzhkYzhkMzEiLCJpYXQiOjE3Mzc2MzY2NTV9.1v-HcCmwjTALRC12w9lIg0JlikKpv7Zrr8K7rujzfSQ
+
+### Delete
+
+DELETE http://127.0.0.1:2311/app/user/delete 
+
+{
+
+}
+
+### Update
+
+PUT http://127.0.0.1:2311/app/user/update
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIyOTU4NmMzMS1mOTc5LTQ5YTUtYTE5Mi0wZDZkMzhkYzhkMzEiLCJpYXQiOjE3Mzc2MzY2NTV9.1v-HcCmwjTALRC12w9lIg0JlikKpv7Zrr8K7rujzfSQ
+Content-Type: application/json
+
+{
+    "Nome":"Alexander"
 }

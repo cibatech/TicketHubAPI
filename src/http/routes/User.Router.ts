@@ -1,5 +1,5 @@
 import { FastifyInstance } from "fastify";
-import {POSTUserController,GETUserProfileController, DELETEUserController} from "../controllers/index.ts"
+import {POSTUserController,GETUserProfileController, DELETEUserController, PUTUserController} from "../controllers/index.ts"
 import { PATCHLoginAsUser } from "../controllers/user/PATCH_LoginAsUser.ts";
 import { VerifyJWT } from "../middlewares/index.ts";
 
@@ -31,6 +31,14 @@ export async function UserRouter(app:FastifyInstance) {
         method:"PATCH",
         url:"/auth/login",
         handler:PATCHLoginAsUser
+    })
+
+    //PUT - /user/update
+    app.route({
+        method:"PUT",
+        url:"/update",
+        handler:PUTUserController,
+        preHandler:[VerifyJWT]
     })
 
 

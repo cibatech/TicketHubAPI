@@ -19,13 +19,7 @@ export async function POSTUserController(req:FastifyRequest,res:FastifyReply) {
         const response = await service.execute({
             Email,Password,Nome
         })
-        const execute = await sendMessageService.execute(Email);
 
-        if(execute){
-            console.log("POST - user/register : Successfully sent email message");
-        }else{
-            console.log("POST - user/register : Cant send email")
-        }
         res.status(201).send({
             Description:"Successfully registered the user",
             response:{

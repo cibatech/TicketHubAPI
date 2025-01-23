@@ -7,9 +7,7 @@ import { EntityDoesNotExistsErro } from "../../../Errors/EntityDoesNotExistsErro
 export async function PUTUserController(req:FastifyRequest,res:FastifyReply) {
         const service = new UpdateUserServiceUseCase(new PrismaUserRepository);
     
-        const {Id} = z.object({
-            Id:z.string().uuid()
-        }).parse(req.params)
+        const Id = req.user.sub
         
         const {Email,Nome} = z.object({
             Nome:z.string().optional(),

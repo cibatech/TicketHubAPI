@@ -29,8 +29,13 @@ model Point{
   //relation between a Point and a route(every route is inside a point)
   route_ref Route @relation(fields: [route_id],references: [Id])
   route_id String
+
   //point order inside a route
   order Int @default(0)
+
+  start_ticket Travel[] @relation(name: "Beginning")
+  end_ticket Travel[] @relation(name: "Ending")
+
 }
 
 
@@ -48,7 +53,7 @@ model Route{
 model Company{
   Id String @id @default(uuid())
   Name String
-  CNPJ String
+  CNPJ String @unique
 
   Transport_List Transport[]
 }
@@ -59,6 +64,8 @@ model Transport{
 
   Year DateTime?
   Color String?
+  Capacity Int @default(20)
+
 
   cRef Company @relation(fields: [Company], references: [Id])
   Company String
@@ -73,7 +80,8 @@ model ClientsTicket{
   Id String @id @default(uuid())
   OwnerId String  
   PersonName String
-  IsChild Boolean @default(false)
+  CPF String
+  Age Int @default(18)
   IsCompanion Boolean @default(false)
 
   TicketRef Ticket @relation(fields: [TicketId],references: [Id])
@@ -83,15 +91,33 @@ model ClientsTicket{
 model Ticket{
   Id String @id @default(uuid())
   
-  Travel_Day DateTime // day of the travel
+  TotalTicketPrice Float @default(0)
   Validated_at DateTime? //after payment
   Completed_at DateTime? //after route finished
 
   uRef User @relation(fields: [userId],references: [Id])
   userId String
   ClientsList ClientsTicket[]
-  FinishPoint String // the point where the thing is gonna start 
-  BegginingPoint String // the point where the travel is gonna end
+
+  travelRef Travel @relation(fields: [TravelId],references: [Id])
+  TravelId String
+}
+
+
+model Travel{ //Viagem na loja
+  Id String @id @default(uuid())
+  
+  TravelBasePrice Float 
+
+  BeginningPointId String
+  FinnishPointId String
+  Travel_Day DateTime // day of the travel
+
+
+  BegginingPoint Point @relation(name: "Beginning", fields: [BeginningPointId], references: [Id])
+  FinishPoint Point @relation(name: "Ending", fields: [FinnishPointId], references: [Id])
+  
+  TicketList Ticket[]
 }
 
 model User{
@@ -101,4 +127,6 @@ model User{
   Password String 
   
   Tickets Ticket[]
+
+  Verified Boolean @default(false)
 }

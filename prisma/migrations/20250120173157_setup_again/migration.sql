@@ -41,10 +41,24 @@ CREATE TABLE "Transport" (
     "Model" TEXT NOT NULL,
     "Year" TIMESTAMP(3),
     "Color" TEXT,
+    "Capacity" INTEGER NOT NULL DEFAULT 20,
     "Company" TEXT NOT NULL,
     "AssignedRoute" TEXT NOT NULL,
 
     CONSTRAINT "Transport_pkey" PRIMARY KEY ("Id")
+);
+
+-- CreateTable
+CREATE TABLE "ClientsTicket" (
+    "Id" TEXT NOT NULL,
+    "OwnerId" TEXT NOT NULL,
+    "PersonName" TEXT NOT NULL,
+    "CPF" TEXT NOT NULL,
+    "Age" INTEGER NOT NULL DEFAULT 18,
+    "IsCompanion" BOOLEAN NOT NULL DEFAULT false,
+    "TicketId" TEXT NOT NULL,
+
+    CONSTRAINT "ClientsTicket_pkey" PRIMARY KEY ("Id")
 );
 
 -- CreateTable
@@ -54,8 +68,8 @@ CREATE TABLE "Ticket" (
     "Validated_at" TIMESTAMP(3),
     "Completed_at" TIMESTAMP(3),
     "userId" TEXT NOT NULL,
-    "FinishPoint" TEXT NOT NULL,
-    "BegginingPoint" TEXT NOT NULL,
+    "BeginningPointId" TEXT NOT NULL,
+    "FinnishPointId" TEXT NOT NULL,
 
     CONSTRAINT "Ticket_pkey" PRIMARY KEY ("Id")
 );
@@ -64,7 +78,9 @@ CREATE TABLE "Ticket" (
 CREATE TABLE "User" (
     "Id" TEXT NOT NULL,
     "Nome" TEXT NOT NULL,
+    "Email" TEXT NOT NULL,
     "Password" TEXT NOT NULL,
+    "Verified" BOOLEAN NOT NULL DEFAULT false,
 
     CONSTRAINT "User_pkey" PRIMARY KEY ("Id")
 );
@@ -73,10 +89,13 @@ CREATE TABLE "User" (
 CREATE UNIQUE INDEX "Point_Name_key" ON "Point"("Name");
 
 -- CreateIndex
+CREATE UNIQUE INDEX "Company_CNPJ_key" ON "Company"("CNPJ");
+
+-- CreateIndex
 CREATE UNIQUE INDEX "Transport_AssignedRoute_key" ON "Transport"("AssignedRoute");
 
 -- CreateIndex
-CREATE UNIQUE INDEX "User_Nome_key" ON "User"("Nome");
+CREATE UNIQUE INDEX "User_Email_key" ON "User"("Email");
 
 -- AddForeignKey
 ALTER TABLE "Point" ADD CONSTRAINT "Point_route_id_fkey" FOREIGN KEY ("route_id") REFERENCES "Route"("Id") ON DELETE RESTRICT ON UPDATE CASCADE;
@@ -88,4 +107,13 @@ ALTER TABLE "Transport" ADD CONSTRAINT "Transport_Company_fkey" FOREIGN KEY ("Co
 ALTER TABLE "Transport" ADD CONSTRAINT "Transport_AssignedRoute_fkey" FOREIGN KEY ("AssignedRoute") REFERENCES "Route"("Id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
+ALTER TABLE "ClientsTicket" ADD CONSTRAINT "ClientsTicket_TicketId_fkey" FOREIGN KEY ("TicketId") REFERENCES "Ticket"("Id") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
 ALTER TABLE "Ticket" ADD CONSTRAINT "Ticket_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("Id") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "Ticket" ADD CONSTRAINT "Ticket_BeginningPointId_fkey" FOREIGN KEY ("BeginningPointId") REFERENCES "Point"("Id") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "Ticket" ADD CONSTRAINT "Ticket_FinnishPointId_fkey" FOREIGN KEY ("FinnishPointId") REFERENCES "Point"("Id") ON DELETE RESTRICT ON UPDATE CASCADE;

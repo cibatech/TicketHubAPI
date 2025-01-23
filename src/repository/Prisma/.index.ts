@@ -1,0 +1,6 @@
+export * from "./PrismaUserRepository"
+export * from "./PrismaTransportRepository"
+export * from "./PrismaCompanyRepository"
+export * from "./PrismaPointRepository"
+export * from "./PrismaTicketRepository"
+export * from "./PrismaRouteRepository"

@@ -1,4 +1,4 @@
-import { EntityDoesNotExistsErro } from "../../Errors/EntityDoesNotExistsError";
+import { EntityDoesNotExistsError } from "../../Errors/EntityDoesNotExistsError";
 import { UserRepository } from "../../repository/.index";
 import { UserInService } from "../../types/.index";
 
@@ -7,7 +7,7 @@ export class DeleteUserUseCase{
     async execute(UserId:string):Promise<UserInService>{
         const doesTheUserExists = await this.UserRepo.delete(UserId);
         if(!doesTheUserExists){
-            throw new EntityDoesNotExistsErro("User")
+            throw new EntityDoesNotExistsError("User")
         }
 
         const deletedOne = await this.UserRepo.delete(UserId);

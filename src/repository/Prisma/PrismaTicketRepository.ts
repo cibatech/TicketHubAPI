@@ -42,12 +42,13 @@ export class PrismaTicketRepository implements TicketRepository {
    * Encontra todos os tickets validados
    * @returns Uma lista de tickets validados
    */
-  async findByValidation(): Promise<Ticket[]> {
+  async findByValidated(): Promise<Ticket[]> {
     return await prisma.ticket.findMany({
       where: { Validated_at: { not: null } },
     });
   }
-    /**
+
+  /**
    * Encontra todos os tickets completados
    * @returns Uma lista de tickets completados
    */
@@ -56,6 +57,36 @@ export class PrismaTicketRepository implements TicketRepository {
       where: { Completed_at: { not: null} },
     });
   }
+
+  /**
+     * Encontra todos os tickets validados de um usuário específico
+     * @param UserId - Id do Usuário
+     * @returns Uma lista de tickets validados
+     */
+  async findByValidatedAndUserId(UserId: string): Promise<Ticket[]> {
+    return await prisma.ticket.findMany({
+      where:{
+        userId: UserId,
+        Validated_at: { not: null }
+      }
+    })
+  }
+
+  /**
+   * Encontra todos os tickets completados de um usuário específico
+   * @param UserID - Id do Usuário
+   * @return Uma lista de tickets completados
+   */
+  async findByCompletedAndUserId(UserId: string): Promise<Ticket[]> {
+    return await prisma.ticket.findMany({
+      where:{
+        userId: UserId,
+        Completed_at: { not: null }
+      }
+    })
+  }
+
+
   /**
    * Atualiza as informações de um ticket.
    * @param Id - ID do ticket a ser atualizado.

@@ -1,5 +1,5 @@
 import { compare } from "bcryptjs";
-import { EntityDoesNotExistsErro } from "../../Errors/EntityDoesNotExistsError";
+import { EntityDoesNotExistsError } from "../../Errors/EntityDoesNotExistsError";
 import { UserRepository } from "../../repository/.index";
 import { ValidationError } from "../../Errors/ValidationError";
 
@@ -8,7 +8,7 @@ export class ValidadeUserUseCase{
     async execute(Email:string, Password:string):Promise<string>{
         const doesTheUserExists = await this.UserRepo.findByEmail(Email);
         if(!doesTheUserExists){
-            throw new EntityDoesNotExistsErro("User")
+            throw new EntityDoesNotExistsError("User")
         }
 
         if(await compare(Password,doesTheUserExists.Password)){

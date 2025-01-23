@@ -8,11 +8,11 @@
  * @example
  * ```typescript
  * throw new EntityDoesNotExistsErro("User");
- * // Lança: "There's already a User with this unique key"
+ * // Lança: "The User does not exists"
  * ```
  */
-export class EntityDoesNotExistsErro extends Error{
+export class EntityDoesNotExistsError extends Error{
     constructor(Entity:string){
-        super(`There's already a ${Entity} with this unique key key`);
+        super(`The ${Entity} does not exists`);
     }
 }

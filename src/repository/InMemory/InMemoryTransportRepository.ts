@@ -12,7 +12,8 @@ export class InMemoryTransportRepository implements TransportRepository {
             Year:data.Year?new Date(data.Year):null,
             AssignedRoute:String(data.AssignedRoute),
             Company:String(data.Company),
-            Model:String(data.Model)
+            Model:String(data.Model),
+            Capacity:Number(data.Capacity)
         };
 
         this.transports.push(newTransport);

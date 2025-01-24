@@ -1,3 +1,4 @@
+import { EntityDoesNotExistsError } from "../../Errors/EntityDoesNotExistsError";
 import { TicketRepository } from "../../repository/TicketRepository";
 import { FormatTicketToTicketInService } from "../../utils/formatTicketToTicketInService";
 
@@ -14,7 +15,7 @@ export class GetTicketByIdUseCase {
     constructor(private TicketRepo: TicketRepository){}
     async execute(Id: string) {
         const ticket = await this.TicketRepo.findById(Id)
-        if(!ticket) return null
+        if(!ticket) throw new EntityDoesNotExistsError("Ticket")
         return FormatTicketToTicketInService(ticket)
     }
 }

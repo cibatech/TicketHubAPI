@@ -4,7 +4,8 @@ export async function FormatTicketToTicketInService(ticket: Ticket) {
     return {
         ValidatedAt: ticket.Validated_at,
         CompletedAt: ticket.Completed_at,
-        TravelId: ticket.TravelId
+        TravelId: ticket.TravelId,
+        Id: ticket.Id,
     }
 }
 
@@ -13,7 +14,8 @@ export async function FormatTicketsToTicketsInService(tickets: Ticket[]){
         return {
             ValidatedAt: ticket.Validated_at,
             CompletedAt: ticket.Completed_at,
-            TravelId: ticket.TravelId
+            TravelId: ticket.TravelId,
+            Id: ticket.Id
         }
     })
 }

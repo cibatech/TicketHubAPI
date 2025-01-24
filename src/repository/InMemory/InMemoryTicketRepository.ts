@@ -4,11 +4,11 @@ import { randomUUID } from "crypto";
 
 
 export class InMemoryTicketRepository implements TicketRepository {
-    private tickets: Ticket[] = [];
+    public tickets: Ticket[] = [];
 
     async create(data: Prisma.TicketUncheckedCreateInput): Promise<Ticket> {
         const newTicket: Ticket = {
-            Id: randomUUID(),
+            Id: String(randomUUID()),
             userId: String(data.userId),
             Completed_at:null,Validated_at:null,
             TravelId: data.TravelId

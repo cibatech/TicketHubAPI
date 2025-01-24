@@ -1,4 +1,4 @@
-import { EntityDoesNotExistsErro } from "../../Errors/.index"
+import { EntityDoesNotExistsError } from "../../Errors/.index"
 import {UserRepository} from "../../repository/.index"
 import {UserInService} from "../../types/.index"
 
@@ -12,7 +12,7 @@ export class GetUserProfileUseCase{
     async execute({Id}:GetUserProfileParams):Promise<{Email:string,Nome:string}>{
         const doesTheUserExists = await this.userRepo.findById(Id)
         if(!doesTheUserExists){
-            throw new EntityDoesNotExistsErro("User")
+            throw new EntityDoesNotExistsError("User")
         }
         const {Email,Nome} = doesTheUserExists
         return{

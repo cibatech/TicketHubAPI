@@ -1,19 +1,17 @@
 import { Prisma, Ticket } from "@prisma/client";
-import { TickerRepository } from "../TicketRepository";
+import { TicketRepository } from "../TicketRepository";
 import { randomUUID } from "crypto";
 
 
-export class InMemoryTicketRepository implements TickerRepository {
-    private tickets: Ticket[] = [];
+export class InMemoryTicketRepository implements TicketRepository {
+    public tickets: Ticket[] = [];
 
     async create(data: Prisma.TicketUncheckedCreateInput): Promise<Ticket> {
         const newTicket: Ticket = {
-            Id: randomUUID(),
+            Id: String(randomUUID()),
             userId: String(data.userId),
-            BegginingPoint: data.BegginingPoint,
-            FinishPoint: data.FinishPoint,
-            Travel_Day:new Date(data.Travel_Day),
-            Completed_at:null,Validated_at:null
+            Completed_at:null,Validated_at:null,
+            TravelId: data.TravelId
         };
 
         this.tickets.push(newTicket);
@@ -28,12 +26,20 @@ export class InMemoryTicketRepository implements TickerRepository {
         return this.tickets.filter(ticket => ticket.userId === userId);
     }
 
-    async findByBegginingPoint(pointId: string): Promise<Ticket[]> {
-        return this.tickets.filter(ticket => ticket.BegginingPoint === pointId);
+    async findByValidated(): Promise<Ticket[]> {
+        return this.tickets.filter(ticket => ticket.Validated_at !== null);
     }
 
-    async findByEndingPoint(pointId: string): Promise<Ticket[]> {
-        return this.tickets.filter(ticket => ticket.FinishPoint === pointId);
+    async findByValidatedAndUserId(UserId: string): Promise<Ticket[]> {
+        return this.tickets.filter(ticket => ticket.userId === UserId && ticket.Validated_at !== null)
+    }
+
+    async findByCompleted(): Promise<Ticket[]> {
+        return this.tickets.filter(ticket => ticket.Completed_at !== null);
+    }
+
+    async findByCompletedAndUserId(UserId: string): Promise<Ticket[]> {
+        return this.tickets.filter(ticket => ticket.userId === UserId && ticket.Completed_at !== null)
     }
     
     async update(id: string, data: Partial<Ticket>): Promise<Ticket | null> {

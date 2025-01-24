@@ -1,5 +1,5 @@
 import { hash } from "bcryptjs";
-import { EntityDoesNotExistsErro } from "../../Errors/EntityDoesNotExistsError";
+import { EntityDoesNotExistsError } from "../../Errors/EntityDoesNotExistsError";
 import { UserRepository } from "../../repository/.index";
 import { UserInService } from "../../types/dtos/InServiceEntitys";
 import { EntityAlreadyExists } from "../../Errors/EntityAlreadyExistsError";
@@ -9,7 +9,7 @@ export class UpdateUserServiceUseCase{
     async execute(UserId:string, data:Partial<UserInService>):Promise<UserInService>{
         const doesTheUserExists = await this.UserRepo.findById(UserId)
         if(!doesTheUserExists){
-            throw new EntityDoesNotExistsErro("User")
+            throw new EntityDoesNotExistsError("User")
         }
         if(data.Email){
             const theresAlreadyAnEmailAdressWithTheProvidedEmail = await this.UserRepo.findByEmail(data.Email);

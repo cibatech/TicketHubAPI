@@ -1,8 +1,8 @@
 import { PrismaClient, Ticket, Prisma } from "@prisma/client";
-import {TickerRepository} from "../TicketRepository"
+import {TicketRepository} from "../TicketRepository"
 import { prisma } from "../../lib/prisma";
 
-export class PrismaTicketRepository implements TickerRepository {
+export class PrismaTicketRepository implements TicketRepository {
 
 
   /**
@@ -39,25 +39,54 @@ export class PrismaTicketRepository implements TickerRepository {
   }
 
   /**
-   * Encontra todos os tickets associados a um ponto de origem.
-   * @param PointId - ID do ponto de origem.
-   * @returns Uma lista de tickets do ponto de origem.
+   * Encontra todos os tickets validados
+   * @returns Uma lista de tickets validados
    */
-  async findByBegginingPoint(PointId: string): Promise<Ticket[]> {
+  async findByValidated(): Promise<Ticket[]> {
     return await prisma.ticket.findMany({
-      where: { BegginingPoint: PointId },
+      where: { Validated_at: { not: null } },
     });
   }
-    /**
-   * Encontra todos os tickets associados a um ponto de Chegada.
-   * @param PointId - ID do ponto de origem.
-   * @returns Uma lista de tickets do ponto de origem.
+
+  /**
+   * Encontra todos os tickets completados
+   * @returns Uma lista de tickets completados
    */
-  async findByEndingPoint(PointId: string): Promise<Ticket[]> {
+  async findByCompleted(): Promise<Ticket[]> {
     return await prisma.ticket.findMany({
-      where: { FinishPoint: PointId },
+      where: { Completed_at: { not: null} },
     });
   }
+
+  /**
+     * Encontra todos os tickets validados de um usuário específico
+     * @param UserId - Id do Usuário
+     * @returns Uma lista de tickets validados
+     */
+  async findByValidatedAndUserId(UserId: string): Promise<Ticket[]> {
+    return await prisma.ticket.findMany({
+      where:{
+        userId: UserId,
+        Validated_at: { not: null }
+      }
+    })
+  }
+
+  /**
+   * Encontra todos os tickets completados de um usuário específico
+   * @param UserID - Id do Usuário
+   * @return Uma lista de tickets completados
+   */
+  async findByCompletedAndUserId(UserId: string): Promise<Ticket[]> {
+    return await prisma.ticket.findMany({
+      where:{
+        userId: UserId,
+        Completed_at: { not: null }
+      }
+    })
+  }
+
+
   /**
    * Atualiza as informações de um ticket.
    * @param Id - ID do ticket a ser atualizado.

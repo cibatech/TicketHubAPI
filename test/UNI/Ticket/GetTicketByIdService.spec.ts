@@ -13,9 +13,7 @@ describe("Get a Ticket By Id Service: Good Case", async () => {
     })
     it("Should be able to find the Ticket by it's Id", async () => {
         const {Id} = await TicketRepo.create({ TravelId:"1",})
-        console.log("Id: " + Id)
         const ticket = await Service.execute(Id)
-        console.log("Finded: " + ticket.Id)
         expect(ticket.Id).toBe(Id)
     })
 })
@@ -25,6 +23,7 @@ describe("Get a Ticket By Id Service: Bad Case", async () => {
     Service = new GetTicketByIdUseCase(TicketRepo)
 
     it("Should throw EntityDoesNotExistsError if the Ticket does not exists", async () => {
-        await expect(Service.execute("2")).rejects.toBeInstanceOf(EntityDoesNotExistsError)
+        await expect(Service.execute("2"))
+               .rejects.toBeInstanceOf(EntityDoesNotExistsError)
     })
 })

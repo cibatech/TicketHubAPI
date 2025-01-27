@@ -13,7 +13,7 @@ export async function GETValidateEmailController(req:FastifyRequest, res:Fastify
     try{
         const response = await service.execute(Id);
 
-        res.setCookie("ValidCode",response,{
+        res.setCookie("ValidCode",`${Id}-${response}`,{
             maxAge:1000*60*60*24 //24 horas de vida
         })
 

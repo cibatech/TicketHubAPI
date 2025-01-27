@@ -1,19 +1,19 @@
-import { EntityDoesNotExistsErro } from "../../Errors/EntityDoesNotExistsError";
+import { EntityDoesNotExistsError } from "../../Errors/EntityDoesNotExistsError";
 import { SendEmail } from "../../lib/nodemailer";
 import { UserRepository } from "../../repository/UserRepository";
 import { EmailType } from "../../types/.index";
 import { GenValidationCode } from "../../utils/genValidCode";
 
-export class SendEmailValidationCode{
+export class SendEmailValidationCodeUseCase{
     constructor(private UserRepo:UserRepository){}
-    async execute(Email:string):Promise<string>{
-        const doesTheUserExists = await this.UserRepo.findByEmail(Email);
+    async execute(Id:string):Promise<string>{
+        const doesTheUserExists = await this.UserRepo.findById(Id);
         if(!doesTheUserExists){
-            throw new EntityDoesNotExistsErro("User")
+            throw new EntityDoesNotExistsError("User")
         }
         const code = GenValidationCode()
         const _email:EmailType = {
-            to:Email,
+            to:doesTheUserExists.Email,
             subject:"No-Reply Email de Validação de usuário",
             text:`  Assunto: Verificação de Email
 

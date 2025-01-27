@@ -1,7 +1,7 @@
 import { Prisma, User } from "@prisma/client";
 import { UserRepository } from "../../repository/.index";
 import { EntityAlreadyExists } from "../../Errors/.index";
-import { UserInService } from "../../types/dtos/InServiceEntitys";
+import { UserInService } from "../../types/dtos/InServiceUser";
 import { hash } from "bcryptjs";
 
 
@@ -10,7 +10,7 @@ export class CreateUserUseCase{
     async execute(data:Prisma.UserCreateInput):Promise<UserInService>{
         const doesTheUserAlreadyExists = await this.UserRepo.findByEmail(data.Email);
         if(doesTheUserAlreadyExists){
-            throw new EntityAlreadyExists("User","There's already a user with this email adress")
+            throw new EntityAlreadyExists("User")
         }
 
         const Password = await hash(data.Password,9);

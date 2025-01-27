@@ -17,13 +17,11 @@ ALTER TABLE "Ticket" DROP CONSTRAINT "Ticket_FinnishPointId_fkey";
 ALTER TABLE "Ticket" DROP COLUMN "BeginningPointId",
 DROP COLUMN "FinnishPointId",
 DROP COLUMN "Travel_Day",
-ADD COLUMN     "TotalTicketPrice" DOUBLE PRECISION NOT NULL DEFAULT 0,
 ADD COLUMN     "TravelId" TEXT NOT NULL;
 
 -- CreateTable
 CREATE TABLE "Travel" (
     "Id" TEXT NOT NULL,
-    "TravelBasePrice" DOUBLE PRECISION NOT NULL,
     "BeginningPointId" TEXT NOT NULL,
     "FinnishPointId" TEXT NOT NULL,
     "Travel_Day" TIMESTAMP(3) NOT NULL,
@@ -32,10 +30,10 @@ CREATE TABLE "Travel" (
 );
 
 -- AddForeignKey
-ALTER TABLE "Ticket" ADD CONSTRAINT "Ticket_TravelId_fkey" FOREIGN KEY ("TravelId") REFERENCES "Travel"("Id") ON DELETE RESTRICT ON UPDATE CASCADE;
-
--- AddForeignKey
 ALTER TABLE "Travel" ADD CONSTRAINT "Travel_BeginningPointId_fkey" FOREIGN KEY ("BeginningPointId") REFERENCES "Point"("Id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "Travel" ADD CONSTRAINT "Travel_FinnishPointId_fkey" FOREIGN KEY ("FinnishPointId") REFERENCES "Point"("Id") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "Ticket" ADD CONSTRAINT "Ticket_TravelId_fkey" FOREIGN KEY ("TravelId") REFERENCES "Travel"("Id") ON DELETE RESTRICT ON UPDATE CASCADE;

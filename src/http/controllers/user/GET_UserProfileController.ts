@@ -3,7 +3,8 @@ import { GetUserProfileUseCase } from "../../../services";
 import { PrismaUserRepository } from "../../../repository/Prisma/PrismaUserRepository";
 import z from "zod";
 import { truncateSync } from "fs";
-import { EntityDoesNotExistsErro } from "../../../Errors/EntityDoesNotExistsError";
+import { EntityDoesNotExistsError } from "../../../Errors/EntityDoesNotExistsError";
+
 
 export async function GETUserProfileController(req:FastifyRequest,res:FastifyReply) {
     const service = new GetUserProfileUseCase(new PrismaUserRepository);
@@ -19,7 +20,7 @@ export async function GETUserProfileController(req:FastifyRequest,res:FastifyRep
             response,
         })
     }catch(err){
-        if(err instanceof EntityDoesNotExistsErro){
+        if(err instanceof EntityDoesNotExistsError){
             res.status(404).send({
                 Description:"Can't find any user with this ID"
             })

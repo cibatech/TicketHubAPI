@@ -3,7 +3,7 @@ import { faker } from "@faker-js/faker";
 import { InMemoryUserRepository } from "../../../src/repository/.index";
 import { GetUserProfileUseCase } from "../../../src/services";
 import { randomUUID } from "crypto";
-import { EntityDoesNotExistsErro } from "../../../src/Errors/EntityDoesNotExistsError";
+import { EntityDoesNotExistsError } from "../../../src/Errors/EntityDoesNotExistsError";
 import { hash } from "bcryptjs";
 
 describe("GetUserProfileUseCase", () => {
@@ -35,6 +35,6 @@ describe("GetUserProfileUseCase", () => {
     const useCase = new GetUserProfileUseCase(userRepository);
 
     await expect(useCase.execute({ Id: randomUUID() }))
-      .rejects.toBeInstanceOf(EntityDoesNotExistsErro);
+      .rejects.toBeInstanceOf(EntityDoesNotExistsError);
   });
 });

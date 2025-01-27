@@ -112,7 +112,7 @@ export const docs:SwaggerOptions = {
             "app/user/profile": {
        "description": "Rota utilizada para retornar o perfil autenticado do usuário usando um token JWT",
        "get": {
-           "tags": ["user",],
+           "tags": ["user","app"],
            "summary": "Obtém perfil do usuário autenticado",
            "description": "Retorna as informações do perfil do usuário baseado no token JWT fornecido no header Authorization",
            "operationId": "getAuthenticatedUserProfile",
@@ -191,7 +191,7 @@ export const docs:SwaggerOptions = {
     "patch": {
         "summary": "Autenticar usuário e gerar token JWT.",
         "operationId": "loginUser",
-        "tags": ["Auth", "User", "App"],
+        "tags": ["user", "app"],
         "requestBody": {
             "description": "Corpo da requisição contendo o e-mail e a senha do usuário para autenticação.",
             "required": true,
@@ -255,7 +255,7 @@ export const docs:SwaggerOptions = {
                 }
             }
         ],
-        "tags": ["User", "App"],
+        "tags": ["user", "app"],
         "responses": {
             "200": {
                 "description": "Usuário deletado com sucesso."
@@ -280,7 +280,7 @@ export const docs:SwaggerOptions = {
     "put": {
         "summary": "Atualiza informações do perfil de um usuário.",
         "operationId": "updateUser",
-        "tags": ["User", "App"],
+        "tags": ["user", "app"],
         "requestBody": {
             "description": "Objeto JSON contendo os dados que serão atualizados no perfil do usuário.",
             "required": true,

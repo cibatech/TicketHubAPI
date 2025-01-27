@@ -10,7 +10,8 @@ export class InMemoryTicketRepository implements TicketRepository {
         const newTicket: Ticket = {
             Id: String(randomUUID()),
             userId: String(data.userId),
-            Completed_at:null,Validated_at:null,
+            Completed_at: data.Completed_at?new Date(data.Completed_at):null,
+            Validated_at: data.Validated_at?new Date(data.Validated_at):null,
             TravelId: data.TravelId
         };
 
@@ -31,7 +32,7 @@ export class InMemoryTicketRepository implements TicketRepository {
     }
 
     async findByValidatedAndUserId(UserId: string): Promise<Ticket[]> {
-        return this.tickets.filter(ticket => ticket.userId === UserId && ticket.Validated_at !== null)
+        return this.tickets.filter(ticket => (ticket.userId === UserId && ticket.Validated_at !== null))
     }
 
     async findByCompleted(): Promise<Ticket[]> {

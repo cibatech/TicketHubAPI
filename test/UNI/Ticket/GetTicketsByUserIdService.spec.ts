@@ -1,7 +1,6 @@
 import { beforeEach, describe, expect, it } from "vitest";
 import { InMemoryTicketRepository, InMemoryUserRepository } from "../../../src/repository/.index";
 import { GetTicketsByUserIdUseCase } from "../../../src/services/Ticket/GetTicketsByUserIdService";
-import { TicketInService } from "../../../src/types/.index";
 import { EntityDoesNotExistsError } from "../../../src/Errors/EntityDoesNotExistsError";
 
 var TicketRepo: InMemoryTicketRepository

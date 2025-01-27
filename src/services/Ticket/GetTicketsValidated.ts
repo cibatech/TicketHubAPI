@@ -11,9 +11,12 @@ export class GetTicketsValidatedUseCase {
      * @param TicketRepo - O repositório dos Tickets
      */
     constructor(private TicketRepo: TicketRepository){}
+    /**
+     * Executa o service
+     * @returns A list of `TicketInService`
+     */
     async execute(){
-        const tickets = await this.TicketRepo.findByValidation()
-        if(!tickets) return null
+        const tickets = await this.TicketRepo.findByValidated()
         return FormatTicketsToTicketsInService(tickets)
     }
 }

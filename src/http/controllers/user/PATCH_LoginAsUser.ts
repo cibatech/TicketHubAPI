@@ -2,7 +2,7 @@ import fastify, { FastifyReply, FastifyRequest } from "fastify";
 import { ValidadeUserUseCase } from "../../../services";
 import { PrismaUserRepository } from "../../../repository/Prisma/PrismaUserRepository";
 import z from "zod";
-import { EntityDoesNotExistsErro } from "../../../Errors/.index.ts";
+import { EntityDoesNotExistsError } from "../../../Errors/.index.ts";
 
 export async function PATCHLoginAsUser(req:FastifyRequest,res:FastifyReply) {
     const service = new ValidadeUserUseCase(new PrismaUserRepository);
@@ -24,7 +24,7 @@ export async function PATCHLoginAsUser(req:FastifyRequest,res:FastifyReply) {
             UserToken:token
         })
     }catch(err){
-        if(err instanceof EntityDoesNotExistsErro ){
+        if(err instanceof EntityDoesNotExistsError ){
             res.status(400).send({
                 Description:"User does not exits",
                 err

@@ -6,7 +6,7 @@ import { CreateUserUseCase, UpdateUserServiceUseCase } from "../../../src/servic
 import { faker } from "@faker-js/faker";
 import { EntityAlreadyExists } from "../../../src/Errors/.index";
 import { User } from "@prisma/client";
-import { EntityDoesNotExistsErro } from "../../../src/Errors/EntityDoesNotExistsError";
+import { EntityDoesNotExistsError } from "../../../src/Errors/EntityDoesNotExistsError";
 
 var service:UpdateUserServiceUseCase
 var UserRepo:InMemoryUserRepository
@@ -46,6 +46,6 @@ describe("Create User: Bad Case",async()=>{
 
         await expect(service.execute("User.Id",{
             Nome:"Pessoa"
-        })).rejects.toBeInstanceOf(EntityDoesNotExistsErro)
+        })).rejects.toBeInstanceOf(EntityDoesNotExistsError)
     })
 })

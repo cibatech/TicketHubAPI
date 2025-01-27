@@ -4,7 +4,7 @@ import { compare, hash } from "bcryptjs";
 import { randomUUID } from "crypto";
 import { ValidadeUserUseCase } from "../../../src/services";
 import { UserRepository } from "../../../src/repository/.index";
-import { EntityDoesNotExistsErro, ValidationError } from "../../../src/Errors/.index";
+import { EntityDoesNotExistsError, ValidationError } from "../../../src/Errors/.index";
 
 const PreHashPassword = "teste"
 
@@ -37,7 +37,7 @@ describe("ValidadeUserUseCase", () => {
     const useCase = new ValidadeUserUseCase(mockRepository as unknown as UserRepository);
 
     await expect(useCase.execute(faker.internet.email(), faker.internet.password()))
-      .rejects.toBeInstanceOf(EntityDoesNotExistsErro);
+      .rejects.toBeInstanceOf(EntityDoesNotExistsError);
 
     expect(mockRepository.findByEmail).toHaveBeenCalled();
   });

@@ -22,6 +22,7 @@ export class CreateTicketUseCase {
             ValidatedAt: ticket.Validated_at,
             CompletedAt: ticket.Completed_at,
             TravelId: ticket.TravelId,
+            Id: ticket.Id
         }
     }
 }

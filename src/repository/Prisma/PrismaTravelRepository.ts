@@ -35,7 +35,7 @@ export class PrismaTravelRepository implements TravelRepository {
     /**
      * Procurar várias Travels pelo seu ponto inicial
      * @param PointId - O Id do ponto inicial das Travels que serão procuradas
-     * @returns Uma lista com as Travels encotradas ou `null` no caso oposto
+     * @returns Uma lista com as Travels encontradas
      */
     async findByBeginningPointId(PointId: string) {
         return await prisma.travel.findMany({
@@ -48,7 +48,7 @@ export class PrismaTravelRepository implements TravelRepository {
     /**
      * Procurar várias Travels pelo seu ponto final
      * @param PointId - O Id do ponto final das Travels que serão procuradas
-     * @returns Uma lista com as Travels encotradas ou `null` no caso oposto
+     * @returns Uma lista com as Travels encontradas
      */
     async findByFinishingPointId(PointId: string) {
         return await prisma.travel.findMany({
@@ -61,12 +61,29 @@ export class PrismaTravelRepository implements TravelRepository {
     /**
      * Procurar várias Travels pelo seu `Travel_Day`
      * @param Day - O data que será utilizada de parâmetro para a busca
-     * @returns Uma lista com as Travels encotradas ou `null` no caso oposto
+     * @returns Uma lista com as Travels encotradas
      */
     async findByTravelDay(Day: Date) {
         return await prisma.travel.findMany({
             where:{
                 Travel_Day: Day,
+            }
+        })
+    }
+
+    /**
+     * Procurar várias Travels que tenham o TravelBasePrice entre um cerrto intervalo de valores
+     * @param min - Valor minimo
+     * @param max - Valor máximo
+     * @returns Uma lista de Travels
+     */
+    async findByRangePrice(min: Number, max: Number): Promise<Travel[] | null> {
+        return await prisma.travel.findMany({
+            where:{
+                TravelBasePrice: {
+                    gte:Number(min),
+                    lte:Number(max),
+                }
             }
         })
     }

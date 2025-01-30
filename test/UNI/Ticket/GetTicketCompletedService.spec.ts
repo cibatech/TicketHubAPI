@@ -12,6 +12,7 @@ describe("Get Completed Tickets Service", async () => {
     it("Should be able to get the completed Tickets", async () => {
         const {Id} = await TicketRepo.create({
             TravelId:"1",
+            userId:"1",
             Completed_at:new Date(),
         })
         const tickets = await Service.execute()

@@ -12,7 +12,7 @@ describe("Get a Ticket By Id Service: Good Case", async () => {
         Service = new GetTicketByIdUseCase(TicketRepo)
     })
     it("Should be able to find the Ticket by it's Id", async () => {
-        const {Id} = await TicketRepo.create({ TravelId:"1",})
+        const {Id} = await TicketRepo.create({ TravelId:"1", userId:"1"})
         const ticket = await Service.execute(Id)
         expect(ticket.Id).toBe(Id)
     })

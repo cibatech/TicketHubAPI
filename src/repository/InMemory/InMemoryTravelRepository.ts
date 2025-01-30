@@ -10,6 +10,7 @@ export class InMemoryTravelRepository implements TravelRepository {
         const newTravel: Travel = {
             Id: randomUUID(),
             Travel_Day: data.Travel_Day?new Date(data.Travel_Day):new Date(),
+            TravelBasePrice: data.TravelBasePrice,
             BeginningPointId: data.BeginningPointId,
             FinnishPointId: data.FinnishPointId,
         }
@@ -31,6 +32,10 @@ export class InMemoryTravelRepository implements TravelRepository {
 
     async findByTravelDay(Day: Date): Promise<Travel[] | null> {
         return this.travels.filter(travel => travel.Travel_Day === Day)
+    }
+
+    async findByRangePrice(min: number, max: number): Promise<Travel[] | null> {
+        return this.travels.filter(travel => travel.TravelBasePrice >= min && travel.TravelBasePrice <= max);
     }
 
     async update(Id: string, data: Partial<Travel>): Promise<Travel | null> {

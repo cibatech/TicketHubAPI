@@ -13,7 +13,7 @@ describe("Create Ticket: Good Case", async () => {
     it("Should be able to create a Ticket", async () => {
         const ticket = await Service.execute({
             TravelId: "1",
-            userId: null,
+            userId: "1",
             Validated_at: new Date("2025-09-01"),
             Completed_at: null
         })
@@ -30,6 +30,7 @@ describe("Create Ticket: Bad Case", async () => {
         await expect(
             Service.execute({
                 TravelId: "",
+                userId: "",
             })
         ).rejects.toBeInstanceOf(NullArgumentError)
     })

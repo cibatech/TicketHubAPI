@@ -10,6 +10,7 @@ export class InMemoryTicketRepository implements TicketRepository {
         const newTicket: Ticket = {
             Id: String(randomUUID()),
             userId: String(data.userId),
+            TotalTicketPrice: Number(data.TotalTicketPrice),
             Completed_at: data.Completed_at?new Date(data.Completed_at):null,
             Validated_at: data.Validated_at?new Date(data.Validated_at):null,
             TravelId: data.TravelId

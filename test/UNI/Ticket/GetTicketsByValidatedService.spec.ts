@@ -12,6 +12,7 @@ describe("Get Validated Tickets Service",() => {
     it("Should be able to get the validated tickets", async () => {
         const {Id} = await TicketRepo.create({
             TravelId: "1",
+            userId:"1",
             Validated_at: new Date("2008-09-10"),
         })
         const tickets = await Service.execute()

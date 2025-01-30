@@ -14,7 +14,7 @@
  * ```
  */
 export class EntityAlreadyExists extends Error{
-    constructor(Entity:string, Reason:string){
-        super(`Can't create ${Entity} because ${Reason}`)
+    constructor(Entity:string){
+        super(`There's already a ${Entity} with this unique key key`);
     }
 }

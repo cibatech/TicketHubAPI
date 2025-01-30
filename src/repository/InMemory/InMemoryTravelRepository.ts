@@ -13,6 +13,7 @@ export class InMemoryTravelRepository implements TravelRepository {
             TravelBasePrice: data.TravelBasePrice,
             BeginningPointId: data.BeginningPointId,
             FinnishPointId: data.FinnishPointId,
+            TravelBasePrice:data.TravelBasePrice
         }
         this.travels.push(newTravel)
         return newTravel

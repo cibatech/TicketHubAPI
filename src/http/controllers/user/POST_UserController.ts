@@ -3,7 +3,7 @@ import { CreateUserUseCase } from "../../../services";
 import { PrismaUserRepository } from "../../../repository/Prisma/PrismaUserRepository";
 import z from "zod";
 import { EntityAlreadyExists } from "../../../Errors/.index";
-import { SendWelcomeEmailMessage } from "../../../services/Mail/SendWelcomeEmailMessage";
+import { SendWelcomeEmailMessageUseCase } from "../../../services/Mail/SendWelcomeEmailMessage";
 
 export async function POSTUserController(req:FastifyRequest,res:FastifyReply) {
     const service = new CreateUserUseCase(new PrismaUserRepository);
@@ -13,7 +13,7 @@ export async function POSTUserController(req:FastifyRequest,res:FastifyReply) {
         Nome:z.string()
     }).parse(req.body)
 
-    const sendMessageService = new SendWelcomeEmailMessage(new PrismaUserRepository);
+    const sendMessageService = new SendWelcomeEmailMessageUseCase(new PrismaUserRepository);
 
     try{
         const response = await service.execute({

@@ -1,11 +1,11 @@
 import fastify, { FastifyReply, FastifyRequest } from "fastify";
-import { ValidadeUserUseCase } from "../../../services";
 import { PrismaUserRepository } from "../../../repository/Prisma/PrismaUserRepository";
 import z from "zod";
 import { EntityDoesNotExistsError } from "../../../Errors/.index.ts";
+import { LoginUserUseCase } from "../../../services/index.ts";
 
 export async function PATCHLoginAsUser(req:FastifyRequest,res:FastifyReply) {
-    const service = new ValidadeUserUseCase(new PrismaUserRepository);
+    const service = new LoginUserUseCase(new PrismaUserRepository);
     const {Email,Password} = z.object({
         Email:z.string().email(),
         Password:z.string()

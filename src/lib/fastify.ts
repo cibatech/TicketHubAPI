@@ -1,9 +1,11 @@
 import fastifyJwt from "@fastify/jwt";
 import fastifySwagger from "@fastify/swagger";
-import fastifySwaggerUi from "@fastify/swagger-ui";
+import fastifySwaggerUi from "@fastify/swagger-ui"
+import cors from "@fastify/cors";
 import fastify from "fastify";
 import { docs } from "./docs/swagger";
 import { Router } from "../http/router";
+import fastifyCookie from "@fastify/cookie";
 
 export const app = fastify()
 
@@ -15,6 +17,15 @@ app.register(Router,{
 app.register(fastifyJwt,{
     secret:"supersecret"
 })
+
+app.register(cors,{ 
+    origin: true, // Permite todas as origens. Para restringir, você pode especificar uma URL, como 'http://localhost:3000'
+    methods: ['GET', 'POST', 'PUT', 'DELETE', "PATCH"], // Métodos HTTP permitidos
+    allowedHeaders: ['Content-Type', 'Authorization'], // Cabeçalhos permitidos
+    credentials: true // Permite o envio de cookies e headers de autorização entre o frontend e o backend
+});
+
+app.register(fastifyCookie)
 
 app.register(fastifySwagger,docs)
 

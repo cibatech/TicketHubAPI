@@ -1,2 +1,2 @@
-export * from "./InServiceEntitys"
+export * from "./InServiceUser"
 export * from "./InServiceTicket"

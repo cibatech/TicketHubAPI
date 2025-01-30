@@ -1,7 +1,7 @@
 import { hash } from "bcryptjs";
 import { EntityDoesNotExistsError } from "../../Errors/EntityDoesNotExistsError";
 import { UserRepository } from "../../repository/.index";
-import { UserInService } from "../../types/dtos/InServiceEntitys";
+import { UserInService } from "../../types/dtos/InServiceUser";
 import { EntityAlreadyExists } from "../../Errors/EntityAlreadyExistsError";
 
 export class UpdateUserServiceUseCase{
@@ -14,7 +14,7 @@ export class UpdateUserServiceUseCase{
         if(data.Email){
             const theresAlreadyAnEmailAdressWithTheProvidedEmail = await this.UserRepo.findByEmail(data.Email);
             if(theresAlreadyAnEmailAdressWithTheProvidedEmail){
-                throw new EntityAlreadyExists("User","his email already in use");
+                throw new EntityAlreadyExists("User");
             }
         }
 

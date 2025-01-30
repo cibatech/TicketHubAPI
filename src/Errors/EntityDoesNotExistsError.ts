@@ -13,6 +13,6 @@
  */
 export class EntityDoesNotExistsError extends Error{
     constructor(Entity:string){
-        super(`The ${Entity} does not exists`);
+        super(`The ${Entity} does not exists`)
     }
 }

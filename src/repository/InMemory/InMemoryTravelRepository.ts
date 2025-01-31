@@ -2,6 +2,7 @@ import { Prisma, Travel } from "@prisma/client";
 import { TravelRepository } from "../TravelRepository";
 import { randomUUID } from "crypto";
 import { string } from "zod";
+import { tr } from "@faker-js/faker";
 
 export class InMemoryTravelRepository implements TravelRepository {
     private travels: Travel[] = []
@@ -13,34 +14,46 @@ export class InMemoryTravelRepository implements TravelRepository {
             TravelBasePrice: data.TravelBasePrice,
             BeginningPointId: data.BeginningPointId,
             FinnishPointId: data.FinnishPointId,
-            TravelBasePrice:data.TravelBasePrice
         }
         this.travels.push(newTravel)
         return newTravel
     }
 
     async findById(Id: string): Promise<Travel | null> {
-        return this.travels.find(travel => travel.Id === Id) || null
+        const travel = this.travels.find(travel => travel.Id === Id)
+        return travel ?? null
     }
 
-    async findByBeginningPointId(PointId: string): Promise<Travel[] | null> {
-        return this.travels.filter(travel => travel.BeginningPointId === PointId)
+    async findByBeginningPointId(PointId: string, Page: number): Promise<Travel[] | null> {
+        const travelList = this.travels.filter(travel => travel.BeginningPointId === PointId)
+                            .slice((Page-1)*20, Page*20);
+        if(!travelList.length) return null
+        return travelList
     }
 
-    async findByFinishingPointId(PointId: string): Promise<Travel[] | null> {
-        return this.travels.filter(travel => travel.FinnishPointId === PointId)
+    async findByFinishingPointId(PointId: string, Page: number): Promise<Travel[] | null> {
+        const travelList = this.travels.filter(travel => travel.FinnishPointId === PointId)
+                            .slice((Page-1)*20, Page*20);
+        if(!travelList.length) return null
+        return travelList
     }
 
-    async findByTravelDay(Day: Date): Promise<Travel[] | null> {
-        return this.travels.filter(travel => travel.Travel_Day === Day)
+    async findByRangePrice(min: number, max: number, Page: number): Promise<Travel[] | null> {
+        const travelList = this.travels.filter(travel => travel.TravelBasePrice >= min && travel.TravelBasePrice <= max)
+                            .slice((Page-1)*20, Page*20);
+        if(!travelList.length) return null
+        return travelList
     }
 
-    async findByRangePrice(min: number, max: number): Promise<Travel[] | null> {
-        return this.travels.filter(travel => travel.TravelBasePrice >= min && travel.TravelBasePrice <= max);
+    async findByRangeDate(afterDay: Date, beforeDay: Date, Page: number): Promise<Travel[] | null> {
+        const travelList = this.travels.filter(travel => travel.Travel_Day >= afterDay && travel.Travel_Day <= beforeDay)
+                            .slice((Page-1)*20, Page*20)
+        if(!travelList.length) return null
+        return travelList
     }
 
     async update(Id: string, data: Partial<Travel>): Promise<Travel | null> {
-        const travel = this.travels.find(travel => travel.Id === Id)
+        const travel = this.travels.find(travel => travel.Id === Id) ?? null
         if(!travel) return null
 
         const updatedTravel = {

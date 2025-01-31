@@ -37,11 +37,15 @@ export class PrismaTravelRepository implements TravelRepository {
      * @param PointId - O Id do ponto inicial das Travels que serão procuradas
      * @returns Uma lista com as Travels encontradas
      */
-    async findByBeginningPointId(PointId: string) {
+    async findByBeginningPointId(PointId: string, Page: number) {
+        const take = 10
+        const skip = (Page-1)*take
         return await prisma.travel.findMany({
             where:{
                 BeginningPointId: PointId,
-            }
+            },
+            skip,
+            take,
         })
     }
 
@@ -50,11 +54,15 @@ export class PrismaTravelRepository implements TravelRepository {
      * @param PointId - O Id do ponto final das Travels que serão procuradas
      * @returns Uma lista com as Travels encontradas
      */
-    async findByFinishingPointId(PointId: string) {
+    async findByFinishingPointId(PointId: string, Page: number) {
+        const take = 10
+        const skip = (Page-1)*take
         return await prisma.travel.findMany({
             where:{
                 FinnishPointId: PointId,
-            }
+            },
+            skip,
+            take,
         })
     }
 
@@ -63,11 +71,15 @@ export class PrismaTravelRepository implements TravelRepository {
      * @param Day - O data que será utilizada de parâmetro para a busca
      * @returns Uma lista com as Travels encotradas
      */
-    async findByTravelDay(Day: Date) {
+    async findByTravelDay(Day: Date, Page: number) {
+        const take = 10
+        const skip = (Page-1)*take
         return await prisma.travel.findMany({
             where:{
                 Travel_Day: Day,
-            }
+            },
+            skip,
+            take,
         })
     }
 
@@ -75,16 +87,43 @@ export class PrismaTravelRepository implements TravelRepository {
      * Procurar várias Travels que tenham o TravelBasePrice entre um cerrto intervalo de valores
      * @param min - Valor minimo
      * @param max - Valor máximo
+     * @param Page - Pagina de consulta (para paginação), must not be zero, atleast 1
      * @returns Uma lista de Travels
      */
-    async findByRangePrice(min: Number, max: Number): Promise<Travel[] | null> {
+    async findByRangePrice(min: number, max: number, Page: number): Promise<Travel[] | null> {
+        const take = 10
+        const skip = (Page-1)*take
         return await prisma.travel.findMany({
             where:{
                 TravelBasePrice: {
-                    gte:Number(min),
-                    lte:Number(max),
+                    gte: min,
+                    lte: max,
                 }
-            }
+            },
+            skip,
+            take,
+        })
+    }
+
+    /**
+     * Encontrar uma Travel por um intervalo de datas
+     * @param afterDay - Dia que a Travel deve ocorrer depois de
+     * @param beforeDay - Dia que a Travel deve ocorrer antes de
+     * @param Page - Pagina de consulta (para paginação), must not be zero, atleast 1
+     * @returns Uma lista de Travels
+     */
+    async findByRangeDate(afterDay: Date, beforeDay: Date, Page: number): Promise<Travel[] | null> {
+        const take = 10
+        const skip = (Page-1)*take
+        return await prisma.travel.findMany({
+            where:{
+                Travel_Day:{
+                    gte:afterDay,
+                    lte:beforeDay,
+                }
+            },
+            skip,
+            take,
         })
     }
 

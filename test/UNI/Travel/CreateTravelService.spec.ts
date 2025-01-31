@@ -3,6 +3,7 @@ import { CreateTravelUseCase } from "../../../src/services/Travel/CreateTravelSe
 import { InMemoryTravelRepository } from "../../../src/repository/InMemory/InMemoryTravelRepository";
 import { InMemoryPointRepository } from "../../../src/repository/.index";
 import { randomUUID } from "crypto";
+import { EntityDoesNotExistsError } from "../../../src/Errors/EntityDoesNotExistsError";
 
 var Service: CreateTravelUseCase
 var TravelRepo: InMemoryTravelRepository
@@ -13,6 +14,7 @@ describe("Create a Travel Service", async () => {
         PointRepo = new InMemoryPointRepository()
         Service = new CreateTravelUseCase(TravelRepo, PointRepo)
     })
+
     it("Should be able to create a Travel: Good Case", async () => {
         const {Id} = await PointRepo.create({
             Name:"San Francisco",
@@ -26,5 +28,33 @@ describe("Create a Travel Service", async () => {
             Travel_Day: new Date(),
         })
         expect(travel.BeginningPointId).toBe(Id)
+    })
+
+    it("Shouldn't be able to create a Travel whithout the Beginning Point Id: Bad Case", async () => {
+        const {Id} = await PointRepo.create({
+            Name:"San Francisco",
+            route_id:String(randomUUID()),
+            UF:"CE"
+        })
+        await expect(Service.execute({
+            BeginningPointId: "",
+            FinnishPointId: Id,
+            TravelBasePrice: 100,
+            Travel_Day: new Date(),
+        })).rejects.toBeInstanceOf(EntityDoesNotExistsError)
+    })
+
+    it("Shouldn't be able to create a Travel whithout the Finishing Point Id: Bad Case", async () => {
+        const {Id} = await PointRepo.create({
+            Name:"San Francisco",
+            route_id:String(randomUUID()),
+            UF:"CE"
+        })
+        await expect(Service.execute({
+            BeginningPointId: Id,
+            FinnishPointId: "",
+            TravelBasePrice: 100,
+            Travel_Day: new Date(),
+        })).rejects.toBeInstanceOf(EntityDoesNotExistsError)
     })
 })

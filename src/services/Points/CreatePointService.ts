@@ -8,7 +8,7 @@ export class CreatePointUseCase {
     async execute(data:Prisma.PointUncheckedCreateInput):Promise<InServicePoints>{
         const theresAnyPointWithTheSameName = await this.PointRepo.findByName(data.Name)
         if(theresAnyPointWithTheSameName){
-            throw new EntityAlreadyExists("Point","Can't create two cities with the same name");
+            throw new EntityAlreadyExists("Point");
         }
 
         const create = await this.PointRepo.create(data);

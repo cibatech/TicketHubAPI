@@ -19,6 +19,7 @@ export class CreateTicketUseCase {
         }
         const ticket = await this.TicketRepo.create(data)
         return {
+            Id:ticket.Id,
             ValidatedAt: ticket.Validated_at,
             CompletedAt: ticket.Completed_at,
             TravelId: ticket.TravelId,

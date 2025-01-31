@@ -1,4 +1,5 @@
 import { SwaggerOptions } from "@fastify/swagger";
+import { json } from "stream/consumers";
 
 export const docs:SwaggerOptions = {
     openapi:{
@@ -20,7 +21,7 @@ export const docs:SwaggerOptions = {
             "app/user/register": {
        "description": "Rota para registro de novos usuários no sistema",
        "post": {
-           "tags": ["user","app"],
+           "tags": ["user"],
            "summary": "Registra um novo usuário",
            "description": "Endpoint responsável pelo registro de novos usuários na plataforma, realizando validações de dados e verificação de duplicidade",
            "operationId": "registerUser",
@@ -108,11 +109,11 @@ export const docs:SwaggerOptions = {
                }
            }
        }
-            }    ,
+            },
             "app/user/profile": {
        "description": "Rota utilizada para retornar o perfil autenticado do usuário usando um token JWT",
        "get": {
-           "tags": ["user","app"],
+           "tags": ["user"],
            "summary": "Obtém perfil do usuário autenticado",
            "description": "Retorna as informações do perfil do usuário baseado no token JWT fornecido no header Authorization",
            "operationId": "getAuthenticatedUserProfile",
@@ -191,7 +192,7 @@ export const docs:SwaggerOptions = {
     "patch": {
         "summary": "Autenticar usuário e gerar token JWT.",
         "operationId": "loginUser",
-        "tags": ["user", "app"],
+        "tags": ["user"],
         "requestBody": {
             "description": "Corpo da requisição contendo o e-mail e a senha do usuário para autenticação.",
             "required": true,
@@ -255,7 +256,7 @@ export const docs:SwaggerOptions = {
                 }
             }
         ],
-        "tags": ["user", "app"],
+        "tags": ["user"],
         "responses": {
             "200": {
                 "description": "Usuário deletado com sucesso."
@@ -280,7 +281,7 @@ export const docs:SwaggerOptions = {
     "put": {
         "summary": "Atualiza informações do perfil de um usuário.",
         "operationId": "updateUser",
-        "tags": ["user", "app"],
+        "tags": ["user"],
         "requestBody": {
             "description": "Objeto JSON contendo os dados que serão atualizados no perfil do usuário.",
             "required": true,
@@ -350,10 +351,142 @@ export const docs:SwaggerOptions = {
             }
         }
     }
+            },
+            "app/ticket/create":{
+                post:{
+                    tags:["tickets"],
+                    summary:"Rota utilizada para registrar um ticket",
+                    description:"Rota utilizada para registrar um ticket recebendo como parametros um tokenJWT de usuário e um registro de viagem",
+                    parameters:[
+                        {
+                            name:"UserID",
+                            in:"bearer",
+                            description:"Token JWT contendo o ID do usuário",
+                            required:true,
+                            summary:"Bearer com token JWT"
+                        }
+                    ],
+                    requestBody:{
+                        content:{
+                            "application/json":{
+                                example:{
+                                    TravelId:"Id de uma viagem"
+                                }
+                            }
+                        }
+                    },
+                    responses:{
+                        201:{
+                            description:"Ticket registrado para o usuário com sucesso. Aguardando validação do ticket",
+                            summary:"Representa um sucesso no processo de registro do Ticket",
+                            content:{
+                                "application/json":{
+                                    examples:{
+                                        example1:{
+                                            description:"exemplo de resposta para a criação de um ticket",
+                                            value:JSON.parse(`
+                                                    {
+    "Description": "Created Ticket for user",
+    "Ticket": {
+        "Id": "4bfa3738-3c48-4c24-a9e8-01e063f8c3de",
+        "ValidatedAt": null,
+        "CompletedAt": null,
+        "TravelId": "1a0881e4-dbde-478c-8c62-76c86600c15b"
+    }
+}
+                                                `)
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "app/ticket/list":{
+                get:{
+                    summary:"Retorna a lista de tickets de um usuário",
+                    externalDocs:{
+                        url:"https://github.com/cibatech/TicketHubAPI/blob/dev/docs/documentation.md",
+                        description:"Documentação sobre os tickets pode ser encontradas a seguir"
+                    },
+                    parameters:[
+                        {
+                            name:"UserID",
+                            in:"bearer",
+                            description:"Token JWT contendo o ID do usuário",
+                            required:true,
+                            summary:"Bearer com token JWT"
+                        }
+                    ],
+                    tags:["tickets"],
+                    responses:{
+                        200:{
+                            description:"Sucesso no chamado da rota ",
+                            content:{
+                                "application/json":{
+                                    examples:{
+                                        example1:{
+                                            description:"Retorno normal da rota",
+                                            value:JSON.parse(`
+                                                    {
+                                                    "Description": "Returned Ticket List",
+                                                    "Ticket": [
+                                                        {
+                                                            "ValidatedAt": null,
+                                                            "CompletedAt": null,
+                                                            "TravelId": "1a0881e4-dbde-478c-8c62-76c86600c15b",
+                                                            "Id": "4bfa3738-3c48-4c24-a9e8-01e063f8c3de"
+                                                        }
+                                                    ]
+                                                }
+                                                `)
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "app/ticket/cancel":{
+                get:{
+                    summary:"Cancela um Ticket",
+                    externalDocs:{
+                        url:"https://github.com/cibatech/TicketHubAPI/blob/dev/docs/documentation.md",
+                        description:"Documentação sobre os tickets pode ser encontradas a seguir"
+                    },
+                    parameters:[
+                        {
+                            name:"deletedTicket",
+                            in:"query",
+                            description:"Id do bilhete que se deseja deletar",
+                            required:true,
+                            summary:"ID do bilhete"
+                        }
+                    ],
+                    tags:["tickets"],
+                    responses:{
+                        200:{
+                            description:"Sucesso no chamado da rota ",
+                            content:{
+                                "application/json":{
+                                    examples:{
+                                        example1:{
+                                            description:"Retorno normal da rota",
+                                            value:""
+                                        }
+                                    }
+                                }
+                            }
+                        },
+                        404:{
+                            description:"Não existe nenhum bilhete com esse ID"
+                        }
+                    }
+                }
             }
         }
                 
-        
-
     }
 }

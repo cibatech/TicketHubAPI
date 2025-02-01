@@ -124,7 +124,9 @@ model User{
   Id String @id @default(uuid())
   Nome String 
   Email String @unique
-  Password String 
+  Password String
+  CPF String
+  Age Int @default(18)
   
   Tickets Ticket[]
 

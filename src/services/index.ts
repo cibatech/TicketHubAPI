@@ -1,3 +1,6 @@
 export * from "./User/.index"
 export * from "./Points/.index"
+export * from "./Ticket/.index"
+export * from "./Travel/.index"
+export * from "./ClientsTicket/.index"
 export * from "./Mail/SendEmailValidationCode"

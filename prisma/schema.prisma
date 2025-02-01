@@ -84,7 +84,7 @@ model ClientsTicket{
   Age Int @default(18)
   IsCompanion Boolean @default(false)
 
-  TicketRef Ticket @relation(fields: [TicketId],references: [Id])
+  TicketRef Ticket @relation(fields: [TicketId],references: [Id], onDelete: Cascade)
   TicketId String
 }
 

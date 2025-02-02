@@ -5,7 +5,6 @@ import z from "zod";
 import { truncateSync } from "fs";
 import { EntityDoesNotExistsError } from "../../../Errors/EntityDoesNotExistsError";
 
-
 export async function GETUserProfileController(req:FastifyRequest,res:FastifyReply) {
     const service = new GetUserProfileUseCase(new PrismaUserRepository);
 

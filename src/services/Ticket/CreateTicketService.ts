@@ -1,7 +1,11 @@
-import { NullArgumentError } from "../../Errors/NullArgumentError";
 import { TicketRepository } from "../../repository/TicketRepository";
 import { Prisma } from "@prisma/client"
 import { TicketInService } from "../../types/.index";
+import { FormatTicketToTicketInService } from "../../utils/formatTicketToTicketInService";
+import { TravelRepository } from "../../repository/TravelRepository";
+import { EntityDoesNotExistsError } from "../../Errors/EntityDoesNotExistsError";
+import { UserRepository } from "../../repository/UserRepository";
+import { ClientsTicketRepository } from "../../repository/ClientsTicketRepository";
 
 /**
  * Classe Service para criar Tickets
@@ -12,17 +16,23 @@ export class CreateTicketUseCase {
     /**
      * @param TicketRepo `TicketRepository` Repositório para tickets
      */
-    constructor(private TicketRepo: TicketRepository){}
-    async execute(data: Prisma.TicketUncheckedCreateInput): Promise<TicketInService>{
-        if(!data.TravelId){
-            throw new NullArgumentError("TravelId")
-        }
+    constructor(private TicketRepo: TicketRepository, private TravelRepo: TravelRepository, private UserRepo: UserRepository, private ClientsTicketRepo: ClientsTicketRepository){}
+    async execute(data: Prisma.TicketUncheckedCreateInput, CPF: string): Promise<TicketInService>{
+        const doesTravelExists = await this.TravelRepo.findById(data.TravelId)
+        if(!doesTravelExists) throw new EntityDoesNotExistsError("Travel")
+
+        const doesTheUserExists = await this.UserRepo.findById(data.userId)
+        if(!doesTheUserExists) throw new EntityDoesNotExistsError("User")
+
         const ticket = await this.TicketRepo.create(data)
-        return {
-            Id:ticket.Id,
-            ValidatedAt: ticket.Validated_at,
-            CompletedAt: ticket.Completed_at,
-            TravelId: ticket.TravelId,
-        }
+
+        await this.ClientsTicketRepo.create({
+            CPF,
+            OwnerId: doesTheUserExists.Id,
+            PersonName: doesTheUserExists.Nome,
+            TicketId: ticket.Id
+        })
+
+        return FormatTicketToTicketInService(ticket)
     }
 }

@@ -3,7 +3,7 @@ import { EntityDoesNotExistsError } from "../../Errors/EntityDoesNotExistsError"
 import { PointRepository } from "../../repository/PointRepository";
 import { TravelRepository } from "../../repository/TravelRepository";
 import { TravelInService } from "../../types/dtos/InServiceTravel";
-import { FormatTravelToTravelInService } from "../../utils/FormatTravelToTravelInService";
+import { FormatTravelToTravelInService } from "../../utils/format/FormatTravelToTravelInService";
 
 export class CreateTravelUseCase {
     constructor(private TravelRepo: TravelRepository, private PointRepo: PointRepository){}

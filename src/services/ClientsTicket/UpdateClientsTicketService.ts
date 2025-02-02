@@ -3,7 +3,7 @@ import { ClientsTicketRepository } from "../../repository/ClientsTicketRepositor
 import { EntityDoesNotExistsError } from "../../Errors/EntityDoesNotExistsError";
 import { UserRepository } from "../../repository/UserRepository";
 import { ForbiddenActionError } from "../../Errors/ForbiddenActionError";
-import { FormatToInServiceClientsTicket } from "../../utils/FormatToInServiceClientsTicket";
+import { FormatToInServiceClientsTicket } from "../../utils/format/FormatToInServiceClientsTicket";
 
 /**
  * Classe para atualizar um ClientTicket

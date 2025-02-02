@@ -1,7 +1,7 @@
 import { EntityDoesNotExistsError } from "../../Errors/EntityDoesNotExistsError";
 import { TicketRepository } from "../../repository/TicketRepository";
 import { UserRepository } from "../../repository/UserRepository";
-import { FormatTicketsToTicketsInService } from "../../utils/formatTicketToTicketInService";
+import { FormatTicketsToTicketsInService } from "../../utils/format/formatTicketToTicketInService";
 
 /**
  * Classe para pegar Tickets validados de usuário específico

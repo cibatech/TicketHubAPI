@@ -5,8 +5,8 @@ export const docs:SwaggerOptions = {
     openapi:{
         info:{
             title:"TicketHub API documentation",
-            version:"1.0.0.0",
-            description:"Uma API que permite o desenvolvimento de um serviço de compra e venda de passagens em diferentes meio de transporte",
+            version:"1.0.1.0",
+            description:"Uma API que permite o desenvolvimento de um serviço de compra e venda de passagens em diferentes meios de transporte",
             contact:{
                 email:"ciringamen@gmail.com",
                 name:"Thierrir Alencar",
@@ -14,8 +14,9 @@ export const docs:SwaggerOptions = {
             },
         },
         tags:[
-            {name:"app",description:"All the app routes"},
-            {name:"user",description:"Rotas relacionadas ao usuário (CRUD de usuário e autenticação com Login)"}
+            {name:"user",description:"Rotas relacionadas ao usuário (CRUD de usuário e autenticação com Login)"},
+            {name:"client",description:"Rotas de clientes dentro de uma passagem"},
+            {name:"tickets",description:"Rotas de passagens"}
         ],
         paths:{
             "app/user/register": {
@@ -484,6 +485,262 @@ export const docs:SwaggerOptions = {
                             description:"Não existe nenhum bilhete com esse ID"
                         }
                     }
+                }
+            },
+            "app/client/create":{
+                description:"Rota utilizada para registrar um cliente dentro de um ticket",
+                post:{
+                    description:"Rota utilizada para registrar um cliente dentro de um ticket",
+                    summary:"Registro de Cliente em um ticket",
+                    tags:["client"],
+                    requestBody:{
+                        content:{
+                            "application/json":{
+                                example:JSON.parse(`
+                                    {
+                                        "TicketId":"4bfa3738-3c48-4c24-a9e8-01e063f8c3de",
+                                        "Age":27,
+                                        "CPF":"096-399-879-09",
+                                        "IsCompanion":true
+                                    }
+                                        `)
+                            }
+                        }
+                    },
+                    responses:{
+                        201:{
+                                description:"Registrado com sucesso",
+                                content:{
+                                "application/json":{
+                                    example:JSON.parse(`
+                                            {
+    "Description": "Cliente adicionado ao ticket",
+    "Client": {
+        "IsCompanion": true,
+        "PersonName": "Carol Dias",
+        "Age": 27,
+        "CPF": "096-399-879-09",
+        "Id": "f33e75fb-8d2f-4c86-a17c-fb3ca546cf16"
+    }
+}
+                                        `)
+                                }
+                                }
+                        },
+                        404:{
+                            description:"Entidade não encontrada"
+                        },
+                        500:{
+                            description:"Erro desconhecido. Reportar ao dev"
+                        }
+                    },
+                    parameters:[
+                        {
+                            name:"UserID",
+                            in:"bearer",
+                            description:"Token JWT contendo o ID do usuário",
+                            required:true,
+                            summary:"Bearer com token JWT"
+                        }
+                    ]
+                }
+            },
+            "app/client/ticket/:TicketId":{
+                description:"Rota utilizada para retornar a lista de clientes dentro de um ticket",
+                get:{
+                    description:"Rota utilizada para retornar a lista de clientes dentro de um ticket",
+                    summary:"Lista de Clientes em um ticket",
+                    tags:["client"],
+                    parameters:[
+                        {
+                            name:"TicketId",
+                            in:"query",
+                            description:"O Id do ticket que se deseja retornar",
+                            summary:"Id do Ticket",
+                            required:true,
+                        }
+                    ],
+                    responses:{
+                        200:{
+                                description:"Registrado com sucesso",
+                                content:{
+                                "application/json":{
+                                    example:JSON.parse(`
+{
+    "Description": "Lista de clientes retornada com sucesso",
+    "Client": [
+        {
+            "IsCompanion": true,
+            "PersonName": "Carol Dias",
+            "Age": 27,
+            "CPF": "096-399-879-09",
+            "Id": "f33e75fb-8d2f-4c86-a17c-fb3ca546cf16"
+        }
+    ]
+}
+                                        `)
+                                }
+                                }
+                        },
+                        404:{
+                            description:"Entidade não encontrada"
+                        },
+                        500:{
+                            description:"Erro desconhecido. Reportar ao dev"
+                        }
+                    }
+                }
+            },
+            "app/client/delete/:Id":{
+                description:"Rota utilizada para deletar um cliente de dentro de um ticket",
+                delete:{
+                    description:"Rota utilizada para deletar um cliente de dentro de um ticket",
+                    summary:"remover um cliente de um ticket",
+                    tags:["client"],
+                    responses:{
+                        200:{
+                                description:"removido com sucesso",
+                                content:{
+                                "application/json":{
+                                    example:JSON.parse(`
+{
+    "Description": "Cliente removido do ticket",
+    "Client": {
+        "IsCompanion": true,
+        "PersonName": "Carol Dias",
+        "Age": 27,
+        "CPF": "096-399-879-09",
+        "Id": "f33e75fb-8d2f-4c86-a17c-fb3ca546cf16"
+    }
+}
+                                        `)
+                                }
+                                }
+                        },
+                        404:{
+                            description:"Entidade não encontrada"
+                        },
+                        500:{
+                            description:"Erro desconhecido. Reportar ao dev"
+                        },
+                        401:{
+                            description:"O usuário nao está autorizado a remover este cliente",
+                            summary:"Erro de credenciais"
+                        }
+                    },
+                    parameters:[
+                        {
+                            name:"UserID",
+                            in:"bearer",
+                            description:"Token JWT contendo o ID do usuário",
+                            required:true,
+                            schema:{
+                                type:"string"
+                            },
+                            summary:"Bearer com token JWT"
+                        },
+                        {
+                            name:"Id",
+                            in:"query",
+                            required:true,
+                            description:"Id do cliente que se deseja remover",
+                            summary:"Id do cliente",
+                            schema:{
+                                type:"string"
+                            }
+                        }
+                    ]
+                }
+            },
+            "app/cliente/update/:Id":{
+                description:"Rota utilizada para atualizar um cliente dentro de um ticket",
+                put:{
+                    description:"Rota utilizada para atualizar um cliente dentro de um ticket",
+                    summary:"atualizar um Cliente em um ticket",
+                    tags:["client"],
+                    requestBody:{
+                        content:{
+                            "application/json":{
+                                examples:{
+                                    Idade:{
+                                        description:"Atualizar idade",
+                                        value:JSON.parse(`
+                                                                                        {
+                                                "Age":28
+                                            }
+                                            `)
+                                    },
+                                    CPF:{
+                                        description:"Atualizar CPF",
+                                        value:JSON.parse(`
+                                                {
+    "CPF":"339-126-123-98"
+}
+                                            `)
+                                    },
+                                    Nome:{
+                                        description:"Atualizar o nome",
+                                        value:JSON.parse(`
+                                                {
+    "PersonName":"Carol Dias Bueno"
+}
+                                            `)
+                                    }
+                                    
+                                }
+                            }
+                        }
+                    },
+                    responses:{
+                        201:{
+                                description:"atualizado com sucesso",
+                                content:{
+                                "application/json":{
+                                    example:JSON.parse(`
+{
+    "Description": "Cliente atualizado com sucesso",
+    "Client": {
+        "IsCompanion": true,
+        "PersonName": "Carol Dias",
+        "Age": 28,
+        "CPF": "096-399-879-09",
+        "Id": "eaa79328-aba4-40a0-9b8c-9c5fb8d8c536"
+    }
+}
+                                        `)
+                                }
+                                }
+                        },
+                        404:{
+                            description:"Entidade não encontrada"
+                        },
+                        500:{
+                            description:"Erro desconhecido. Reportar ao dev"
+                        },
+                        401:{
+                            description:"O usuário nao está autorizado a remover este cliente",
+                            summary:"Erro de credenciais"
+                        }
+                    },
+                    parameters:[
+                        {
+                            name:"UserID",
+                            in:"bearer",
+                            description:"Token JWT contendo o ID do usuário",
+                            required:true,
+                            summary:"Bearer com token JWT"
+                        },
+                        {
+                            name:"Id",
+                            in:"query",
+                            required:true,
+                            description:"Id do cliente que se deseja remover",
+                            summary:"Id do cliente",
+                            schema:{
+                                type:"string"
+                            }
+                        }
+                    ]
                 }
             }
         }

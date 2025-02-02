@@ -2,7 +2,7 @@ import { EntityDoesNotExistsError } from "../../Errors/EntityDoesNotExistsError"
 import { TicketRepository } from "../../repository/TicketRepository"
 import { UserRepository } from "../../repository/UserRepository"
 import { TicketInService } from "../../types/.index"
-import { FormatTicketsToTicketsInService } from "../../utils/formatTicketToTicketInService"
+import { FormatTicketsToTicketsInService } from "../../utils/format/formatTicketToTicketInService"
 
 /**
  * Classe Service para pegar Tickets pela UserId

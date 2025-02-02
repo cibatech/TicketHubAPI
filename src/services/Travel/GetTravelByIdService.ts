@@ -1,7 +1,7 @@
 import { EntityDoesNotExistsError } from "../../Errors/EntityDoesNotExistsError";
 import { TravelRepository } from "../../repository/TravelRepository";
 import { TravelInService } from "../../types/dtos/InServiceTravel";
-import { FormatTravelToTravelInService } from "../../utils/FormatTravelToTravelInService";
+import { FormatTravelToTravelInService } from "../../utils/format/FormatTravelToTravelInService";
 
 export class GetTravelByIdUseCase {
     constructor(private TravelRepo: TravelRepository){}

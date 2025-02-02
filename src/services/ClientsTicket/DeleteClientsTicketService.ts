@@ -2,7 +2,7 @@ import { EntityDoesNotExistsError } from "../../Errors/EntityDoesNotExistsError"
 import { ForbiddenActionError } from "../../Errors/ForbiddenActionError";
 import { ClientsTicketRepository } from "../../repository/ClientsTicketRepository";
 import { UserRepository } from "../../repository/UserRepository";
-import { FormatToInServiceClientsTicket } from "../../utils/FormatToInServiceClientsTicket";
+import { FormatToInServiceClientsTicket } from "../../utils/format/FormatToInServiceClientsTicket";
 
 /**
  * Classe para deletar um ClientTicket

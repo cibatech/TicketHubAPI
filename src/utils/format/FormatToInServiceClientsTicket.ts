@@ -1,5 +1,5 @@
 import { ClientsTicket } from "@prisma/client";
-import { InServiceClientsTickets } from "../types/dtos/InServiceClientTicket";
+import { InServiceClientsTickets } from "../../types/dtos/InServiceClientTicket";
 
 export function FormatToInServiceClientsTicket(data: ClientsTicket): InServiceClientsTickets {
     return {

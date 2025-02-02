@@ -1,5 +1,5 @@
 import { TicketRepository } from "../../repository/TicketRepository";
-import { FormatTicketsToTicketsInService } from "../../utils/formatTicketToTicketInService";
+import { FormatTicketsToTicketsInService } from "../../utils/format/formatTicketToTicketInService";
 
 /**
  * Classe para pegar Tickets que foram validados

@@ -1,6 +1,6 @@
 import { EntityDoesNotExistsError } from "../../Errors/EntityDoesNotExistsError";
 import { TicketRepository } from "../../repository/TicketRepository";
-import { FormatTicketToTicketInService } from "../../utils/formatTicketToTicketInService";
+import { FormatTicketToTicketInService } from "../../utils/format/formatTicketToTicketInService";
 
 /**
  * Classe Service para procurar Tickets no Banco de Dados

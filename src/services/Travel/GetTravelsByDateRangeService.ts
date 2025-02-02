@@ -1,7 +1,7 @@
 import { EntityNotFoundError } from "../../Errors/EntityNotFoundError";
 import { TravelRepository } from "../../repository/TravelRepository";
 import { TravelInService } from "../../types/dtos/InServiceTravel";
-import { FormatTravelsToTravelInServices } from "../../utils/FormatTravelToTravelInService";
+import { FormatTravelsToTravelInServices } from "../../utils/format/FormatTravelToTravelInService";
 
 interface GetTravelsByRangeDateParams {
     afterDay: Date,

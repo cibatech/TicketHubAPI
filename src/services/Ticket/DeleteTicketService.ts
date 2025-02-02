@@ -2,7 +2,7 @@ import { EntityDoesNotExistsError } from "../../Errors/EntityDoesNotExistsError"
 import { ForbiddenActionError } from "../../Errors/ForbiddenActionError";
 import { TicketRepository } from "../../repository/TicketRepository";
 import { UserRepository } from "../../repository/UserRepository";
-import { FormatTicketToTicketInService } from "../../utils/formatTicketToTicketInService";
+import { FormatTicketToTicketInService } from "../../utils/format/formatTicketToTicketInService";
 
 interface DeleteTicketParams {
     Id: string,

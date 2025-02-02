@@ -3,7 +3,7 @@ import { EntityNotFoundError } from "../../Errors/EntityNotFoundError";
 import { PointRepository } from "../../repository/PointRepository";
 import { TravelRepository } from "../../repository/TravelRepository";
 import { TravelInService } from "../../types/dtos/InServiceTravel";
-import { FormatTravelsToTravelInServices } from "../../utils/FormatTravelToTravelInService";
+import { FormatTravelsToTravelInServices } from "../../utils/format/FormatTravelToTravelInService";
 
 export class GetTravelsByBeginningPointIdUseCase {
     constructor(private TravelRepo: TravelRepository, private PointRepo: PointRepository){}

@@ -2,7 +2,7 @@ import { EntityDoesNotExistsError } from "../../Errors/EntityDoesNotExistsError"
 import { ClientsTicketRepository } from "../../repository/ClientsTicketRepository";
 import { TicketRepository } from "../../repository/TicketRepository";
 import { InServiceClientsTickets } from "../../types/dtos/InServiceClientTicket";
-import { FormatToInServiceClientsTickets } from "../../utils/FormatToInServiceClientsTicket";
+import { FormatToInServiceClientsTickets } from "../../utils/format/FormatToInServiceClientsTicket";
 
 /**
  * Pegar vários ClientsTickets pelo TicketId

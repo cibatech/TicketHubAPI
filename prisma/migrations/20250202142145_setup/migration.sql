@@ -90,6 +90,8 @@ CREATE TABLE "User" (
     "Nome" TEXT NOT NULL,
     "Email" TEXT NOT NULL,
     "Password" TEXT NOT NULL,
+    "CPF" TEXT NOT NULL,
+    "Age" INTEGER NOT NULL DEFAULT 18,
     "Verified" BOOLEAN NOT NULL DEFAULT false,
 
     CONSTRAINT "User_pkey" PRIMARY KEY ("Id")
@@ -117,7 +119,7 @@ ALTER TABLE "Transport" ADD CONSTRAINT "Transport_Company_fkey" FOREIGN KEY ("Co
 ALTER TABLE "Transport" ADD CONSTRAINT "Transport_AssignedRoute_fkey" FOREIGN KEY ("AssignedRoute") REFERENCES "Route"("Id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "ClientsTicket" ADD CONSTRAINT "ClientsTicket_TicketId_fkey" FOREIGN KEY ("TicketId") REFERENCES "Ticket"("Id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "ClientsTicket" ADD CONSTRAINT "ClientsTicket_TicketId_fkey" FOREIGN KEY ("TicketId") REFERENCES "Ticket"("Id") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "Ticket" ADD CONSTRAINT "Ticket_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("Id") ON DELETE RESTRICT ON UPDATE CASCADE;

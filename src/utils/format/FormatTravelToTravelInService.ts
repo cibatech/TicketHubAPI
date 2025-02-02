@@ -1,5 +1,5 @@
 import { Travel } from "@prisma/client";
-import { TravelInService } from "../types/dtos/InServiceTravel";
+import { TravelInService } from "../../types/dtos/InServiceTravel";
 
 export function FormatTravelToTravelInService(data: Travel): TravelInService {
     return {

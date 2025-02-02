@@ -16,8 +16,11 @@ export class CreateUserUseCase{
         const Password = await hash(data.Password,9);
 
         const registerUser = await this.UserRepo.create({
-            Email:data.Email,Nome:data.Nome,Password
+            Email:data.Email,Nome:data.Nome,Password,CPF:data.CPF
         });
+        
+        console.log("Cheguei aqui");
+
 
         return {
             Email:registerUser.Email,

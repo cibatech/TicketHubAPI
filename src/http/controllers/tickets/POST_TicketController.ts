@@ -3,9 +3,17 @@ import { CreateTicketUseCase } from "../../../services/Ticket/CreateTicketServic
 import { PrismaTicketRepository } from "../../../repository/Prisma/PrismaTicketRepository";
 import z from "zod";
 import { NullArgumentError } from "../../../Errors/NullArgumentError";
+import { PrismaTravelRepository } from "../../../repository/Prisma/PrismaTravelRepository";
+import { PrismaClientsTicketRepository, PrismaUserRepository } from "../../../repository/.index";
+import { ClientsTicketRouter } from "../../routes/ClientsTicket.Router";
 
 export async function POSTTicketController(req:FastifyRequest, res:FastifyReply) {
-    const service = new CreateTicketUseCase(new PrismaTicketRepository);
+    const service = new CreateTicketUseCase(
+                        new PrismaTicketRepository,
+                        new PrismaTravelRepository,
+                        new PrismaUserRepository,
+                        new PrismaClientsTicketRepository
+                    );
 
     const UserId = req.user.sub //Get Token from JWT
 

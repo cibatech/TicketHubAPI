@@ -1,7 +1,7 @@
 import { Ticket } from "@prisma/client";
 import { TicketRepository } from "../../repository/TicketRepository";
 import { EntityDoesNotExistsError } from "../../Errors/EntityDoesNotExistsError";
-import { FormatTicketToTicketInService } from "../../utils/formatTicketToTicketInService";
+import { FormatTicketToTicketInService } from "../../utils/format/formatTicketToTicketInService";
 
 /**
  * Classe Service para modificar um Ticket.

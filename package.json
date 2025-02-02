@@ -12,7 +12,7 @@
   "license": "ISC",
   "description": "",
   "dependencies": {
-    "@faker-js/faker": "^9.3.0",
+    "@faker-js/faker": "^9.4.0",
     "@fastify/cookie": "^11.0.2",
     "@fastify/cors": "^10.0.2",
     "@fastify/jwt": "^9.0.3",
@@ -20,7 +20,6 @@
     "@fastify/swagger-ui": "^5.2.0",
     "@prisma/client": "^6.2.1",
     "@types/bcryptjs": "^2.4.6",
-    "@types/faker": "^6.6.11",
     "@types/node": "^22.10.1",
     "@types/nodemailer": "^6.4.17",
     "bcryptjs": "^2.4.3",

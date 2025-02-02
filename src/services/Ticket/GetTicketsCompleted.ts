@@ -1,5 +1,5 @@
 import { TicketRepository } from "../../repository/TicketRepository";
-import { FormatTicketsToTicketsInService } from "../../utils/formatTicketToTicketInService";
+import { FormatTicketsToTicketsInService } from "../../utils/format/formatTicketToTicketInService";
 
 /**
  * Classe Service para pegar Tickets que foram completados
@@ -11,9 +11,12 @@ export class GetTicketsCompletedUseCase {
      * @param TicketRepo - O repositório dos Tickets
      */
     constructor(private TicketRepo: TicketRepository){}
+    /**
+     * Executa o serviço
+     * @returns Uma lista de Tickets completados
+     */
     async execute(){
         const tickets = await this.TicketRepo.findByCompleted()
-        if(!tickets) return null
         return FormatTicketsToTicketsInService(tickets)
     }
 }

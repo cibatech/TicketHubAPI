@@ -1,4 +1,4 @@
-import {    EntityDoesNotExistsError } from "../../Errors/EntityDoesNotExistsError";
+import { EntityDoesNotExistsError } from "../../Errors/EntityDoesNotExistsError";
 import { SendEmail } from "../../lib/nodemailer";
 import { UserRepository } from "../../repository/UserRepository";
 import { EmailType } from "../../types/.index";

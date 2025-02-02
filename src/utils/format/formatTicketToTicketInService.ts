@@ -1,5 +1,5 @@
 import { Ticket } from "@prisma/client"
-import { TicketInService } from "../types/.index"
+import { TicketInService } from "../../types/.index"
 
 export async function FormatTicketToTicketInService(ticket: Ticket): Promise<TicketInService> {
     return {

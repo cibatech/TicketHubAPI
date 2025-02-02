@@ -7,6 +7,7 @@ export function FormatTravelToTravelInService(data: Travel): TravelInService {
         FinishingPointId: data.FinnishPointId,
         TravelBasePrice: data.TravelBasePrice,
         TravelDay: data.Travel_Day,
+        Transport: data.Transport,
         Id: data.Id,
     }
 }
@@ -18,6 +19,7 @@ export function FormatTravelsToTravelInServices(travels: Travel[]): TravelInServ
             FinishingPointId: travel.FinnishPointId,
             TravelBasePrice: travel.TravelBasePrice,
             TravelDay: travel.Travel_Day,
+            Transport: travel.Transport,
             Id: travel.Id,
         }
     })

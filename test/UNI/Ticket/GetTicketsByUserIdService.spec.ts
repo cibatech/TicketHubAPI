@@ -17,6 +17,7 @@ describe("Get a Ticket by the User Id Service: Good Case", async () => {{
             Email: "random@email.com",
             Nome:"Tulyo Zinga",
             Password:"1234",
+            CPF:"123",
         })
         await TicketRepo.create({
             TravelId: "1",

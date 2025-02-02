@@ -1,6 +1,6 @@
 import { FastifyInstance } from "fastify";
 import { VerifyJWT } from "../middlewares";
-import { POSTTicketController, GETTicketListFromUserController, DELETETicketController } from "../controllers";
+import { POSTTicketController, GETTicketListFromUserController, DELETETicketController, GETTicketInfoController } from "../controllers";
 
 export async function TicketRouter(app:FastifyInstance) {
     //POST - ticket/create
@@ -19,6 +19,14 @@ export async function TicketRouter(app:FastifyInstance) {
         preHandler:[VerifyJWT]
     })
     
+    //GET - ticket/info/:Id
+    app.route({
+        url:"/info/:Id",
+        handler:GETTicketInfoController,
+        method:"GET",
+        preHandler:[VerifyJWT]
+    })
+
     //DELETE - tickets/cancel/:deletedTicket
     app.route({
         url:"/cancel/:deletedTicket",

@@ -7,17 +7,19 @@ import { SendWelcomeEmailMessageUseCase } from "../../../services/Mail/SendWelco
 
 export async function POSTUserController(req:FastifyRequest,res:FastifyReply) {
     const service = new CreateUserUseCase(new PrismaUserRepository);
-    const {Email,Password,Nome} = z.object({
+    const {Email,Password,Nome,CPF} = z.object({
         Email:z.string().email(),
         Password:z.string(),
-        Nome:z.string()
+        Nome:z.string(),
+        CPF:z.string()
     }).parse(req.body)
 
     const sendMessageService = new SendWelcomeEmailMessageUseCase(new PrismaUserRepository);
 
     try{
+
         const response = await service.execute({
-            Email,Password,Nome
+            Email,Password,Nome,CPF
         })
 
         res.status(201).send({

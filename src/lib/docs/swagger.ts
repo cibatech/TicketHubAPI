@@ -742,6 +742,71 @@ export const docs:SwaggerOptions = {
                         }
                     ]
                 }
+            },
+            "app/ticket/info/:Id":{
+                get:{
+                    summary:"Retorna as Informações de um ticket incluindo a lista de passageiros",
+                    externalDocs:{
+                        url:"https://github.com/cibatech/TicketHubAPI/blob/dev/docs/documentation.md",
+                        description:"Documentação sobre os tickets pode ser encontradas a seguir"
+                    },
+                    parameters:[
+                        {
+                            name:"UserID",
+                            in:"bearer",
+                            description:"Token JWT contendo o ID do usuário",
+                            required:true,
+                            summary:"Bearer com token JWT"
+                        },
+                        {
+                            name:"Id",
+                            in:"query",
+                            description:"Id do ticket",
+                            required:true,
+                            summary:"Id do ticket"
+                        }
+                    ],
+                    tags:["tickets"],
+                    responses:{
+                        200:{
+                            description:"Sucesso no chamado da rota ",
+                            content:{
+                                "application/json":{
+                                    examples:{
+                                        example1:{
+                                            description:"Retorno normal da rota",
+                                            value:JSON.parse(`
+                                                    {
+    "Description": "Informações do ticket retornadas com sucesso",
+    "response": {
+        "ticket": {
+            "ValidatedAt": null,
+            "CompletedAt": null,
+            "TravelId": "6143e284-cce8-47d0-9ab8-8d5d5d3fdc3c",
+            "Id": "0edfe017-1825-4f0c-aa37-ecab39a9eb2e",
+            "TotalTicketPrice": 0
+        },
+        "ClientList": [
+            {
+                "Id": "1e22ed10-0d3c-4c47-a4a8-b24fd0e46325",
+                "OwnerId": "8d32c275-acba-4d66-825b-dc9ad6858d01",
+                "PersonName": "Carol Dias",
+                "CPF": "097-899-567-98",
+                "Age": 18,
+                "IsCompanion": false,
+                "TicketId": "0edfe017-1825-4f0c-aa37-ecab39a9eb2e"
+            }
+        ]
+    }
+}
+                                                `)
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
             }
         }
                 

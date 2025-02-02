@@ -4,18 +4,20 @@ import { InMemoryTicketRepository } from "../../../src/repository/InMemory/InMem
 import { InMemoryUserRepository } from "../../../src/repository/InMemory/InMemoryUserRepository";
 import { EntityDoesNotExistsError } from "../../../src/Errors/EntityDoesNotExistsError";
 import { CreateClientsTicketUseCase } from "../../../src/services/ClientsTicket/CreateClientsTicketService";
+import { InMemoryTravelRepository } from "../../../src/repository/InMemory/InMemoryTravelRepository";
 
 var Service: CreateClientsTicketUseCase;
 var ClientsTicketRepo: InMemoryClientsTicketRepository;
 var TicketRepo: InMemoryTicketRepository;
 var UserRepo: InMemoryUserRepository;
-
+var TravelRepo: InMemoryTravelRepository
 describe("Create a ClientsTicket Service", async () => {
   beforeEach(async () => {
     ClientsTicketRepo = new InMemoryClientsTicketRepository();
     TicketRepo = new InMemoryTicketRepository();
     UserRepo = new InMemoryUserRepository();
-    Service = new CreateClientsTicketUseCase(ClientsTicketRepo, TicketRepo, UserRepo);
+    TravelRepo = new InMemoryTravelRepository()
+    Service = new CreateClientsTicketUseCase(ClientsTicketRepo, TicketRepo, UserRepo,TravelRepo);
   });
 
   it("Should be able to create a ClientsTicket: Good Case", async () => {
@@ -34,7 +36,6 @@ describe("Create a ClientsTicket Service", async () => {
       OwnerId: user.Id,
       TicketId: ticket.Id,
       IsCompanion: false,
-      PersonName: "Jane Doe",
       Age: 25,
       CPF: "123.456.789-10"
     });
@@ -52,7 +53,6 @@ describe("Create a ClientsTicket Service", async () => {
       OwnerId: "",
       TicketId: ticket.Id,
       IsCompanion: false,
-      PersonName: "Jane Doe",
       Age: 25,
       CPF: "123.456.789-10"
     })).rejects.toBeInstanceOf(EntityDoesNotExistsError);
@@ -69,7 +69,6 @@ describe("Create a ClientsTicket Service", async () => {
       OwnerId: user.Id,
       TicketId: "",
       IsCompanion: false,
-      PersonName: "Jane Doe",
       Age: 25,
       CPF: "123.456.789-10"
     })).rejects.toBeInstanceOf(EntityDoesNotExistsError);

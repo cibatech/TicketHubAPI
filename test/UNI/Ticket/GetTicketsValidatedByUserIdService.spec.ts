@@ -17,6 +17,7 @@ describe("Get The Validated Tickets of a User Service", () => {
             Email:"dragonbollz@email.com",
             Nome:"Tulyo Zinga",
             Password:"1234",
+            CPF:"1234"
         })
         const {Id} = await TicketRepo.create({
             TravelId:"",

@@ -18,6 +18,7 @@ describe("Get the Completed Tickets of a User", () => {
             Email:"random@email.com",
             Nome:"Tulyo Zinga",
             Password:"1234",
+            CPF:"1223"
         })
         const {Id} = await TicketRepo.create({
             TravelId:"2",

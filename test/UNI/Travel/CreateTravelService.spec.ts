@@ -26,6 +26,7 @@ describe("Create a Travel Service", async () => {
             FinnishPointId: Id,
             TravelBasePrice: 100,
             Travel_Day: new Date(),
+            Transport:"Air",
         })
         expect(travel.BeginningPointId).toBe(Id)
     })
@@ -41,6 +42,7 @@ describe("Create a Travel Service", async () => {
             FinnishPointId: Id,
             TravelBasePrice: 100,
             Travel_Day: new Date(),
+            Transport: "Air",
         })).rejects.toBeInstanceOf(EntityDoesNotExistsError)
     })
 
@@ -55,6 +57,7 @@ describe("Create a Travel Service", async () => {
             FinnishPointId: "",
             TravelBasePrice: 100,
             Travel_Day: new Date(),
+            Transport: "Air"
         })).rejects.toBeInstanceOf(EntityDoesNotExistsError)
     })
 })

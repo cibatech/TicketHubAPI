@@ -2,6 +2,7 @@ import { routeKind } from "@prisma/client";
 import { TravelRepository } from "../../repository/TravelRepository";
 import { PointRepository } from "../../repository/PointRepository";
 import { EntityDoesNotExistsError } from "../../Errors/EntityDoesNotExistsError";
+import { FormatTravelsToTravelInServices } from "../../utils/format/FormatTravelToTravelInService";
 
 interface FilterTravelParams {
     BeginningPointId?: string,

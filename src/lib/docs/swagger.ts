@@ -16,7 +16,8 @@ export const docs:SwaggerOptions = {
         tags:[
             {name:"user",description:"Rotas relacionadas ao usuário (CRUD de usuário e autenticação com Login)"},
             {name:"client",description:"Rotas de clientes dentro de uma passagem"},
-            {name:"tickets",description:"Rotas de passagens"}
+            {name:"tickets",description:"Rotas de passagens"},
+            {name:"travel",description:"Rotas de viagens, normalmente para pesquisa"}
         ],
         paths:{
             "app/user/register": {
@@ -804,6 +805,70 @@ export const docs:SwaggerOptions = {
                                     }
                                 }
                             }
+                        }
+                    }
+                }
+            },
+            "app/travel/filter":{
+                description:"Retorna a lista de viagens a partir de filtros",
+                patch:{
+                    description:"Retorna a lista de viagens a partir de filtros",
+                    summary:"Lista de viagens filtrada",
+                    requestBody:{
+                        description:"Corpo da requisição, utilizado no patch para retornar a lista de viagens",
+                        content:{
+                            "application/json":{
+                                examples:{
+                                    example1:{
+                                        description:"Pesquisa Com diversos parametros",
+                                        value:JSON.parse(`
+                                                        {"RouteKind":"Air",
+                                                        "afterDay":"Data",
+                                                        "beforeDay":"data",
+                                                        "BeginningPointId":"Id",
+                                                        "FinishingPointId":"Id"}
+                                            `)
+                                    }
+                                }
+                            }
+                        },
+                        required:true,
+                        summary:"Corpo com parametros de pesquisa"
+                    },
+                    tags:["travel"],  
+                    responses:{
+                        200:{
+                            description:"Lista retornada com sucesso",
+                            content:{
+                                "application/json":{
+                                    examples:{
+                                        example1:{
+                                            value:JSON.parse(`
+                                                    {
+    "Description": "Lista de Viagens retornada e filtrada com sucesso",
+    "response": [
+        {
+            "BeginningPointId": "82cbc461-6e10-4730-9f28-c9dfc23c9498",
+            "FinishingPointId": "2bd35d96-e1b6-492f-872d-bac184ac5972",
+            "TravelBasePrice": 0,
+            "TravelDay": "1970-01-01T00:00:00.000Z",
+            "Transport": "Land",
+            "Id": "6143e284-cce8-47d0-9ab8-8d5d5d3fdc3c"
+        }
+    ],
+    "config": {}
+}
+                                                `)
+                                        }
+                                    }
+                                }
+                            }
+                        },
+                        404:{
+                            description:"Entidade nao encontrada (possivelmente um ponto da rota)"
+                        },
+                        500:{
+                            description:"Erro desconhecido"
                         }
                     }
                 }

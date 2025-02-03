@@ -112,7 +112,7 @@ model Travel{ //Viagem na loja
   BeginningPointId String
   FinnishPointId String
   Travel_Day DateTime // day of the travel
-  Transport routeKind
+  Transport routeKind @default(Land)
 
   BegginingPoint Point @relation(name: "Beginning", fields: [BeginningPointId], references: [Id])
   FinishPoint Point @relation(name: "Ending", fields: [FinnishPointId], references: [Id])

@@ -385,9 +385,17 @@ export const docs:SwaggerOptions = {
                     requestBody:{
                         content:{
                             "application/json":{
-                                example:{
-                                    TravelId:"Id de uma viagem"
-                                }
+                                example:
+                                    {
+                                        "TravelId":"1a0881e4-dbde-478c-8c62-76c86600c15b",
+                                        "CompanionsList":[
+                                            {
+                                                "Age":22,
+                                                "CPF":"909,-809-789-90",
+                                                "Name":"Jonnathan Doe"
+                                            }
+                                        ]
+                                    }
                             }
                         }
                     },

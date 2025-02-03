@@ -132,9 +132,13 @@ export class PrismaTravelRepository implements TravelRepository {
      * @param where - Prisma.WhereTravelInput
      * @returns Lista de Travels
      */
-    async findByFilter(where: Prisma.TravelWhereInput): Promise<Travel[]> {
+    async findByFilter(where: Prisma.TravelWhereInput, page: number): Promise<Travel[]> {
+        const take = 10
+        const skip = (page-1)*take
         return prisma.travel.findMany({
             where,
+            skip,
+            take,
         })
     }
 

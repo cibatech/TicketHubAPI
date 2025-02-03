@@ -17,13 +17,23 @@ export async function POSTTicketController(req:FastifyRequest, res:FastifyReply)
 
     const UserId = req.user.sub //Get Token from JWT
 
-    const {TravelId} = z.object({
+    const {TravelId,CompanionsList} = z.object({
         TravelId:z.string().uuid(),
+        CompanionsList:z.array(z.object({
+            Age:z.number(),
+            CPF:z.string(),
+            IsCompanion:z.boolean().default(false),
+            Name:z.string()
+        }))
     }).parse(req.body)
 
     try{
+        
         const response = await service.execute({
-            TravelId,userId:UserId
+            data:{
+                TravelId,userId:UserId
+            },
+            CompanionsList:CompanionsList
         })
 
         res.status(201).send({

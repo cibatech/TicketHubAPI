@@ -1,6 +1,5 @@
-import { routeKind } from "@prisma/client";
+import { Point, routeKind } from "@prisma/client";
 import { TravelRepository } from "../../repository/TravelRepository";
-import { TravelInService } from "../../types/dtos/InServiceTravel";
 import { PointRepository } from "../../repository/PointRepository";
 import { EntityDoesNotExistsError } from "../../Errors/EntityDoesNotExistsError";
 import { FormatTravelsToTravelInServices } from "../../utils/format/FormatTravelToTravelInService";
@@ -14,7 +13,14 @@ interface FilterTravelParams {
     minPrice?: number,
     maxPrice?: number,
 }
-
+interface TravelFilterResponse{
+    BeginningPoint: Point,
+    FinishingPoint: Point,
+    TravelBasePrice: number,
+    TravelDay: Date,
+    Transport: routeKind
+    Id: string,
+}
 export class GetTravelsByFilterUseCase {
     constructor(private TravelRepo: TravelRepository, private PointRepo: PointRepository){}
     async execute({
@@ -25,13 +31,13 @@ export class GetTravelsByFilterUseCase {
         RouteKind,
         BeginningPointId,
         FinishingPointId,
-    }: FilterTravelParams): Promise<TravelInService[]>{
+    }: FilterTravelParams, Page: number) {
         if(BeginningPointId){
-            const doesBeginningPointExists = await this.PointRepo.findById(BeginningPointId)
+            var doesBeginningPointExists = await this.PointRepo.findById(BeginningPointId)
             if(!doesBeginningPointExists) throw new EntityDoesNotExistsError("BeginningPoint")
         }
         if(FinishingPointId){
-            const doesFinishingPointExists = await this.PointRepo.findById(FinishingPointId)
+            var doesFinishingPointExists = await this.PointRepo.findById(FinishingPointId)
             if(!doesFinishingPointExists) throw new EntityDoesNotExistsError("FinishingPoint")
         }
 
@@ -47,7 +53,16 @@ export class GetTravelsByFilterUseCase {
             Transport:RouteKind,
             BeginningPointId,
             FinnishPointId: FinishingPointId,
+        }, Page)
+
+        return travels.map((travel) => {
+            return {
+                TravelBasePrice: travel.TravelBasePrice,
+                TravelDay: travel.Travel_Day,
+                Transport: travel.Transport,
+                BeginningPoint: doesBeginningPointExists,
+                FinishingPoint: doesFinishingPointExists,
+            }
         })
-        return FormatTravelsToTravelInServices(travels)
     }
 }

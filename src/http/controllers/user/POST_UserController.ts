@@ -11,7 +11,8 @@ export async function POSTUserController(req:FastifyRequest,res:FastifyReply) {
         Email:z.string().email(),
         Password:z.string(),
         Nome:z.string(),
-        CPF:z.string()
+        CPF:z.string(),
+        Age:z.string().optional()
     }).parse(req.body)
 
     const sendMessageService = new SendWelcomeEmailMessageUseCase(new PrismaUserRepository);

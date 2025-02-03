@@ -55,16 +55,30 @@ export const docs:SwaggerOptions = {
                                    "minLength": 3,
                                    "maxLength": 100,
                                    "example": "Carol Dias"
+                               },
+                               "CPF":{
+                                    "type":"string",
+                                    "description":"CPF do usuário",
+                                    "maxLength":11,
+                                    "minLength":11,
+                                    "example":"098.900.879-98"
+                               },
+                               "Age":{
+                                    "type":"number",
+                                    "description":"Idade do usuário",
+                                    "required":["false"],
+                                    "example":14
                                }
                            }
                        },
                        "examples": {
                            "default": {
                                "value": {
-                                   "Email": "caroldias@gmail.com",
-                                   "Password": "Admin123!",
-                                   "Nome": "Carol Dias"
-                               }
+                                    "Email": "thierriralencar@gmail.com",
+                                    "Password": "Admin123!",
+                                    "Nome": "Thierrir Alencar",
+                                    "CPF":"097-899-567-98"
+                              }
                            }
                        }
                    }
@@ -822,11 +836,13 @@ export const docs:SwaggerOptions = {
                                     example1:{
                                         description:"Pesquisa Com diversos parametros",
                                         value:JSON.parse(`
-                                                        {"RouteKind":"Air",
-                                                        "afterDay":"Data",
-                                                        "beforeDay":"data",
-                                                        "BeginningPointId":"Id",
-                                                        "FinishingPointId":"Id"}
+                                                        {
+                                                            "RouteKind":"Air",
+                                                            "afterDay":"Data",
+                                                            "beforeDay":"data",
+                                                            "BeginningPointId":"Id",
+                                                            "FinishingPointId":"Id"
+                                                        }
                                             `)
                                     }
                                 }

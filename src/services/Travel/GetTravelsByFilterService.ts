@@ -1,4 +1,4 @@
-import { routeKind } from "@prisma/client";
+import { Point, routeKind } from "@prisma/client";
 import { TravelRepository } from "../../repository/TravelRepository";
 import { TravelInService } from "../../types/dtos/InServiceTravel";
 import { PointRepository } from "../../repository/PointRepository";
@@ -14,7 +14,14 @@ interface FilterTravelParams {
     minPrice?: number,
     maxPrice?: number,
 }
-
+interface TravelFilterResponse{
+    BeginningPoint: Point,
+    FinishingPoint: Point,
+    TravelBasePrice: number,
+    TravelDay: Date,
+    Transport: routeKind
+    Id: string,
+}
 export class GetTravelsByFilterUseCase {
     constructor(private TravelRepo: TravelRepository, private PointRepo: PointRepository){}
     async execute({

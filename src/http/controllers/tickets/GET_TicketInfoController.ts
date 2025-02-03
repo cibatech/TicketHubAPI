@@ -4,28 +4,32 @@ import { PrismaTicketRepository } from "../../../repository/Prisma/PrismaTicketR
 import { GetTicketsByUserIdUseCase } from "../../../services/Ticket/GetTicketsByUserIdService";
 import { PrismaUserRepository } from "../../../repository/Prisma/PrismaUserRepository";
 import { EntityDoesNotExistsError } from "../../../Errors/EntityDoesNotExistsError";
-import { DeleteTicketUseCase } from "../../../services/Ticket/DeleteTicketService";
+import { GetTicketByIdUseCase } from "../../../services";
+import { PrismaClientsTicketRepository } from "../../../repository/.index";
 import z from "zod";
 
-export async function DELETETicketController(req:FastifyRequest, res:FastifyReply) {
-    const service = new DeleteTicketUseCase(new PrismaTicketRepository, new PrismaUserRepository);
+export async function GETTicketInfoController(req:FastifyRequest, res:FastifyReply) {
+    const service = new GetTicketByIdUseCase(new PrismaTicketRepository, new PrismaClientsTicketRepository);
 
-    const {deleteTicket} = z.object({
-        deleteTicket:z.string()
+    const {Id} = z.object({
+        Id:z.string().uuid()
     }).parse(req.params)
 
-    const UserId = req.user.sub;
     try{
-        const response = await service.execute({Id:deleteTicket,UserId})
+        const response = await service.execute(Id)
 
         res.status(200).send({
-            Description:"Deleted the specified ticket",
-            Ticket:response
+            Description:"Informações do ticket retornadas com sucesso",
+            response
         })
     }catch(err){
         if(err instanceof EntityDoesNotExistsError){
             res.status(404).send({
-                Description:"Can't find any ticket with the specified ID"
+                Description:"Não foi possivel encontrar o ticket"
+            })
+        }else{
+            res.status(500).send({
+                Description:"Erro desconhecido"
             })
         }
     }

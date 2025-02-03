@@ -16,6 +16,7 @@ describe("Get Travels By Range Price Test: Good Case", () => {
             FinnishPointId: "",
             Travel_Day: new Date(),
             TravelBasePrice: 6,
+            Transport:"Air",
         })
         Id = travel.Id
     })
@@ -35,6 +36,7 @@ describe("Get Travels By Range Price Test: Bad Case", () => {
             FinnishPointId: "",
             Travel_Day: new Date(),
             TravelBasePrice: 6,
+            Transport:"Air",
         })
     })
 

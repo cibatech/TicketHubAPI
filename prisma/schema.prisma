@@ -106,18 +106,18 @@ model Ticket{
 
 model Travel{ //Viagem na loja
   Id String @id @default(uuid())
-  
+
   TravelBasePrice Float 
 
   BeginningPointId String
   FinnishPointId String
   Travel_Day DateTime // day of the travel
-
+  Transport routeKind @default(Land)
 
   BegginingPoint Point @relation(name: "Beginning", fields: [BeginningPointId], references: [Id])
   FinishPoint Point @relation(name: "Ending", fields: [FinnishPointId], references: [Id])
   
-  TicketList Ticket[]
+  TicketList Ticket[]
 }
 
 model User{

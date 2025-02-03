@@ -17,7 +17,7 @@ export class CreateTicketUseCase {
      * @param TicketRepo `TicketRepository` Repositório para tickets
      */
     constructor(private TicketRepo: TicketRepository, private TravelRepo: TravelRepository, private UserRepo: UserRepository, private ClientsTicketRepo: ClientsTicketRepository){}
-    async execute(data: Prisma.TicketUncheckedCreateInput, CPF: string): Promise<TicketInService>{
+    async execute(data: Prisma.TicketUncheckedCreateInput): Promise<TicketInService>{
         
         const doesTheUserExists = await this.UserRepo.findById(data.userId)
         if(!doesTheUserExists) throw new EntityDoesNotExistsError("User")
@@ -26,7 +26,7 @@ export class CreateTicketUseCase {
 
 
         await this.ClientsTicketRepo.create({
-            CPF,
+            CPF:doesTheUserExists.CPF,
             OwnerId: doesTheUserExists.Id,
             PersonName: doesTheUserExists.Nome,
             TicketId: ticket.Id

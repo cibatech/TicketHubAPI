@@ -128,6 +128,17 @@ export class PrismaTravelRepository implements TravelRepository {
     }
 
     /**
+     * Procurar Travels por meio de filtragem
+     * @param where - Prisma.WhereTravelInput
+     * @returns Lista de Travels
+     */
+    async findByFilter(where: Prisma.TravelWhereInput): Promise<Travel[]> {
+        return prisma.travel.findMany({
+            where,
+        })
+    }
+
+    /**
      * Atualizar uma Travel
      * @param Id - O Id da Travel a ser atualizada
      * @param data - Os dados que serão atualizados

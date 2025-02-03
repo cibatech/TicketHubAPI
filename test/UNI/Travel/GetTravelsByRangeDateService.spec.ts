@@ -13,7 +13,8 @@ describe("Get Travel by a Range Date Test: Good Case", () => {
             BeginningPointId:"",
             FinnishPointId:"a",
             TravelBasePrice:1,
-            Travel_Day: new Date("2025-01-27")
+            Travel_Day: new Date("2025-01-27"),
+            Transport:"Air",
         })
     })
 

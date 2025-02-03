@@ -3,4 +3,5 @@ export interface TicketInService {
     CompletedAt: Date | null,
     TravelId: string,
     Id: string,
+    TotalTicketPrice:number
 }

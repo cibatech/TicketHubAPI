@@ -14,6 +14,7 @@ export class InMemoryTravelRepository implements TravelRepository {
             TravelBasePrice: data.TravelBasePrice,
             BeginningPointId: data.BeginningPointId,
             FinnishPointId: data.FinnishPointId,
+            Transport: data.Transport
         }
         this.travels.push(newTravel)
         return newTravel
@@ -50,6 +51,10 @@ export class InMemoryTravelRepository implements TravelRepository {
                             .slice((Page-1)*20, Page*20)
         if(!travelList.length) return null
         return travelList
+    }
+
+    async findByFilter(where: Prisma.TravelWhereInput): Promise<Travel[]> {
+        return []
     }
 
     async update(Id: string, data: Partial<Travel>): Promise<Travel | null> {

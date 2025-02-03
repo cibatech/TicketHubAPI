@@ -3,12 +3,14 @@ import { CreateClientsTicketUseCase } from "../../../services";
 import { PrismaClientsTicketRepository, PrismaTicketRepository, PrismaUserRepository } from "../../../repository/.index";
 import z from "zod";
 import { EntityDoesNotExistsError } from "../../../Errors/EntityDoesNotExistsError";
+import { PrismaTravelRepository } from "../../../repository/Prisma/PrismaTravelRepository";
 
 export async function POSTClientsTicketController(req:FastifyRequest, res:FastifyReply) {
         const service = new CreateClientsTicketUseCase(
             new PrismaClientsTicketRepository,
             new PrismaTicketRepository,
-            new PrismaUserRepository
+            new PrismaUserRepository,
+            new PrismaTravelRepository
         )
 
         const OwnerId = req.user.sub;

@@ -3,6 +3,8 @@ import { TicketRepository } from "../../repository/TicketRepository";
 import { UserRepository } from "../../repository/UserRepository";
 import { EntityDoesNotExistsError } from "../../Errors/EntityDoesNotExistsError";
 import { FormatToInServiceClientsTicket } from "../../utils/format/FormatToInServiceClientsTicket";
+import { TravelRepository } from "../../repository/TravelRepository";
+import { NullArgumentError } from "../../Errors/NullArgumentError";
 
 
 export interface CreateClienstTicketInterface{
@@ -23,7 +25,7 @@ export interface CreateClienstTicketInterface{
  * @return O ClientTicket criado
  */
 export class CreateClientsTicketUseCase {
-    constructor(private ClientsTicketRepo: ClientsTicketRepository, private TicketRepo: TicketRepository, private UserRepo: UserRepository){}
+    constructor(private ClientsTicketRepo: ClientsTicketRepository, private TicketRepo: TicketRepository, private UserRepo: UserRepository,private TravelRepo:TravelRepository){}
     async execute(data:CreateClienstTicketInterface){
         const doesUserExists = await this.UserRepo.findById(data.OwnerId)
         if(!doesUserExists) throw new EntityDoesNotExistsError("User")
@@ -38,6 +40,18 @@ export class CreateClientsTicketUseCase {
             IsCompanion:data.IsCompanion,
             Age:data.Age?data.Age:18,
             CPF:data.CPF
+        })
+
+        
+        const travel = await this.TravelRepo.findById(doesTicketExists.TravelId)
+        if(!travel){
+            throw new NullArgumentError("Travel")
+        }
+        const price = travel.TravelBasePrice;
+
+        //atualiza o preço do ticket
+        await this.TicketRepo.update(data.TicketId,{
+            TotalTicketPrice:doesTicketExists.TotalTicketPrice+price
         })
 
         return FormatToInServiceClientsTicket(clientTicket)

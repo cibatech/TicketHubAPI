@@ -8,14 +8,15 @@ import { DeleteTicketUseCase } from "../../../services/Ticket/DeleteTicketServic
 import z from "zod";
 
 export async function DELETETicketController(req:FastifyRequest, res:FastifyReply) {
-    const service = new DeleteTicketUseCase(new PrismaTicketRepository);
+    const service = new DeleteTicketUseCase(new PrismaTicketRepository, new PrismaUserRepository);
 
-    const {deletedTicket} = z.object({
-        deletedTicket:z.string()
+    const {deleteTicket} = z.object({
+        deleteTicket:z.string()
     }).parse(req.params)
 
+    const UserId = req.user.sub;
     try{
-        const response = await service.execute(deletedTicket)
+        const response = await service.execute({Id:deleteTicket,UserId})
 
         res.status(200).send({
             Description:"Deleted the specified ticket",

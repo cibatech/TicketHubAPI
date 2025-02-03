@@ -15,6 +15,7 @@ describe("Get Travels by the Id Service: Good Case", async () => {
             FinnishPointId: "",
             Travel_Day: new Date(),
             TravelBasePrice: 6,
+            Transport:"Air",
         })
         Id = travel.Id
     })
@@ -34,6 +35,7 @@ describe("Get Travels by the Id Service: Bad Case", async () => {
             FinnishPointId: "",
             Travel_Day: new Date(),
             TravelBasePrice: 6,
+            Transport:"Air",
         })
     })
 

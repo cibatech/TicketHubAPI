@@ -19,6 +19,7 @@ describe("Delete Ticket: Good Case", async () => {
             Email:"example@gmail.com",
             Nome:"Tulyo Zinga",
             Password:"1234",
+            CPF:"jj"
         })
         UserId = user.Id
         const ticket = await TicketRepo.create({
@@ -48,6 +49,7 @@ describe("Delete Ticket: Bad Case", async () => {
             Email:"example@gmail.com",
             Nome:"Tulyo Zinga",
             Password:"1234",
+            CPF:"123"
         })
         UserId = user.Id
         const ticket = await TicketRepo.create({
@@ -78,6 +80,7 @@ describe("Delete Ticket: Bad Case", async () => {
             Email:"examplew@gmail.com",
             Nome:"Tulyos Zinga",
             Password:"1234",
+            CPF:"224",
         })
         await expect(Service.execute({
             Id,

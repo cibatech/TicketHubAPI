@@ -23,6 +23,7 @@ describe("Delete Travel Service Test: Good Case", async () => {
             FinnishPointId: point.Id,
             Travel_Day: new Date(),
             TravelBasePrice: 6,
+            Transport:"Air",
         })
         Id = travel.Id
     })

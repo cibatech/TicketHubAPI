@@ -32,11 +32,13 @@ describe("Create Ticket: Good Case", async () => {
             FinnishPointId: Id,
             TravelBasePrice: 100,
             Travel_Day: new Date(),
+            Transport:"Air",
         })
         user = await UserRepo.create({
             Email:"random@email.com",
             Nome:"Tulyo Zinga",
             Password:"1234",
+            CPF:"123",
         })
     })
     it("Should be able to create a Ticket", async () => {
@@ -68,11 +70,13 @@ describe("Create Ticket: Bad Case", async () => {
             FinnishPointId: Id,
             TravelBasePrice: 100,
             Travel_Day: new Date(),
+            Transport:"Air",
         })
         user = await UserRepo.create({
             Email:"random@email.com",
             Nome:"Tulyo Zinga",
             Password:"1234",
+            CPF:"123",
         })
     })
 

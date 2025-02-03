@@ -24,6 +24,7 @@ describe("Get Travels by the Beginning Point Id Service: Good Case", async () =>
             FinnishPointId: Id,
             Travel_Day: new Date(),
             TravelBasePrice: 6,
+            Transport:"Air",
         })
         PointId = Id
     })

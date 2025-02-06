@@ -849,9 +849,10 @@ export const docs:SwaggerOptions = {
                                                             "afterDay":"Data",
                                                             "beforeDay":"data",
                                                             "BeginningPointId":"Id",
-                                                            "FinishingPointId":"Id"
+                                                            "FinishingPointId":"Id",
+                                                            "Page":"number"
                                                         }
-                                            `)
+                                            `),
                                     }
                                 }
                             }
@@ -868,16 +869,62 @@ export const docs:SwaggerOptions = {
                                     examples:{
                                         example1:{
                                             value:JSON.parse(`
-                                                    {
+{
     "Description": "Lista de Viagens retornada e filtrada com sucesso",
     "response": [
         {
-            "BeginningPointId": "82cbc461-6e10-4730-9f28-c9dfc23c9498",
-            "FinishingPointId": "2bd35d96-e1b6-492f-872d-bac184ac5972",
             "TravelBasePrice": 0,
             "TravelDay": "1970-01-01T00:00:00.000Z",
             "Transport": "Land",
-            "Id": "6143e284-cce8-47d0-9ab8-8d5d5d3fdc3c"
+            "BeginningPoint": {
+                "Id": "82cbc461-6e10-4730-9f28-c9dfc23c9498",
+                "Name": "Fortaleza",
+                "UF": "CE",
+                "Description": "CE",
+                "Ports": true,
+                "Railroads": true,
+                "Airports": true,
+                "route_id": "bc209b96-7704-4d9a-9c96-7b74fa4f2d01",
+                "order": 0
+            },
+            "FinishingPoint": {
+                "Id": "2bd35d96-e1b6-492f-872d-bac184ac5972",
+                "Name": "Cedro",
+                "UF": "CE",
+                "Description": "CE",
+                "Ports": false,
+                "Railroads": true,
+                "Airports": false,
+                "route_id": "bc209b96-7704-4d9a-9c96-7b74fa4f2d01",
+                "order": 0
+            }
+        },
+        {
+            "TravelBasePrice": 400,
+            "TravelDay": "1970-01-01T00:00:00.000Z",
+            "Transport": "Land",
+            "BeginningPoint": {
+                "Id": "2bd35d96-e1b6-492f-872d-bac184ac5972",
+                "Name": "Cedro",
+                "UF": "CE",
+                "Description": "CE",
+                "Ports": false,
+                "Railroads": true,
+                "Airports": false,
+                "route_id": "bc209b96-7704-4d9a-9c96-7b74fa4f2d01",
+                "order": 0
+            },
+            "FinishingPoint": {
+                "Id": "82cbc461-6e10-4730-9f28-c9dfc23c9498",
+                "Name": "Fortaleza",
+                "UF": "CE",
+                "Description": "CE",
+                "Ports": true,
+                "Railroads": true,
+                "Airports": true,
+                "route_id": "bc209b96-7704-4d9a-9c96-7b74fa4f2d01",
+                "order": 0
+            }
         }
     ],
     "config": {}

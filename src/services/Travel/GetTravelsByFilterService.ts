@@ -55,14 +55,23 @@ export class GetTravelsByFilterUseCase {
             FinnishPointId: FinishingPointId,
         }, Page)
 
-        return travels.map((travel) => {
-            return {
-                TravelBasePrice: travel.TravelBasePrice,
-                TravelDay: travel.Travel_Day,
-                Transport: travel.Transport,
-                BeginningPoint: doesBeginningPointExists,
-                FinishingPoint: doesFinishingPointExists,
-            }
-        })
+        
+        const response = await Promise.all(
+            travels.map(async (travel) => {
+                const bPoint = await this.PointRepo.findById(travel.BeginningPointId)
+                const pPoint = await this.PointRepo.findById(travel.FinnishPointId)
+
+                return {
+                    TravelBasePrice: travel.TravelBasePrice,
+                    TravelDay: travel.Travel_Day,
+                    Transport: travel.Transport,
+                    BeginningPoint: bPoint,
+                    FinishingPoint: pPoint,
+                }
+            })
+        )
+
+        
+        return response
     }
 }

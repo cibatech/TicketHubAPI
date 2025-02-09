@@ -3,6 +3,7 @@ import { TravelRepository } from "../../repository/TravelRepository";
 import { PointRepository } from "../../repository/PointRepository";
 import { EntityDoesNotExistsError } from "../../Errors/EntityDoesNotExistsError";
 import { FormatTravelsToTravelInServices } from "../../utils/format/FormatTravelToTravelInService";
+import { faker } from "@faker-js/faker";
 
 interface FilterTravelParams {
     BeginningPointId?: string,
@@ -12,14 +13,6 @@ interface FilterTravelParams {
     beforeDay?: Date,
     minPrice?: number,
     maxPrice?: number,
-}
-interface TravelFilterResponse{
-    BeginningPoint: Point,
-    FinishingPoint: Point,
-    TravelBasePrice: number,
-    TravelDay: Date,
-    Transport: routeKind
-    Id: string,
 }
 export class GetTravelsByFilterUseCase {
     constructor(private TravelRepo: TravelRepository, private PointRepo: PointRepository){}
@@ -31,7 +24,7 @@ export class GetTravelsByFilterUseCase {
         RouteKind,
         BeginningPointId,
         FinishingPointId,
-    }: FilterTravelParams, Page: number) {
+    }: FilterTravelParams, Page: number){
         if(BeginningPointId){
             var doesBeginningPointExists = await this.PointRepo.findById(BeginningPointId)
             if(!doesBeginningPointExists) throw new EntityDoesNotExistsError("BeginningPoint")
@@ -62,16 +55,22 @@ export class GetTravelsByFilterUseCase {
                 const pPoint = await this.PointRepo.findById(travel.FinnishPointId)
 
                 return {
+                    CompanyName:faker.company.name(),
                     TravelBasePrice: travel.TravelBasePrice,
                     TravelDay: travel.Travel_Day,
                     Transport: travel.Transport,
                     BeginningPoint: bPoint,
                     FinishingPoint: pPoint,
+                    Id:travel.Id,
                 }
             })
         )
 
         
-        return response
+        return {
+            response, 
+            totalTravels:response.length,
+            totalPages:Math.floor(response.length/5)
+        }
     }
 }

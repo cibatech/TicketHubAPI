@@ -61,12 +61,16 @@ export class GetTravelsByFilterUseCase {
                     Transport: travel.Transport,
                     BeginningPoint: bPoint,
                     FinishingPoint: pPoint,
-                    Id:travel.Id
+                    Id:travel.Id,
                 }
             })
         )
 
         
-        return response
+        return {
+            response, 
+            totalTravels:response.length,
+            totalPages:Math.floor(response.length/5)
+        }
     }
 }

@@ -873,6 +873,94 @@ export const docs:SwaggerOptions = {
     "Description": "Lista de Viagens retornada e filtrada com sucesso",
     "response": [
         {
+            "CompanyName": "Pagac - Green",
+            "TravelBasePrice": 7010,
+            "TravelDay": "2025-07-03T23:54:46.132Z",
+            "Transport": "Land",
+            "BeginningPoint": {
+                "Id": "b9428e14-077e-4c57-9426-281528cde730",
+                "Name": "New Madison",
+                "UF": "Idaho",
+                "Description": "Thalassinus fugit adipiscor terra. Civitas certus tamen adstringo absum cursus voluptates subiungo odit. Aggredior testimonium depulso carbo ulciscor decumbo dedecor casus.",
+                "Ports": false,
+                "Railroads": false,
+                "Airports": false,
+                "route_id": "14c8fbaf-b854-48dc-af73-235f848b3720",
+                "order": 0
+            },
+            "FinishingPoint": {
+                "Id": "695035e3-b5d0-4dd1-a2cb-8b1bd16d24c8",
+                "Name": "Lake Parker",
+                "UF": "Arkansas",
+                "Description": "Deporto maxime canis dedecor strues a. Saepe tabella dolorum aliqua tamquam provident ultio. Crastinus deripio tutamen.",
+                "Ports": true,
+                "Railroads": true,
+                "Airports": false,
+                "route_id": "b022d78c-ad62-4138-8bf4-ac58cdf5f98b",
+                "order": 0
+            },
+            "Id": "002012fe-b9e8-402a-8607-d97f7d46fb3c"
+        },
+        {
+            "CompanyName": "Kozey - Beer",
+            "TravelBasePrice": 9287,
+            "TravelDay": "2025-02-09T20:29:19.435Z",
+            "Transport": "Land",
+            "BeginningPoint": {
+                "Id": "ccad8795-b7e3-459c-8335-4558e7a096ed",
+                "Name": "Marianchester",
+                "UF": "Alaska",
+                "Description": "Utroque comes paulatim apto vestrum articulus fugit sol. Repellendus totidem venia ulterius amita nihil tamen earum laboriosam ascit. Tutamen abstergo inflammatio aeneus trado.",
+                "Ports": false,
+                "Railroads": false,
+                "Airports": true,
+                "route_id": "7312fe1c-cd9e-41d0-9b9f-27b4c9518eb3",
+                "order": 0
+            },
+            "FinishingPoint": {
+                "Id": "da03c207-a7ed-4998-a615-a5aed5e3670b",
+                "Name": "Beulahborough",
+                "UF": "Mississippi",
+                "Description": "Appositus caelestis uredo animus dolorem. Crepusculum aer solutio nihil nemo cogo iure voveo truculenter colligo. Video solutio tersus bonus avarus subito autem vicinus.",
+                "Ports": true,
+                "Railroads": true,
+                "Airports": false,
+                "route_id": "2d3405b8-247a-4c1a-bbf0-61251b458316",
+                "order": 0
+            },
+            "Id": "1035f74f-a8d5-4c36-bb8d-794df760889e"
+        },
+        {
+            "CompanyName": "Brekke Inc",
+            "TravelBasePrice": 9511,
+            "TravelDay": "2025-07-27T02:08:34.698Z",
+            "Transport": "Land",
+            "BeginningPoint": {
+                "Id": "da03c207-a7ed-4998-a615-a5aed5e3670b",
+                "Name": "Beulahborough",
+                "UF": "Mississippi",
+                "Description": "Appositus caelestis uredo animus dolorem. Crepusculum aer solutio nihil nemo cogo iure voveo truculenter colligo. Video solutio tersus bonus avarus subito autem vicinus.",
+                "Ports": true,
+                "Railroads": true,
+                "Airports": false,
+                "route_id": "2d3405b8-247a-4c1a-bbf0-61251b458316",
+                "order": 0
+            },
+            "FinishingPoint": {
+                "Id": "d9aeae8d-91dc-40ad-82b8-8efc7b088659",
+                "Name": "Wildermanstad",
+                "UF": "Illinois",
+                "Description": "Quae absum celo taedium paens sublime umerus somniculosus adeptio vester. Animadverto ipsam triduana perferendis tamisium temeritas. Non confero avaritia commemoro natus denego venio volo summa.",
+                "Ports": false,
+                "Railroads": false,
+                "Airports": false,
+                "route_id": "d2859399-9de1-4f3c-a702-ce5b0cfc9794",
+                "order": 0
+            },
+            "Id": "38272b1d-5a4d-4320-ab31-7e4d61b4a617"
+        },
+        {
+            "CompanyName": "Cummerata LLC",
             "TravelBasePrice": 0,
             "TravelDay": "1970-01-01T00:00:00.000Z",
             "Transport": "Land",
@@ -897,9 +985,98 @@ export const docs:SwaggerOptions = {
                 "Airports": false,
                 "route_id": "bc209b96-7704-4d9a-9c96-7b74fa4f2d01",
                 "order": 0
-            }
+            },
+            "Id": "6143e284-cce8-47d0-9ab8-8d5d5d3fdc3c"
         },
         {
+            "CompanyName": "Altenwerth - Schmitt",
+            "TravelBasePrice": 3582,
+            "TravelDay": "2025-12-07T12:47:53.099Z",
+            "Transport": "Land",
+            "BeginningPoint": {
+                "Id": "e643bf1c-f1f0-41c8-984f-042541248a56",
+                "Name": "Atascocita",
+                "UF": "Kansas",
+                "Description": "Abutor hic vulticulus aestivus curso despecto ullus territo. Auxilium similique absens absorbeo derelinquo vorago. Sum aegre cogo vindico corpus vito incidunt voco sit.",
+                "Ports": true,
+                "Railroads": true,
+                "Airports": true,
+                "route_id": "b778d9fd-9a10-4913-b086-f234be10bc68",
+                "order": 0
+            },
+            "FinishingPoint": {
+                "Id": "8dc0459f-a13a-4cf0-8c8c-8579a8de0c5e",
+                "Name": "East Kristianberg",
+                "UF": "Oregon",
+                "Description": "Una aveho infit supra cimentarius supellex brevis custodia. Comedo adeptio aegre terra ratione. Toties cunabula veritatis carbo.",
+                "Ports": false,
+                "Railroads": false,
+                "Airports": false,
+                "route_id": "8df79032-97c2-4cee-9bb5-f2a3599c1ba7",
+                "order": 0
+            },
+            "Id": "91cfeba2-128a-403d-8cca-6a5a72135b4d"
+        },
+        {
+            "CompanyName": "Rohan - Rodriguez",
+            "TravelBasePrice": 9506,
+            "TravelDay": "2025-07-13T21:09:50.104Z",
+            "Transport": "Land",
+            "BeginningPoint": {
+                "Id": "d9aeae8d-91dc-40ad-82b8-8efc7b088659",
+                "Name": "Wildermanstad",
+                "UF": "Illinois",
+                "Description": "Quae absum celo taedium paens sublime umerus somniculosus adeptio vester. Animadverto ipsam triduana perferendis tamisium temeritas. Non confero avaritia commemoro natus denego venio volo summa.",
+                "Ports": false,
+                "Railroads": false,
+                "Airports": false,
+                "route_id": "d2859399-9de1-4f3c-a702-ce5b0cfc9794",
+                "order": 0
+            },
+            "FinishingPoint": {
+                "Id": "9f852b0f-b9f3-44b7-a3b7-854385cc049e",
+                "Name": "East Luluberg",
+                "UF": "Connecticut",
+                "Description": "Creator textus theologus possimus. Sonitus recusandae censura approbo alii volubilis accendo tracto. Ustilo spoliatio vociferor.",
+                "Ports": false,
+                "Railroads": true,
+                "Airports": true,
+                "route_id": "a24ac547-43b0-43fa-a2b6-0d339e4e0df7",
+                "order": 0
+            },
+            "Id": "ad8fcf9a-7491-4c17-8253-565915ea9b4a"
+        },
+        {
+            "CompanyName": "McCullough, Windler and Beatty",
+            "TravelBasePrice": 4087,
+            "TravelDay": "2025-06-09T18:52:16.484Z",
+            "Transport": "Land",
+            "BeginningPoint": {
+                "Id": "2082776c-3224-4ce7-b9af-03fe8f4e9fae",
+                "Name": "Moorecester",
+                "UF": "Arkansas",
+                "Description": "Paens eligendi centum comis. Curso asporto ubi casus colo creber. Dapifer tamdiu adeo quas suffoco voluptatem tamen cuius.",
+                "Ports": false,
+                "Railroads": true,
+                "Airports": false,
+                "route_id": "3227b3fb-a6f4-4c28-996a-ee45e6ceeb34",
+                "order": 0
+            },
+            "FinishingPoint": {
+                "Id": "ccad8795-b7e3-459c-8335-4558e7a096ed",
+                "Name": "Marianchester",
+                "UF": "Alaska",
+                "Description": "Utroque comes paulatim apto vestrum articulus fugit sol. Repellendus totidem venia ulterius amita nihil tamen earum laboriosam ascit. Tutamen abstergo inflammatio aeneus trado.",
+                "Ports": false,
+                "Railroads": false,
+                "Airports": true,
+                "route_id": "7312fe1c-cd9e-41d0-9b9f-27b4c9518eb3",
+                "order": 0
+            },
+            "Id": "b0f4e92c-4fc1-4102-85a4-f4fdabae3196"
+        },
+        {
+            "CompanyName": "Koss - Reichel",
             "TravelBasePrice": 400,
             "TravelDay": "1970-01-01T00:00:00.000Z",
             "Transport": "Land",
@@ -924,7 +1101,66 @@ export const docs:SwaggerOptions = {
                 "Airports": true,
                 "route_id": "bc209b96-7704-4d9a-9c96-7b74fa4f2d01",
                 "order": 0
-            }
+            },
+            "Id": "babc037f-587b-4493-baf0-4691b4c29b3d"
+        },
+        {
+            "CompanyName": "Mohr LLC",
+            "TravelBasePrice": 7238,
+            "TravelDay": "2025-02-17T11:51:53.022Z",
+            "Transport": "Land",
+            "BeginningPoint": {
+                "Id": "8dc0459f-a13a-4cf0-8c8c-8579a8de0c5e",
+                "Name": "East Kristianberg",
+                "UF": "Oregon",
+                "Description": "Una aveho infit supra cimentarius supellex brevis custodia. Comedo adeptio aegre terra ratione. Toties cunabula veritatis carbo.",
+                "Ports": false,
+                "Railroads": false,
+                "Airports": false,
+                "route_id": "8df79032-97c2-4cee-9bb5-f2a3599c1ba7",
+                "order": 0
+            },
+            "FinishingPoint": {
+                "Id": "2082776c-3224-4ce7-b9af-03fe8f4e9fae",
+                "Name": "Moorecester",
+                "UF": "Arkansas",
+                "Description": "Paens eligendi centum comis. Curso asporto ubi casus colo creber. Dapifer tamdiu adeo quas suffoco voluptatem tamen cuius.",
+                "Ports": false,
+                "Railroads": true,
+                "Airports": false,
+                "route_id": "3227b3fb-a6f4-4c28-996a-ee45e6ceeb34",
+                "order": 0
+            },
+            "Id": "d667bf23-6aa7-417a-8698-964d82db2841"
+        },
+        {
+            "CompanyName": "Kub - Kuhn",
+            "TravelBasePrice": 4138,
+            "TravelDay": "2025-03-09T13:34:39.520Z",
+            "Transport": "Land",
+            "BeginningPoint": {
+                "Id": "9f852b0f-b9f3-44b7-a3b7-854385cc049e",
+                "Name": "East Luluberg",
+                "UF": "Connecticut",
+                "Description": "Creator textus theologus possimus. Sonitus recusandae censura approbo alii volubilis accendo tracto. Ustilo spoliatio vociferor.",
+                "Ports": false,
+                "Railroads": true,
+                "Airports": true,
+                "route_id": "a24ac547-43b0-43fa-a2b6-0d339e4e0df7",
+                "order": 0
+            },
+            "FinishingPoint": {
+                "Id": "b9428e14-077e-4c57-9426-281528cde730",
+                "Name": "New Madison",
+                "UF": "Idaho",
+                "Description": "Thalassinus fugit adipiscor terra. Civitas certus tamen adstringo absum cursus voluptates subiungo odit. Aggredior testimonium depulso carbo ulciscor decumbo dedecor casus.",
+                "Ports": false,
+                "Railroads": false,
+                "Airports": false,
+                "route_id": "14c8fbaf-b854-48dc-af73-235f848b3720",
+                "order": 0
+            },
+            "Id": "df1dfeb6-1122-44e5-96d7-95840892cda3"
         }
     ],
     "config": {}

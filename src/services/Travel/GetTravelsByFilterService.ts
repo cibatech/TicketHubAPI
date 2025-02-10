@@ -48,7 +48,6 @@ export class GetTravelsByFilterUseCase {
             FinnishPointId: FinishingPointId,
         }, Page)
 
-        
         const response = await Promise.all(
             travels.map(async (travel) => {
                 const bPoint = await this.PointRepo.findById(travel.BeginningPointId)
@@ -66,7 +65,6 @@ export class GetTravelsByFilterUseCase {
             })
         )
 
-        
         return {
             response, 
             totalTravels:response.length,

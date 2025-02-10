@@ -27,6 +27,11 @@ export class InMemoryPointRepository implements PointRepository {
     async findById(Id: string): Promise<Point | null> {
         return this.points.find(point => point.Id === Id) ?? null;
     }
+
+    async queryByName(Name: string): Promise<Point[]> {
+        return this.points.filter(point => point.Name.includes(Name))
+    }
+
     async delete(id: string): Promise<Point | null> {
         const index = this.points.findIndex(point => point.Id === id);
         if (index === -1) return null;

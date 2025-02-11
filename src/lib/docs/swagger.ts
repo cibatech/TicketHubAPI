@@ -17,7 +17,8 @@ export const docs:SwaggerOptions = {
             {name:"user",description:"Rotas relacionadas ao usuário (CRUD de usuário e autenticação com Login)"},
             {name:"client",description:"Rotas de clientes dentro de uma passagem"},
             {name:"tickets",description:"Rotas de passagens"},
-            {name:"travel",description:"Rotas de viagens, normalmente para pesquisa"}
+            {name:"travel",description:"Rotas de viagens, normalmente para pesquisa"},
+            {name:"auth",description:"Rotas de authenticação de usuário que envolvem o uso de emails."}
         ],
         paths:{
             "app/user/register": {
@@ -1185,7 +1186,102 @@ export const docs:SwaggerOptions = {
                         }
                     }
                 }
-            }
+            },
+            "app/auth/password": {
+                "get": {
+                    "description": "Rota utilizada para enviar um código de email para o usuário",
+                    "tags": ["auth"],
+                    "parameters": [
+                    {
+                        "in": "query",
+                        "name": "email",
+                        "description": "Email do usuário que receberá o código",
+                        "schema": {
+                        "type": "string",
+                        "format": "email",
+                        "example": "johix89951@prorsd.com"
+                        },
+                        "required": true
+                    }
+                    ],
+                    "responses": {
+                    "200": {
+                        "description": "Código enviado com sucesso",
+                        "content": {
+                        "application/json": {
+                            "examples": {
+                            "example1": {
+                                "value": {
+                                "description": "Email enviado, incluindo código de recuperação",
+                                "response": "106-698-308"
+                                }
+                            }
+                            }
+                        }
+                        }
+                    }
+                    }
+                },
+                "put": {
+                    "tags": ["auth"],
+                    "summary": "Rota que atualiza a senha após email de validação",
+                    "description": "Rota utilizada para atualizar a senha de um usuário fornecendo o código enviado por e-mail",
+                    "requestBody": {
+                    "description": "Corpo necessário para atualizar a senha",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                            "refCode": {
+                                "type": "string",
+                                "description": "Código enviado por email para validar a alteração de senha",
+                                "example": "106-698-308"
+                            },
+                            "newPassword": {
+                                "type": "string",
+                                "description": "Nova senha definida pelo usuário",
+                                "example": "Th123"
+                            }
+                            },
+                            "required": ["refCode", "newPassword"]
+                        }
+                        }
+                    }
+                    },
+                    "responses": {
+                    "200": {
+                        "description": "Senha alterada com sucesso",
+                        "content": {
+                        "application/json": {
+                            "examples": {
+                            "success": {
+                                "value": {
+                                "message": "Senha atualizada com sucesso"
+                                }
+                            }
+                            }
+                        }
+                        }
+                    },
+                    "400": {
+                        "description": "Erro ao atualizar senha (código inválido ou expirado)",
+                        "content": {
+                        "application/json": {
+                            "examples": {
+                            "invalidCode": {
+                                "value": {
+                                "error": "Código de recuperação inválido ou expirado"
+                                }
+                            }
+                            }
+                        }
+                        }
+                    }
+                    }
+                }
+                }
         }
                 
     }

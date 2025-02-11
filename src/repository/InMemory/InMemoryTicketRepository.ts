@@ -43,6 +43,10 @@ export class InMemoryTicketRepository implements TicketRepository {
     async findByCompletedAndUserId(UserId: string): Promise<Ticket[]> {
         return this.tickets.filter(ticket => ticket.userId === UserId && ticket.Completed_at !== null)
     }
+
+    async findByFilter(data: Prisma.TicketWhereInput, page: number): Promise<Ticket[]> {
+        return []
+    }
     
     async update(id: string, data: Partial<Ticket>): Promise<Ticket | null> {
         const ticket = this.tickets.find(ticket => ticket.Id === id);

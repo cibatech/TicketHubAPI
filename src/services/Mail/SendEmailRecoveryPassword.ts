@@ -4,6 +4,7 @@ import { SendEmail } from "../../lib/nodemailer";
 import { UserRepository } from "../../repository/UserRepository";
 import { EmailType } from "../../types/.index";
 import { GenValidationCode } from "../../utils/genValidCode";
+import { ADMIN_EMAIL } from "../../lib/env";
 
 export class SendEmailRecoveryCodeUseCase{
     constructor(private UserRepo:UserRepository){}
@@ -28,7 +29,7 @@ export class SendEmailRecoveryCodeUseCase{
 
                     Atenciosamente,
                     CibaTech
-                    entre em contato conosco em: ciringamen@gmail.com`
+                    entre em contato conosco em: ${ADMIN_EMAIL}`
         }
         //Envia o Email e retorna o código que deve ser guardado em cookie 
 

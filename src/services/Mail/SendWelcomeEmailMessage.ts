@@ -1,4 +1,5 @@
 import { EntityDoesNotExistsError } from "../../Errors/EntityDoesNotExistsError";
+import { ADMIN_EMAIL } from "../../lib/env";
 import { SendEmail } from "../../lib/nodemailer";
 import { UserRepository } from "../../repository/UserRepository";
 import { EmailType } from "../../types/.index";
@@ -24,7 +25,7 @@ export class SendWelcomeEmailMessageUseCase{
 
                     Atenciosamente,
                     CibaTech
-                    entre em contato conosco em: ciringamen@gmail.com`
+                    entre em contato conosco em: ${ADMIN_EMAIL}`
         }
         //Envia o Email e retorna o código que deve ser guardado em cookie 
 

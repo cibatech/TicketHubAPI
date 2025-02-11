@@ -1,4 +1,5 @@
 import { EntityDoesNotExistsError } from "../../Errors/EntityDoesNotExistsError";
+import { ADMIN_EMAIL } from "../../lib/env";
 import { SendEmail } from "../../lib/nodemailer";
 import { UserRepository } from "../../repository/UserRepository";
 import { EmailType } from "../../types/.index";
@@ -15,7 +16,8 @@ export class SendEmailValidationCodeUseCase{
         const _email:EmailType = {
             to:doesTheUserExists.Email,
             subject:"No-Reply Email de Validação de usuário",
-            text:`  Assunto: Verificação de Email
+            text:`  
+                    Assunto: Verificação de Email
 
                     Olá ${doesTheUserExists.Nome},
 
@@ -27,7 +29,8 @@ export class SendEmailValidationCodeUseCase{
 
                     Atenciosamente,
                     CibaTech
-                    entre em contato conosco em: ciringamen@gmail.com`
+                    entre em contato conosco em: ${ADMIN_EMAIL}
+                    `
         }
         //Envia o Email e retorna o código que deve ser guardado em cookie 
 

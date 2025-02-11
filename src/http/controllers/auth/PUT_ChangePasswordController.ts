@@ -4,6 +4,7 @@ import { PrismaUserRepository } from "../../../repository/Prisma/PrismaUserRepos
 import { ValidateUserUseCase } from "../../../services/User/ValidateUserUseCase";
 import z from "zod";
 import { RecoveryPasswordUseCase } from "../../../services/User/RecoverPasswordUseCase";
+import { EntityDoesNotExistsError } from "../../../Errors/EntityDoesNotExistsError";
 
 export async function PUTUpdatePasswordController(req:FastifyRequest,res:FastifyReply) {
     const service = new RecoveryPasswordUseCase(new PrismaUserRepository)
@@ -16,12 +17,12 @@ export async function PUTUpdatePasswordController(req:FastifyRequest,res:Fastify
 
     try{
         const cookie = req.cookies.ValidCode;
-
+        console.log(cookie)
         if(cookie){
             const response = await service.execute(cookie,refCode,newPassword);
 
             res.status(201).send({
-                Description:"Usuário validado com sucesso"
+                Description:"Senha atualizada com sucesso"
             })
         }else{
             res.status(500).send({
@@ -29,6 +30,11 @@ export async function PUTUpdatePasswordController(req:FastifyRequest,res:Fastify
             })
         }
     }catch(err){
-        
+        if(err instanceof EntityDoesNotExistsError){
+            res.status(404).send({
+                Description:"Can't find any user with this ID",
+                err
+            })
+        }
     }
 }

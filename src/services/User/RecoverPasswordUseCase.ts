@@ -15,16 +15,17 @@ export class RecoveryPasswordUseCase{
      */
     async execute(refString:string,RefCode:string,newPassword:string){
 
-        const [UserId,ValCode] = splitStringAtDash(refString);
-
-        const doesTheUserExists = await this.UserRepo.delete(UserId);
+        const [UserEmail,ValCode] = splitStringAtDash(refString);
+        console.log(UserEmail)
+        const doesTheUserExists = await this.UserRepo.findByEmail(UserEmail);
         if(!doesTheUserExists){
             throw new EntityDoesNotExistsError("User");
         }
 
+    
 
         if(RefCode == ValCode){
-            const updateUser = this.UserRepo.update(UserId,{
+            const updateUser = this.UserRepo.update(doesTheUserExists.Id,{
                 Password:await hash(newPassword,9)
             })
         }

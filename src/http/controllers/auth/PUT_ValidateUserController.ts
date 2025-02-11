@@ -14,6 +14,7 @@ export async function PUTValidateUserController(req:FastifyRequest,res:FastifyRe
 
     try{
         const cookie = req.cookies.ValidCode;
+        console.log(cookie)
 
         if(cookie){
             const response = await service.execute(cookie,refCode);

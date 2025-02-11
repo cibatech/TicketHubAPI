@@ -1438,6 +1438,100 @@ export const docs:SwaggerOptions = {
                     }
                 }
             }
+        },
+        "components": {
+            "schemas": {
+            "routeKind": {
+                "type": "string",
+                "enum": ["Air", "Naval", "Land", "Rail"]
+            },
+            "Point": {
+                "type": "object",
+                "properties": {
+                "id": { "type": "string", "format": "uuid" },
+                "name": { "type": "string" },
+                "uf": { "type": "string" },
+                "description": { "type": "string" },
+                "ports": { "type": "boolean", "default": false },
+                "railroads": { "type": "boolean", "default": false },
+                "airports": { "type": "boolean", "default": false },
+                "route_id": { "type": "string" },
+                "order": { "type": "integer", "default": 0 }
+                }
+            },
+            "Route": {
+                "type": "object",
+                "properties": {
+                "id": { "type": "string", "format": "uuid" },
+                "title": { "type": "string" },
+                "description": { "type": "string" },
+                "routeType": { "$ref": "#/components/schemas/routeKind" }
+                }
+            },
+            "Company": {
+                "type": "object",
+                "properties": {
+                "id": { "type": "string", "format": "uuid" },
+                "name": { "type": "string" },
+                "cnpj": { "type": "string" }
+                }
+            },
+            "Transport": {
+                "type": "object",
+                "properties": {
+                "id": { "type": "string", "format": "uuid" },
+                "model": { "type": "string" },
+                "year": { "type": "string", "format": "date-time" },
+                "color": { "type": "string" },
+                "capacity": { "type": "integer", "default": 20 },
+                "company": { "type": "string" },
+                "assignedRoute": { "type": "string" }
+                }
+            },
+            "ClientsTicket": {
+                "type": "object",
+                "properties": {
+                "id": { "type": "string", "format": "uuid" },
+                "ownerId": { "type": "string" },
+                "personName": { "type": "string" },
+                "cpf": { "type": "string" },
+                "age": { "type": "integer", "default": 18 },
+                "isCompanion": { "type": "boolean", "default": false },
+                "ticketId": { "type": "string" }
+                }
+            },
+            "Ticket": {
+                "type": "object",
+                "properties": {
+                "id": { "type": "string", "format": "uuid" },
+                "totalTicketPrice": { "type": "number", "format": "float", "default": 0 },
+                "validatedAt": { "type": "string", "format": "date-time" },
+                "completedAt": { "type": "string", "format": "date-time" },
+                "userId": { "type": "string" },
+                "travelId": { "type": "string" }
+                }
+            },
+            "Travel": {
+                "type": "object",
+                "properties": {
+                "id": { "type": "string", "format": "uuid" },
+                "travelBasePrice": { "type": "number", "format": "float" },
+                "beginningPointId": { "type": "string" },
+                "finnishPointId": { "type": "string" },
+                "travelDay": { "type": "string", "format": "date-time" }
+                }
+            },
+            "User": {
+                "type": "object",
+                "properties": {
+                "id": { "type": "string", "format": "uuid" },
+                "name": { "type": "string" },
+                "email": { "type": "string", "format": "email" },
+                "password": { "type": "string" },
+                "verified": { "type": "boolean", "default": false }
+                }
+            }
+            }
         }
                 
     }

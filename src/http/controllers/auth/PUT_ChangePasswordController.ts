@@ -3,12 +3,14 @@ import { FastifyReply, FastifyRequest } from "fastify";
 import { PrismaUserRepository } from "../../../repository/Prisma/PrismaUserRepository";
 import { ValidateUserUseCase } from "../../../services/User/ValidateUserUseCase";
 import z from "zod";
+import { RecoveryPasswordUseCase } from "../../../services/User/RecoverPasswordUseCase";
 
 export async function PUTUpdatePasswordController(req:FastifyRequest,res:FastifyReply) {
-    const service = new ValidateUserUseCase(new PrismaUserRepository)
+    const service = new RecoveryPasswordUseCase(new PrismaUserRepository)
     
-    const {refCode} = z.object({
-        refCode:z.string()
+    const {refCode,newPassword} = z.object({
+        refCode:z.string(),
+        newPassword:z.string()
     }).parse(req.body)
 
 
@@ -16,7 +18,7 @@ export async function PUTUpdatePasswordController(req:FastifyRequest,res:Fastify
         const cookie = req.cookies.ValidCode;
 
         if(cookie){
-            const response = await service.execute(cookie,refCode);
+            const response = await service.execute(cookie,refCode,newPassword);
 
             res.status(201).send({
                 Description:"Usuário validado com sucesso"

@@ -59,5 +59,16 @@ export class PrismaPointRepository implements PointRepository {
 
       return single
   }
+
+  async queryByName(Name: string): Promise<Point[]> {
+      return await prisma.point.findMany({
+        where:{
+          Name:{
+            contains:Name,
+            mode:"insensitive",
+          }
+        }
+      })
+  }
 }
 

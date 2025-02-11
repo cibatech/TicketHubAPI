@@ -23,6 +23,7 @@ export async function PATCHLoginAsUser(req:FastifyRequest,res:FastifyReply) {
             Description:"Successfully logged user-in",
             UserToken:token
         })
+        
     }catch(err){
         if(err instanceof EntityDoesNotExistsError ){
             res.status(400).send({

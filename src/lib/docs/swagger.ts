@@ -850,7 +850,9 @@ export const docs:SwaggerOptions = {
                                                             "beforeDay":"data",
                                                             "BeginningPointId":"Id",
                                                             "FinishingPointId":"Id",
-                                                            "Page":"number"
+                                                            "Page":"number",
+                                                            "minPrice":0,
+                                                            "maxPrice":9
                                                         }
                                             `),
                                     }

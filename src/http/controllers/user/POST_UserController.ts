@@ -15,8 +15,6 @@ export async function POSTUserController(req:FastifyRequest,res:FastifyReply) {
         Age:z.string().optional()
     }).parse(req.body)
 
-    const sendMessageService = new SendWelcomeEmailMessageUseCase(new PrismaUserRepository);
-
     try{
 
         const response = await service.execute({
@@ -37,7 +35,7 @@ export async function POSTUserController(req:FastifyRequest,res:FastifyReply) {
             })
         }
         res.status(500).send({
-            Description:"Unknow error while trying to register a user"
+            Description:"Unknow error while trying to register an user"
         })
     }
 }

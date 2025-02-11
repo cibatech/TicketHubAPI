@@ -12,14 +12,14 @@ export class CreateUserUseCase{
         if(doesTheUserAlreadyExists){
             throw new EntityAlreadyExists("User")
         }
-
+        console.log("Cheguei aqui");
         const Password = await hash(data.Password,9);
 
         const registerUser = await this.UserRepo.create({
             Email:data.Email,Nome:data.Nome,Password,CPF:data.CPF
         });
         
-        console.log("Cheguei aqui");
+
 
 
         return {

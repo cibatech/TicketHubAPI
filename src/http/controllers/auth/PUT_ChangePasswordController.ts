@@ -4,7 +4,7 @@ import { PrismaUserRepository } from "../../../repository/Prisma/PrismaUserRepos
 import { ValidateUserUseCase } from "../../../services/User/ValidateUserUseCase";
 import z from "zod";
 
-export async function PUTValidateUserController(req:FastifyRequest,res:FastifyReply) {
+export async function PUTUpdatePasswordController(req:FastifyRequest,res:FastifyReply) {
     const service = new ValidateUserUseCase(new PrismaUserRepository)
     
     const {refCode} = z.object({
@@ -19,8 +19,7 @@ export async function PUTValidateUserController(req:FastifyRequest,res:FastifyRe
             const response = await service.execute(cookie,refCode);
 
             res.status(201).send({
-                Description:"Usuário validado com sucesso",
-                response,
+                Description:"Usuário validado com sucesso"
             })
         }else{
             res.status(500).send({

@@ -851,6 +851,8 @@ export const docs:SwaggerOptions = {
                                                             "BeginningPointId":"Id",
                                                             "FinishingPointId":"Id",
                                                             "Page":"number"
+                                                            "minPrice":0,
+                                                            "maxPrice":9,
                                                         }
                                             `),
                                     }

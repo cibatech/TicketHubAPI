@@ -11,16 +11,19 @@ export async function PATCHTravelListByFiltersController(req:FastifyRequest, res
     
     const service = new GetTravelsByFilterUseCase(new PrismaTravelRepository, new PrismaPointRepository);
 
-    const {FinishingPointId,afterDay,beforeDay,BeginningPointId,RouteKind,Page} = z.object({
+    const {maxPrice,minPrice,FinishingPointId,afterDay,beforeDay,BeginningPointId,RouteKind,Page} = z.object({
         RouteKind:z.enum(["Air","Naval","Land","Rail"]).optional(),
         afterDay:z.string().optional(),
         beforeDay:z.string().optional(),
         BeginningPointId:z.string().uuid().optional(),
         FinishingPointId:z.string().uuid().optional(),
+        minPrice:z.number().optional(),
+        maxPrice:z.number().optional(),
         Page:z.number()
     }).parse(req.body)
 
     try{
+
         var bDate=undefined; var aDate=undefined;
         if(afterDay ){
             aDate = new Date(afterDay)
@@ -30,14 +33,15 @@ export async function PATCHTravelListByFiltersController(req:FastifyRequest, res
         }
         
         const response = await service.execute({
-            RouteKind,afterDay:aDate,beforeDay:bDate,BeginningPointId,FinishingPointId
+            RouteKind,afterDay:aDate,beforeDay:bDate,BeginningPointId,FinishingPointId,
+            maxPrice,minPrice
         },Page)
 
         res.status(200).send({
             Description:"Lista de Viagens retornada e filtrada com sucesso",
             response,
             config:{
-                RouteKind,afterDay,beforeDay,BeginningPointId,FinishingPointId
+                RouteKind,afterDay,beforeDay,BeginningPointId,FinishingPointId,minPrice,maxPrice
             }
         })
     }catch(err){

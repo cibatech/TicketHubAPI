@@ -8,6 +8,7 @@ export interface TicketRepository{
     findByCompleted():Promise<Ticket[]>
     findByValidatedAndUserId(UserId: string): Promise<Ticket[]>
     findByCompletedAndUserId(UserId: string): Promise<Ticket[]>
+    findByFilter(where: Prisma.TicketWhereInput, page: number): Promise<Ticket[]>
     update(Id:string,data:Partial<Ticket>):Promise<Ticket | null>
     delete(Id:string):Promise<Ticket | null>
 }

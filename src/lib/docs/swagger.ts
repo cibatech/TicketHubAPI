@@ -1187,7 +1187,7 @@ export const docs:SwaggerOptions = {
                     }
                 }
             },
-            "app/auth/password": {
+            "app/auth/password/:Email": {
                 "get": {
                     "description": "Rota utilizada para enviar um código de email para o usuário",
                     "tags": ["auth"],
@@ -1221,7 +1221,10 @@ export const docs:SwaggerOptions = {
                         }
                     }
                     }
-                },
+                }
+        
+            },
+            "app/auth/password":{
                 "put": {
                     "tags": ["auth"],
                     "summary": "Rota que atualiza a senha após email de validação",
@@ -1251,7 +1254,7 @@ export const docs:SwaggerOptions = {
                     }
                     },
                     "responses": {
-                    "200": {
+                    "201": {
                         "description": "Senha alterada com sucesso",
                         "content": {
                         "application/json": {
@@ -1281,7 +1284,7 @@ export const docs:SwaggerOptions = {
                     }
                     }
                 }
-                }
+            }
         }
                 
     }

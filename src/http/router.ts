@@ -4,6 +4,7 @@ import { TicketRouter } from "./routes/Ticket.Router";
 import { ClientsTicketRouter } from "./routes/ClientsTicket.Router";
 import { TravelRouter } from "./routes/Travel.Router";
 import { AuthenticationRouter } from "./routes/Auth.Router";
+import { PointsRouter } from "./routes/Points.Router";
 
 export async function Router(app:FastifyInstance) {
     //Rotas de usuário
@@ -29,5 +30,10 @@ export async function Router(app:FastifyInstance) {
     //Rotas de validação
     app.register(AuthenticationRouter,{
         prefix:"/auth"
+    })
+
+    //Rotas de pontos
+    app.register(PointsRouter,{
+        prefix:"/point"
     })
 }

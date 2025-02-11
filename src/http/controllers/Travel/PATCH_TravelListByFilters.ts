@@ -8,7 +8,7 @@ import { EntityDoesNotExistsError } from "../../../Errors/EntityDoesNotExistsErr
 import { Deserializer } from "v8";
 
 export async function PATCHTravelListByFiltersController(req:FastifyRequest, res:FastifyReply) {
-    
+
     const service = new GetTravelsByFilterUseCase(new PrismaTravelRepository, new PrismaPointRepository);
 
     const {maxPrice,minPrice,FinishingPointId,afterDay,beforeDay,BeginningPointId,RouteKind,Page} = z.object({

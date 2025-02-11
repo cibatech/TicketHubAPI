@@ -1,5 +1,6 @@
 import { SwaggerOptions } from "@fastify/swagger";
 import { json } from "stream/consumers";
+import { number } from "zod";
 
 export const docs:SwaggerOptions = {
     openapi:{
@@ -18,7 +19,8 @@ export const docs:SwaggerOptions = {
             {name:"client",description:"Rotas de clientes dentro de uma passagem"},
             {name:"tickets",description:"Rotas de passagens"},
             {name:"travel",description:"Rotas de viagens, normalmente para pesquisa"},
-            {name:"auth",description:"Rotas de authenticação de usuário que envolvem o uso de emails."}
+            {name:"auth",description:"Rotas de authenticação de usuário que envolvem o uso de emails."},
+            {name:"point",description:"Rotas de retorno para 'points' que representam cidades"}
         ],
         paths:{
             "app/user/register": {
@@ -1282,6 +1284,157 @@ export const docs:SwaggerOptions = {
                         }
                         }
                     }
+                    }
+                }
+            },
+            "app/point/:Query/:Page":{
+                get:{
+                    tags:["point"],
+                    summary:"Retorna a lista de cidades e pontos através de uma query de busca opicional",
+                    description:"Rota que retorna a lista de pontos através de uma query opcional",
+                    parameters:[
+                        {
+                            in:"Query",
+                            description:"Pagina",
+                            required:true,
+                            schema:{
+                                type:"number",
+                                default:1,
+                                example:1
+                            },
+                            name:"Page"
+                        },
+                        {
+                            in:"Query",
+                            description:"Query de busca do nome da cidade",
+                            required:true,
+                            schema:{
+                                type:"string",
+                                example:"Cedro"
+                            }
+                        }
+                    ],
+                    responses:{
+                        200:{
+                            description:"Retorno com sucesso",
+                            content:{
+                                "application/json":{
+                                    examples:{
+                                        example1:{
+                                            value:JSON.parse(`
+                                                {
+    "Description": "Lista retornada com sucesso",
+    "response": [
+        {
+            "Id": "82cbc461-6e10-4730-9f28-c9dfc23c9498",
+            "Name": "Fortaleza",
+            "UF": "CE",
+            "Description": "CE",
+            "Ports": true,
+            "Railroads": true,
+            "Airports": true,
+            "route_id": "bc209b96-7704-4d9a-9c96-7b74fa4f2d01",
+            "order": 0
+        },
+        {
+            "Id": "e643bf1c-f1f0-41c8-984f-042541248a56",
+            "Name": "Atascocita",
+            "UF": "Kansas",
+            "Description": "Abutor hic vulticulus aestivus curso despecto ullus territo. Auxilium similique absens absorbeo derelinquo vorago. Sum aegre cogo vindico corpus vito incidunt voco sit.",
+            "Ports": true,
+            "Railroads": true,
+            "Airports": true,
+            "route_id": "b778d9fd-9a10-4913-b086-f234be10bc68",
+            "order": 0
+        },
+        {
+            "Id": "8dc0459f-a13a-4cf0-8c8c-8579a8de0c5e",
+            "Name": "East Kristianberg",
+            "UF": "Oregon",
+            "Description": "Una aveho infit supra cimentarius supellex brevis custodia. Comedo adeptio aegre terra ratione. Toties cunabula veritatis carbo.",
+            "Ports": false,
+            "Railroads": false,
+            "Airports": false,
+            "route_id": "8df79032-97c2-4cee-9bb5-f2a3599c1ba7",
+            "order": 0
+        },
+        {
+            "Id": "ccad8795-b7e3-459c-8335-4558e7a096ed",
+            "Name": "Marianchester",
+            "UF": "Alaska",
+            "Description": "Utroque comes paulatim apto vestrum articulus fugit sol. Repellendus totidem venia ulterius amita nihil tamen earum laboriosam ascit. Tutamen abstergo inflammatio aeneus trado.",
+            "Ports": false,
+            "Railroads": false,
+            "Airports": true,
+            "route_id": "7312fe1c-cd9e-41d0-9b9f-27b4c9518eb3",
+            "order": 0
+        },
+        {
+            "Id": "da03c207-a7ed-4998-a615-a5aed5e3670b",
+            "Name": "Beulahborough",
+            "UF": "Mississippi",
+            "Description": "Appositus caelestis uredo animus dolorem. Crepusculum aer solutio nihil nemo cogo iure voveo truculenter colligo. Video solutio tersus bonus avarus subito autem vicinus.",
+            "Ports": true,
+            "Railroads": true,
+            "Airports": false,
+            "route_id": "2d3405b8-247a-4c1a-bbf0-61251b458316",
+            "order": 0
+        },
+        {
+            "Id": "d9aeae8d-91dc-40ad-82b8-8efc7b088659",
+            "Name": "Wildermanstad",
+            "UF": "Illinois",
+            "Description": "Quae absum celo taedium paens sublime umerus somniculosus adeptio vester. Animadverto ipsam triduana perferendis tamisium temeritas. Non confero avaritia commemoro natus denego venio volo summa.",
+            "Ports": false,
+            "Railroads": false,
+            "Airports": false,
+            "route_id": "d2859399-9de1-4f3c-a702-ce5b0cfc9794",
+            "order": 0
+        },
+        {
+            "Id": "9f852b0f-b9f3-44b7-a3b7-854385cc049e",
+            "Name": "East Luluberg",
+            "UF": "Connecticut",
+            "Description": "Creator textus theologus possimus. Sonitus recusandae censura approbo alii volubilis accendo tracto. Ustilo spoliatio vociferor.",
+            "Ports": false,
+            "Railroads": true,
+            "Airports": true,
+            "route_id": "a24ac547-43b0-43fa-a2b6-0d339e4e0df7",
+            "order": 0
+        },
+        {
+            "Id": "b9428e14-077e-4c57-9426-281528cde730",
+            "Name": "New Madison",
+            "UF": "Idaho",
+            "Description": "Thalassinus fugit adipiscor terra. Civitas certus tamen adstringo absum cursus voluptates subiungo odit. Aggredior testimonium depulso carbo ulciscor decumbo dedecor casus.",
+            "Ports": false,
+            "Railroads": false,
+            "Airports": false,
+            "route_id": "14c8fbaf-b854-48dc-af73-235f848b3720",
+            "order": 0
+        },
+        {
+            "Id": "695035e3-b5d0-4dd1-a2cb-8b1bd16d24c8",
+            "Name": "Lake Parker",
+            "UF": "Arkansas",
+            "Description": "Deporto maxime canis dedecor strues a. Saepe tabella dolorum aliqua tamquam provident ultio. Crastinus deripio tutamen.",
+            "Ports": true,
+            "Railroads": true,
+            "Airports": false,
+            "route_id": "b022d78c-ad62-4138-8bf4-ac58cdf5f98b",
+            "order": 0
+        }
+    ]
+}
+                                                    `)
+                                        }
+                                    }
+                                }
+                            }
+                        },
+                        500:{
+                            description:"Erro desconhecido"
+                        }
                     }
                 }
             }

@@ -6,7 +6,7 @@ import { TravelRepository } from "../../repository/TravelRepository";
 import { FormatTicketToTicketInService } from "../../utils/format/formatTicketToTicketInService";
 
 interface FilterTicketParams {
-    UserId?: string,
+    UserId: string,
     TravelId?: string,
     minPrice?: number,
     maxPrice?: number,

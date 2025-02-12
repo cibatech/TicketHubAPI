@@ -12,7 +12,8 @@ export interface CreateClienstTicketInterface{
     TicketId:string,
     IsCompanion:boolean | undefined,
     Age:number | undefined,
-    CPF:string
+    CPF:string,
+    PersonName?:string
 }
 
 /**
@@ -34,7 +35,7 @@ export class CreateClientsTicketUseCase {
         if(!doesTicketExists) throw new EntityDoesNotExistsError("Ticket")
 
         const clientTicket = await this.ClientsTicketRepo.create({
-            PersonName:doesUserExists.Nome,
+            PersonName:data.PersonName?data.PersonName:doesUserExists.Nome,
             OwnerId:data.OwnerId,
             TicketId:data.TicketId,
             IsCompanion:data.IsCompanion,

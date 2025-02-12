@@ -430,8 +430,8 @@ export const docs:SwaggerOptions = {
                     }
                 }
             },
-            "app/ticket/list":{
-                get:{
+            "app/ticket/list/:Page":{
+                patch:{
                     summary:"Retorna a lista de tickets de um usuário",
                     externalDocs:{
                         url:"https://github.com/cibatech/TicketHubAPI/blob/dev/docs/documentation.md",
@@ -444,6 +444,13 @@ export const docs:SwaggerOptions = {
                             description:"Token JWT contendo o ID do usuário",
                             required:true,
                             summary:"Bearer com token JWT"
+                        },
+                        {
+                            name:"Page",
+                            description:"Paginação",
+                            required:true,
+                            in:"Query",
+                            summary:"Página de paginação"
                         }
                     ],
                     tags:["tickets"],
@@ -457,17 +464,48 @@ export const docs:SwaggerOptions = {
                                             description:"Retorno normal da rota",
                                             value:JSON.parse(`
                                                     {
-                                                    "Description": "Returned Ticket List",
-                                                    "Ticket": [
-                                                        {
-                                                            "ValidatedAt": null,
-                                                            "CompletedAt": null,
-                                                            "TravelId": "1a0881e4-dbde-478c-8c62-76c86600c15b",
-                                                            "Id": "4bfa3738-3c48-4c24-a9e8-01e063f8c3de"
+                                                        "Description": "Returned Ticket List",
+                                                        "Ticket": [
+                                                            {
+                                                                "ValidatedAt": null,
+                                                                "CompletedAt": null,
+                                                                "TravelId": "37442266-6ea3-484d-86ea-0d192f99eddc",
+                                                                "Id": "c3ceb10b-8479-45f6-91f1-2dd9ca3898e0",
+                                                                "TotalTicketPrice": 0
+                                                            }
+                                                        ],
+                                                        "config": {
+                                                            "maxPrice": 5000
                                                         }
-                                                    ]
-                                                }
+                                                    }
                                                 `)
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    requestBody:{
+                        description:"Corpo da requisição",
+                        content:{
+                            "application/json":{
+                                examples:{
+                                    OnlyMaxValue:{
+                                        value:JSON.parse(`
+                                                            {
+                "maxPrice":5000
+            }
+                                            `)
+                                    },
+                                    AllThePossibleFillters:{
+                                        value:{
+                                                    TravelId:"uuid from a travel" ,
+                                                    minPrice:500,
+                                                    maxPrice:1000,
+                                                    validatedAfterDay:"Tickets validated after x day",
+                                                    validatedBeforeDay:"Tickets validated before x day",
+                                                    completedAfterDay:"Tickets completed after x day",
+                                                    completedBeforeDay:"Tickets completed before x day",
                                         }
                                     }
                                 }
@@ -527,7 +565,8 @@ export const docs:SwaggerOptions = {
                                         "TicketId":"4bfa3738-3c48-4c24-a9e8-01e063f8c3de",
                                         "Age":27,
                                         "CPF":"096-399-879-09",
-                                        "IsCompanion":true
+                                        "IsCompanion":true,
+                                        "PersonName":"Thierrir"
                                     }
                                         `)
                             }
@@ -1307,6 +1346,10 @@ export const docs:SwaggerOptions = {
                             }
                         }
                         }
+                    },
+                    401:{
+                        description:"O código fornecido está incorreto",
+                        summary:"Código invalido"
                     }
                     }
                 }

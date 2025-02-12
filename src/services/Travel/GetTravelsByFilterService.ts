@@ -88,8 +88,8 @@ export class GetTravelsByFilterUseCase {
 
         return {
             response, 
-            totalTravels:response.length,
-            totalPages:Math.floor(response.length/5)
+            totalTravels:travels.length,
+            totalPages:Math.floor(travels.length/5)
         }
     }
 }

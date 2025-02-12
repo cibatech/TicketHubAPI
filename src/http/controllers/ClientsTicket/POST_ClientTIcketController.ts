@@ -15,16 +15,16 @@ export async function POSTClientsTicketController(req:FastifyRequest, res:Fastif
 
         const OwnerId = req.user.sub;
 
-        const {CPF,IsCompanion,TicketId,Age} = z.object({
+        const {CPF,IsCompanion,TicketId,Age,PersonName} = z.object({
             TicketId:z.string().uuid(),
             Age:z.number().optional(),
             CPF:z.string(),
-            IsCompanion:z.boolean().default(false)
-        
+            IsCompanion:z.boolean().default(false),
+            PersonName:z.string().optional()
         }).parse(req.body)
 
         try{
-            const response = await service.execute({OwnerId,TicketId,Age,CPF,IsCompanion});
+            const response = await service.execute({OwnerId,TicketId,Age,CPF,IsCompanion,PersonName});
 
             res.status(201).send({
                 Description:"Cliente adicionado ao ticket",

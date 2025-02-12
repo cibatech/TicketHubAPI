@@ -463,21 +463,7 @@ export const docs:SwaggerOptions = {
                                         example1:{
                                             description:"Retorno normal da rota",
                                             value:JSON.parse(`
-                                                    {
-                                                        "Description": "Returned Ticket List",
-                                                        "Ticket": [
-                                                            {
-                                                                "ValidatedAt": null,
-                                                                "CompletedAt": null,
-                                                                "TravelId": "37442266-6ea3-484d-86ea-0d192f99eddc",
-                                                                "Id": "c3ceb10b-8479-45f6-91f1-2dd9ca3898e0",
-                                                                "TotalTicketPrice": 0
-                                                            }
-                                                        ],
-                                                        "config": {
-                                                            "maxPrice": 5000
-                                                        }
-                                                    }
+                                                    {"Description":"Returned Ticket List","Ticket":[{"ticket":{"Id":"0edfe017-1825-4f0c-aa37-ecab39a9eb2e","TotalTicketPrice":0,"Validated_at":null,"Completed_at":null,"userId":"8d32c275-acba-4d66-825b-dc9ad6858d01","TravelId":"6143e284-cce8-47d0-9ab8-8d5d5d3fdc3c"},"travelRef":{"Id":"6143e284-cce8-47d0-9ab8-8d5d5d3fdc3c","TravelBasePrice":0,"BeginningPointId":"82cbc461-6e10-4730-9f28-c9dfc23c9498","FinnishPointId":"2bd35d96-e1b6-492f-872d-bac184ac5972","Travel_Day":"1970-01-01T00:00:00.000Z","Transport":"Land"},"byCompany":"Mann Group"},{"ticket":{"Id":"89c7688f-396b-4d93-b001-f9e04053ce75","TotalTicketPrice":0,"Validated_at":null,"Completed_at":null,"userId":"8d32c275-acba-4d66-825b-dc9ad6858d01","TravelId":"6143e284-cce8-47d0-9ab8-8d5d5d3fdc3c"},"travelRef":{"Id":"6143e284-cce8-47d0-9ab8-8d5d5d3fdc3c","TravelBasePrice":0,"BeginningPointId":"82cbc461-6e10-4730-9f28-c9dfc23c9498","FinnishPointId":"2bd35d96-e1b6-492f-872d-bac184ac5972","Travel_Day":"1970-01-01T00:00:00.000Z","Transport":"Land"},"byCompany":"Gibson Inc"}],"config":{"maxPrice":5000}}
                                                 `)
                                         }
                                     }

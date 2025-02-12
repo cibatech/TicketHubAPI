@@ -13,12 +13,12 @@ export async function PUTClientsTicketController(req:FastifyRequest, res:Fastify
 
         const OwnerId = req.user.sub;
 
-        const {CPF,IsCompanion,TicketId,Age} = z.object({
+        const {CPF,IsCompanion,TicketId,Age,PersonName} = z.object({
             TicketId:z.string().uuid().optional(),
             Age:z.number().optional(),
             CPF:z.string().optional(),
-            IsCompanion:z.boolean().default(false).optional()
-        
+            IsCompanion:z.boolean().default(false).optional(),
+            PersonName:z.string().optional()
         }).parse(req.body)
 
         const {Id} = z.object({
@@ -26,7 +26,7 @@ export async function PUTClientsTicketController(req:FastifyRequest, res:Fastify
         }).parse(req.params)
 
         try{
-            const response = await service.execute(Id,OwnerId,{TicketId,Age,CPF,IsCompanion});
+            const response = await service.execute(Id,OwnerId,{TicketId,Age,CPF,IsCompanion,PersonName});
 
             res.status(201).send({
                 Description:"Cliente atualizado com sucesso",

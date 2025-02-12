@@ -1,10 +1,11 @@
-import { Ticket } from "@prisma/client";
+import { Point, Ticket, Travel } from "@prisma/client";
 import { TicketRepository } from "../../repository/TicketRepository";
 import { UserRepository } from "../../repository/UserRepository";
 import { EntityDoesNotExistsError } from "../../Errors/EntityDoesNotExistsError";
 import { TravelRepository } from "../../repository/TravelRepository";
 import { FormatTicketToTicketInService } from "../../utils/format/formatTicketToTicketInService";
 import { faker } from "@faker-js/faker";
+import { PointRepository } from "../../repository/PointRepository";
 
 interface FilterTicketParams {
     UserId: string,
@@ -18,7 +19,11 @@ interface FilterTicketParams {
 }
 
 export class GetTicketsByFilterUseCase {
-    constructor(private TicketRepo: TicketRepository, private UserRepo: UserRepository, private TravelRepo: TravelRepository){}
+    constructor(private TicketRepo: TicketRepository, 
+        private UserRepo: UserRepository, 
+        private TravelRepo: TravelRepository,
+        private PointRepo:PointRepository
+    ){}
     async execute({
         UserId,
         TravelId,
@@ -57,14 +62,22 @@ export class GetTicketsByFilterUseCase {
 
         const response = await Promise.all(tickets.map(async e =>{
             const travel = await this.TravelRepo.findById(e.TravelId);
+            var bPoint;var fPoint
+            
+            if(travel){
+                bPoint = await this.PointRepo.findById(travel.BeginningPointId);
+                fPoint = await this.PointRepo.findById(travel.FinnishPointId);
+            }
 
             return{
                 ticket:e,
                 travelRef:travel,
-                byCompany:faker.company.name()
+                byCompany:faker.company.name(),
+                BegginingPoint:bPoint,
+                FinishPoint:fPoint
             }
         }))
-
+        console.log(response)
         return response
     }
 }

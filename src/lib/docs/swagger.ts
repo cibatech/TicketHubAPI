@@ -5,11 +5,11 @@ import { number } from "zod";
 export const docs:SwaggerOptions = {
     openapi:{
         info:{
-            title:"TicketHub API documentation",
-            version:"1.0.1.0",
+            title:"TicketHub API",
+            version:"2.3.4.1",
             description:"Uma API que permite o desenvolvimento de um serviço de compra e venda de passagens em diferentes meios de transporte",
             contact:{
-                email:"ciringamen@gmail.com",
+                email:"cibatechcorp@gmail.com",
                 name:"Thierrir Alencar",
                 url:""
             },
@@ -855,9 +855,30 @@ export const docs:SwaggerOptions = {
                                                             "FinishingPointId":"Id",
                                                             "Page":"number",
                                                             "minPrice":0,
-                                                            "maxPrice":9
+                                                            "maxPrice":9,
+                                                            "SearchQuery":"a"
                                                         }
                                             `),
+                                    }
+                                },
+                                schema:{
+                                    type:"object",
+                                    properties:{
+                                        RouteKind:{
+                                            description:"typo de rota",
+                                            type:"string",
+                                            enum:["Air","Land","Naval","Rail"]
+                                        },
+                                        Page:{
+                                            description:"Pagina",
+                                            type:"number",
+                                            default:1
+                                        },
+                                        SearchQuery:{
+                                            description:"Query de busca pelo nome das cidades",
+                                            type:"string",
+                                            example:"New Hampshire"
+                                        },
                                     }
                                 }
                             }
@@ -1221,6 +1242,9 @@ export const docs:SwaggerOptions = {
                             }
                         }
                         }
+                    },
+                    404:{
+                        description:"Nao foi possivel encontrar nenhum usuário com o email fornecido"
                     }
                     }
                 }
@@ -1532,7 +1556,10 @@ export const docs:SwaggerOptions = {
                 }
             }
             }
-        }
-                
+        },
+        servers:[{
+            url:"https://tickethub-prodapi.onrender.com",
+            description:"Core API Foundation"
+        }]      
     }
 }

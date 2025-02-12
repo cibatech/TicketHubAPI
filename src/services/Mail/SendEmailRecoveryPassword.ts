@@ -17,19 +17,22 @@ export class SendEmailRecoveryCodeUseCase{
         const _email:EmailType = {
             to:Email,
             subject:"No-Reply Email de Validação de usuário",
-            text:`  Assunto: Recuperação de senha
+            text:`  Assunto: Recuperação de Senha
 
-                    Olá ${doesTheUserExists.Nome},
+                    Olá, ${doesTheUserExists.Nome}
 
-                    Olá, você deseja recuperar a sua senha?
+                    Recebemos uma solicitação para redefinir a sua senha.
 
-                    Para recuperar o seu email, utilize o código abaixo:
-                                    
-                                        ${code} 
+                    Para continuar, utilize o código abaixo:
+
+                    ${code}
+
+                    Se você não solicitou essa alteração, ignore este e-mail. O código expirará em breve por motivos de segurança.
 
                     Atenciosamente,
                     CibaTech
-                    entre em contato conosco em: ${ADMIN_EMAIL}`
+                    Dúvidas? Entre em contato: ${ADMIN_EMAIL}
+                `
         }
         //Envia o Email e retorna o código que deve ser guardado em cookie 
 

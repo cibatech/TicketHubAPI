@@ -5,6 +5,7 @@ import { ValidateUserUseCase } from "../../../services/User/ValidateUserUseCase"
 import z from "zod";
 import { RecoveryPasswordUseCase } from "../../../services/User/RecoverPasswordUseCase";
 import { EntityDoesNotExistsError } from "../../../Errors/EntityDoesNotExistsError";
+import { ValidationError } from "../../../Errors/ValidationError";
 
 export async function PUTUpdatePasswordController(req:FastifyRequest,res:FastifyReply) {
     const service = new RecoveryPasswordUseCase(new PrismaUserRepository)
@@ -34,6 +35,12 @@ export async function PUTUpdatePasswordController(req:FastifyRequest,res:Fastify
             res.status(404).send({
                 Description:"Can't find any user with this ID",
                 err
+            })
+        }
+        if(err instanceof ValidationError){
+            res.status(401).send({
+                Description:"Código Errado",
+                err:err.message
             })
         }
     }

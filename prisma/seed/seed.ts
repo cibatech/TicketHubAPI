@@ -15,6 +15,7 @@ async function Seed() {
                 Description:faker.lorem.paragraph(),
             }
         }))
+        console.log(routes)
     }
 
     for(let i=0;i<routes.length;i++){
@@ -29,6 +30,7 @@ async function Seed() {
                 route_id:routes[i].Id
             }
         }));
+        console.log(points)
     }
 
     for(let i=0;i<points.length-1;i++){

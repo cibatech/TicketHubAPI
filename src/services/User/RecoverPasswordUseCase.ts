@@ -1,5 +1,5 @@
 import { boolean } from "zod";
-import { EntityDoesNotExistsError } from "../../Errors/.index";
+import { EntityDoesNotExistsError, ValidationError } from "../../Errors/.index";
 import { PrismaUserRepository } from "../../repository/Prisma/PrismaUserRepository";
 import { UserRepository } from "../../repository/UserRepository";
 import { splitStringAtDash } from "../../utils/SeparateCookieString";
@@ -22,12 +22,12 @@ export class RecoveryPasswordUseCase{
             throw new EntityDoesNotExistsError("User");
         }
 
-    
-
         if(RefCode == ValCode){
             const updateUser = this.UserRepo.update(doesTheUserExists.Id,{
                 Password:await hash(newPassword,9)
             })
+        }else{
+            throw new ValidationError("Invalid RefCode")
         }
     }
 }

@@ -1,6 +1,6 @@
 import { FastifyInstance } from "fastify";
 import { VerifyJWT } from "../middlewares";
-import { POSTTicketController, GETTicketListFromUserController, DELETETicketController, GETTicketInfoController } from "../controllers";
+import { POSTTicketController, DELETETicketController, GETTicketInfoController, PATCHTicketListFromUserController } from "../controllers";
 
 export async function TicketRouter(app:FastifyInstance) {
     //POST - ticket/create
@@ -11,11 +11,11 @@ export async function TicketRouter(app:FastifyInstance) {
         preHandler:[VerifyJWT]
     })
 
-    //GET - ticket/list
+    //PATCH - ticket/list
     app.route({
-        url:"/list",
-        handler:GETTicketListFromUserController,
-        method:"GET",
+        url:"/list/:Page",
+        handler:PATCHTicketListFromUserController,
+        method:"PATCH",
         preHandler:[VerifyJWT]
     })
     

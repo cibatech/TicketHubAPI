@@ -1,6 +1,5 @@
 import { SwaggerOptions } from "@fastify/swagger";
-import { json } from "stream/consumers";
-import { number } from "zod";
+
 
 export const docs:SwaggerOptions = {
     openapi:{
@@ -1364,7 +1363,8 @@ export const docs:SwaggerOptions = {
                             schema:{
                                 type:"string",
                                 example:"Cedro"
-                            }
+                            },
+                            name:"Query"
                         }
                     ],
                     responses:{

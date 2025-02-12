@@ -7,9 +7,15 @@ import { EntityDoesNotExistsError } from "../../../Errors/EntityDoesNotExistsErr
 import { GetTicketsByFilterUseCase } from "../../../services/Ticket/GetTicketsByFilterService";
 import { PrismaTravelRepository } from "../../../repository/Prisma/PrismaTravelRepository";
 import z from "zod";
+import { PrismaPointRepository } from "../../../repository/.index";
 
 export async function PATCHTicketListFromUserController(req:FastifyRequest, res:FastifyReply) {
-    const service = new GetTicketsByFilterUseCase(new PrismaTicketRepository, new PrismaUserRepository, new PrismaTravelRepository);
+    const service = new GetTicketsByFilterUseCase(
+        new PrismaTicketRepository, 
+        new PrismaUserRepository, 
+        new PrismaTravelRepository, 
+        new PrismaPointRepository
+    );
 
     const UserId = req.user.sub //Get Token from JWT
 

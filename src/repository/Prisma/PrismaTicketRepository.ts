@@ -86,6 +86,15 @@ export class PrismaTicketRepository implements TicketRepository {
     })
   }
 
+  async findByFilter(where: Prisma.TicketWhereInput, page: number): Promise<Ticket[]> {
+    const take = 5
+    const skip = (page-1)*take
+    return await prisma.ticket.findMany({
+      where,
+      skip,
+      take,
+    })
+  }
 
   /**
    * Atualiza as informações de um ticket.

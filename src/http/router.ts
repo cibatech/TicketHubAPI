@@ -7,6 +7,7 @@ import { AuthenticationRouter } from "./routes/Auth.Router";
 import { PointsRouter } from "./routes/Points.Router";
 
 export async function Router(app:FastifyInstance) {
+
     //Rotas de usuário
     app.register(UserRouter,{
         prefix:"/user"

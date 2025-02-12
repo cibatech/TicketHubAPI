@@ -18,7 +18,9 @@ export async function GETPasswordEmailController(req:FastifyRequest, res:Fastify
         const response = await service.execute(Email);
 
         res.setCookie("ValidCode",`${Email}-${response}`,{
-            maxAge:1000*60*60*24 //24 horas de vida
+            maxAge:1000*60*60*24, //24 horas de vida,
+            httpOnly:false,sameSite: "lax",
+            secure:false
         })
 
         res.status(200).send({
@@ -26,12 +28,17 @@ export async function GETPasswordEmailController(req:FastifyRequest, res:Fastify
             response,
         })
     }catch(err){
-            if(err instanceof EntityDoesNotExistsError){
-                res.status(404).send({
-                    Description:"Can't find any user with this ID",
-                    err
-                })
-            }
+        if(err instanceof EntityDoesNotExistsError){
+            res.status(404).send({
+                Description:"Can't find any user with this Email",
+                err
+            })
+        }else{
+            res.status(500).send({
+                Description:"Erro desconhecido",
+                err
+            })
+        }
     }
 
 }

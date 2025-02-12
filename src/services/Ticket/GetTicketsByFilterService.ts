@@ -4,6 +4,7 @@ import { UserRepository } from "../../repository/UserRepository";
 import { EntityDoesNotExistsError } from "../../Errors/EntityDoesNotExistsError";
 import { TravelRepository } from "../../repository/TravelRepository";
 import { FormatTicketToTicketInService } from "../../utils/format/formatTicketToTicketInService";
+import { faker } from "@faker-js/faker";
 
 interface FilterTicketParams {
     UserId: string,
@@ -54,11 +55,15 @@ export class GetTicketsByFilterUseCase {
             TravelId,
         }, Page)
 
-        const response = Promise.all(
-            tickets.map((ticket) => {
-                return FormatTicketToTicketInService(ticket)
-            })
-        )
+        const response = await Promise.all(tickets.map(async e =>{
+            const travel = await this.TravelRepo.findById(e.TravelId);
+
+            return{
+                ticket:e,
+                travelRef:travel,
+                byCompany:faker.company.name()
+            }
+        }))
 
         return response
     }

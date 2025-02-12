@@ -11,7 +11,7 @@ export async function PATCHTravelListByFiltersController(req:FastifyRequest, res
 
     const service = new GetTravelsByFilterUseCase(new PrismaTravelRepository, new PrismaPointRepository);
 
-    const {maxPrice,minPrice,FinishingPointId,afterDay,beforeDay,BeginningPointId,RouteKind,Page} = z.object({
+    const {maxPrice,minPrice,FinishingPointId,afterDay,beforeDay,BeginningPointId,RouteKind,Page,SearchQuery} = z.object({
         RouteKind:z.enum(["Air","Naval","Land","Rail"]).optional(),
         afterDay:z.string().optional(),
         beforeDay:z.string().optional(),
@@ -19,6 +19,7 @@ export async function PATCHTravelListByFiltersController(req:FastifyRequest, res
         FinishingPointId:z.string().uuid().optional(),
         minPrice:z.number().optional(),
         maxPrice:z.number().optional(),
+        SearchQuery:z.string().optional(),
         Page:z.number()
     }).parse(req.body)
 
@@ -34,7 +35,7 @@ export async function PATCHTravelListByFiltersController(req:FastifyRequest, res
         
         const response = await service.execute({
             RouteKind,afterDay:aDate,beforeDay:bDate,BeginningPointId,FinishingPointId,
-            maxPrice,minPrice
+            maxPrice,minPrice,SearchQuery
         },Page)
 
         res.status(200).send({

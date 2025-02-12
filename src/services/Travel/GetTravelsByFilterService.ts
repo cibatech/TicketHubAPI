@@ -13,6 +13,7 @@ interface FilterTravelParams {
     beforeDay?: Date,
     minPrice?: number,
     maxPrice?: number,
+    SearchQuery?:string
 }
 export class GetTravelsByFilterUseCase {
     constructor(private TravelRepo: TravelRepository, private PointRepo: PointRepository){}
@@ -24,6 +25,7 @@ export class GetTravelsByFilterUseCase {
         RouteKind,
         BeginningPointId,
         FinishingPointId,
+        SearchQuery,
     }: FilterTravelParams, Page: number){
         if(BeginningPointId){
             var doesBeginningPointExists = await this.PointRepo.findById(BeginningPointId)
@@ -34,7 +36,7 @@ export class GetTravelsByFilterUseCase {
             if(!doesFinishingPointExists) throw new EntityDoesNotExistsError("FinishingPoint")
         }
 
-        const travels = await this.TravelRepo.findByFilter({
+        var travels = await this.TravelRepo.findByFilter({
             TravelBasePrice:{
                 gte: minPrice,
                 lte: maxPrice,
@@ -47,6 +49,25 @@ export class GetTravelsByFilterUseCase {
             BeginningPointId,
             FinnishPointId: FinishingPointId,
         }, Page)
+
+        if(SearchQuery){
+            const afterTravel =  await Promise.all(travels.map(async(e)=>{
+                const bPoint = await this.PointRepo.findById(e.BeginningPointId);
+                const fPoint = await this.PointRepo.findById(e.FinnishPointId);
+                if(bPoint){
+                    if(bPoint.Name.includes(SearchQuery)){
+                        return e;
+                    }
+                }
+                if(fPoint){
+                    if(fPoint.Name.includes(SearchQuery)){
+                        return e;
+                    }
+                }
+            }))
+
+            travels = afterTravel.filter(item=> item!=undefined);
+        }
 
         const response = await Promise.all(
             travels.map(async (travel) => {

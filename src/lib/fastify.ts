@@ -6,8 +6,14 @@ import fastify from "fastify";
 import { docs } from "./docs/swagger";
 import { Router } from "../http/router";
 import fastifyCookie from "@fastify/cookie";
+import { HOST, PORT } from "./env";
 
 export const app = fastify()
+
+//Just redirects to /docs
+app.get("/",async(req,res)=>{
+    res.redirect(`/docs`)
+})
 
 //Registra a rota
 app.register(Router,{
@@ -25,7 +31,9 @@ app.register(cors,{
     credentials: true // Permite o envio de cookies e headers de autorização entre o frontend e o backend
 });
 
-app.register(fastifyCookie)
+app.register(fastifyCookie,{
+    
+})
 
 app.register(fastifySwagger,docs)
 
